@@ -1,0 +1,1 @@
+This is a simple FVWM WM configuration. Have Fun!
