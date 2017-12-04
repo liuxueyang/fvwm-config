@@ -1,0 +1,180 @@
+# Date   : Tue Nov 28 22:23:25 CST 2017
+# Author : abel-abel
+
+# ==================================================
+#           $HOME/.fvwm/config
+
+SetEnv fvwm_home $[HOME]/.fvwm
+SetEnv fvwm_image $[fvwm_home]/images
+SetEnv fvwm_icon $[fvwm_image]/icons
+SetEnv fvwm_wallpaper $[fvwm_image]/wallpaper
+
+SetEnv fvwm_music_player /usr/bin/audacious
+SetEnv fvwm_video_player /usr/bin/vlc
+SetEnv fvwm_editor /usr/bin/emacs
+SetEnv fvwm_ss /usr/bin/ss-qt5
+
+ImagePath $[fvwm_icon]:$[fvwm_icon];.png:$[fvwm_wallpaper]:+
+
+DesktopSize 3x3
+DesktopName Main
+DesktopName Code
+DesktopName Read
+
+EdgeScroll 50 50
+EdgeResistance 10
+EdgeThickness 5
+
+ClickTime 350
+MoveThreshold 3
+Style * SloppyFocus, MouseFocusClickRaises
+
+EwmhBaseStruts 62 162 0 48
+IgnoreModifiers L25
+SnapGrid 20 20
+
+# Function template (emacs yasnippet: fvwmapp)
+
+# DestroyFunc Fvwm-hello
+# AddToFunc Fvwm-hello
+# + I (immediately)
+# + C (click)
+# + D (double click)
+# + M (move)
+# + H (hold)
+
+DestroyFunc FvwmTerm
+AddToFunc FvwmTerm
++ I Exec exec urxvt
+
+DestroyFunc FvwmBrowser
+AddToFunc FvwmBrowser
++ I Exec exec firefox
+
+DestroyFunc FvwmEditor
+AddToFunc FvwmEditor
++ I Exec exec fvwm_editor
+
+DestroyFunc FvwmSS
+AddToFunc FvwmSS
++ I Exec exec fvwm_ss
+
+DestroyFunc FvwmMusicPlayer
+AddToFunc FvwmMusicPlayer
++ I Exec exec fvwm_music_player
++ I Exec exec osdlyrics
+
+DestroyFunc FvwmVideoPlayer
+AddToFunc FvwmVideoPlayer
++ I Exec exec fvwm_video_player
+
+DestroyFunc FvwmObs
+AddToFunc FvwmObs
++ I Exec exec obs
+
+DestroyFunc FvwmRecord
+AddToFunc FvwmRecord
++ I Exec exec simplescreenrecorder
+
+DestroyFunc FvwmScreenkey
+AddToFunc FvwmScreenkey
++ I Exec exec screenkey
+
+DestroyFunc FvwmShutdown
+AddToFunc FvwmShutdown
++ I Exec exec /sbin/shutdown -h now
+
+DestroyFunc FvwmLaunch
+AddToFunc FvwmLaunch
++ I Exec exec xfce4-appfinder
+
+DestroyFunc FvwmFileManager
+AddToFunc FvwmFileManager
++ I Exec exec thunar
+
+DestroyFunc FvwmIconify
+AddToFunc FvwmIconify
++ C Iconify
+
+DestroyFunc FvwmMove
+AddToFunc FvwmMove
++ M Move
+
+DestroyFunc FvwmResize
+AddToFunc FvwmResize
++ M Resize
+
+DestroyFunc InitFunction
+AddToFunc InitFunction
+# will cause problems when move windows across pages
+# + I Exec exec xcompmgr -c -t-5 -l-5 -r4.2 -o.55 &
++ I Exec exec fcitx
++ I Exec exec feh --bg-scale $[fvwm_wallpaper]/clannad.jpg
++ I FvwmTerm
++ I FvwmMusicPlayer
++ I FvwmBrowser
++ I Exec xscreensaver
+
+DestroyFunc FvwmWindowShade
+AddToFunc FvwmWindowade
++ I WindowShade $0
+
+DestroyFunc FvwmMaximize
+AddToFunc FvwmMaximize
++ I Maximize $0
+
+# Template
+# Key X Context Modifier Action'
+Key Super_L A A FvwmTerm
+Key F1 A M Menu FvwmRootMenu
+Key F2 A M FvwmLaunch
+Key F4 A M Close
+Key F11 A C FvwmMaximize
+# Mouse 3 R A Menu FvwmWindowOpsMenu
+Mouse 4 T A FvwmWindowShade True
+Mouse 5 T A FvwmWindowShade False
+Mouse 3 T A FvwmIconify
+Mouse 3 I A FvwmIconify
+Mouse 3 W M FvwmMove
+Mouse 3 W S FvwmResize
+Mouse 1 R A Menu FvwmRootMenu
+Mouse 3 R A Menu FvwmOpsMenu
+Mouse 1 3 A FvwmMaximize
+
+# Colorset 6 fg #343434, bg #ebebeb	# title
+# Colorset 3 fg #400c04, bg #d16952	# red
+# Colorset 4 fg #ad8529, bg #e5bf45	# yellow
+# Colorset 5 fg #2a520d, bg #76c24c	# green
+
+Colorset 3 fg #101060, bg #e6e7d7       # fg: darkblue, bg: milk white
+Colorset 4 fg Black, bg #a6a797  	# fg: black, bg: gray
+Colorset 5 fg White, bg Black
+
+DestroyDecor MyDecor
+AddToDecor   MyDecor
++ TitleStyle LeftJustified Height 18
++ BorderStyle Simple -- NoInset Flat
+
+Style "*" FirmBorder, MWMBorder
+Style "*" BorderWidth 1, HandleWidth 3
+Style "*" HilightBorderColorset 3
+Style "*" UseDecor MyDecor
+Style "*" Font "xft:WenQuanYi Zen Hei Mono:size=10"
+
+MenuStyle "*" Font "xft:WenQuanYi Zen Hei Mono:size=20"
+
+DestroyMenu FvwmRootMenu
+AddToMenu FvwmRootMenu ":-)" Title
++ "Run%menu/find.svg%" FvwmLaunch
++ "File%menu/Thunar.png%" FvwmFileManager
++ "Editor%menu/emacs.png%" FvwmEditor
++ "Browser%menu/firefox.png%" FvwmBrowser
++ "Music%menu/audacious.png%" FvwmMusicPlayer
++ "Live%menu/obs.png%" FvwmObs
++ "" Nop
++ "Restart Fvwm" Restart
++ "Quit Fvwm" Quit
+
+DestroyMenu FvwmOpsMenu
+AddToMenu FvwmOpsMenu "^o^" Title
++ "Shutdown" FvwmShutdown
