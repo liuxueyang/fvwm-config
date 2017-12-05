@@ -5,9 +5,9 @@
 #           $HOME/.fvwm/config
 
 SetEnv fvwm_home $[HOME]/.fvwm
-SetEnv fvwm_image $[fvwm_home]/images
-SetEnv fvwm_icon $[fvwm_image]/icons
-SetEnv fvwm_wallpaper $[fvwm_image]/wallpaper
+SetEnv fvwm_img $[fvwm_home]/images
+SetEnv fvwm_icon $[fvwm_img]/icons
+SetEnv fvwm_wallpaper $[fvwm_img]/wallpaper
 
 SetEnv fvwm_music_player /usr/bin/audacious
 SetEnv fvwm_video_player /usr/bin/vlc
@@ -92,6 +92,11 @@ DestroyFunc FvwmFileManager
 AddToFunc FvwmFileManager
 + I Exec exec thunar
 
+DestroyFunc FvwmIconifyOrShade
+AddToFunc FvwmIconifyOrShade
++ C Iconify
++ D WindowShade
+
 DestroyFunc FvwmIconify
 AddToFunc FvwmIconify
 + C Iconify
@@ -121,7 +126,12 @@ AddToFunc FvwmWindowShade
 
 DestroyFunc FvwmMaximize
 AddToFunc FvwmMaximize
-+ I Maximize $0
++ I Maximize $0 $1
+
+DestroyFunc FvwmDeleteOrDestroy
+AddToFunc FvwmDeleteOrDestroy
++ C Delete
++ D Destroy
 
 # Template
 # Key X Context Modifier Action'
@@ -129,17 +139,28 @@ Key Super_L A A FvwmTerm
 Key F1 A M Menu FvwmRootMenu
 Key F2 A M FvwmLaunch
 Key F4 A M Close
-Key F11 A C FvwmMaximize
+Key F11 A C FvwmMaximize 100 100
+
 # Mouse 3 R A Menu FvwmWindowOpsMenu
 Mouse 4 T A FvwmWindowShade True
 Mouse 5 T A FvwmWindowShade False
-Mouse 3 T A FvwmIconify
+
 Mouse 3 I A FvwmIconify
+Mouse 3 T A FvwmIconify
+
 Mouse 3 W M FvwmMove
 Mouse 3 W S FvwmResize
+
 Mouse 1 R A Menu FvwmRootMenu
 Mouse 3 R A Menu FvwmOpsMenu
-Mouse 1 3 A FvwmMaximize
+
+Mouse 1 5 A FvwmMaximize 100 100
+Mouse 2 5 A FvwmMaximize 0 100
+Mouse 3 5 A FvwmMaximize 100 0
+
+Mouse 1 3 A FvwmIconifyOrShade
+
+Mouse 1 1 A FvwmDeleteOrDestroy
 
 # Colorset 6 fg #343434, bg #ebebeb	# title
 # Colorset 3 fg #400c04, bg #d16952	# red
@@ -154,14 +175,69 @@ DestroyDecor MyDecor
 AddToDecor   MyDecor
 + TitleStyle LeftJustified Height 18
 + BorderStyle Simple -- NoInset Flat
++ ButtonStyle All -- UseTitleStyle
++ TitleStyle -- Flat
 
-Style "*" FirmBorder, MWMBorder
-Style "*" BorderWidth 1, HandleWidth 3
-Style "*" HilightBorderColorset 3
-Style "*" UseDecor MyDecor
-Style "*" Font "xft:WenQuanYi Zen Hei Mono:size=10"
++ ButtonStyle 1 ActiveUp Vector 4 30x30@3 60x60@3 60x30@4 30x60@3 -- Flat
++ ButtonStyle 1 ActiveDown Vector 4 30x30@3 60x60@3 60x30@4 30x60@3 -- Flat
++ ButtonStyle 1 Inactive Vector 4 30x30@3 60x60@3 60x30@4 30x60@3 -- Flat
 
-MenuStyle "*" Font "xft:WenQuanYi Zen Hei Mono:size=20"
++ ButtonStyle 3 ActiveUp Vector 5 30x60@3 60x60@3 60x50@3 30x50@3 30x60@3 -- Flat
++ ButtonStyle 3 ActiveDown Vector 5 30x60@3 60x60@3 60x50@3 30x50@3 30x60@3 -- Flat
++ ButtonStyle 3 Inactive Vector 5 30x60@3 60x60@3 60x50@3 30x50@3 30x60@3 -- Flat
+
++ ButtonStyle 5 ActiveUp Vector 7 30x30@3 30x60@3 60x60@3 60x30@3 30x30@3 30x35@3 60x35@3 -- Flat
++ ButtonStyle 5 ActiveDown Vector 7 30x30@3 30x60@3 60x60@3 60x30@3 30x30@3 30x35@3 60x35@3 -- Flat
++ ButtonStyle 5 Inactive Vector 7 30x30@3 30x60@3 60x60@3 60x30@3 30x30@3 30x35@3 60x35@3 -- Flat
+
+
+DestroyDecor UkkostaDecor
+AddToDecor   UkkostaDecor
++ TitleStyle LeftJustified Height 24
++ ButtonStyle 1 \
+        ActiveUp     (Pixmap $[fvwm_img]/button/close-activeup.png -- Flat) \
+        ActiveDown   (Pixmap $[fvwm_img]/button/close-activedown.png -- Flat) \
+        Inactive     (Pixmap $[fvwm_img]/button/inactive.png -- Flat)
++ ButtonStyle 3 \
+        ActiveUp     (Pixmap $[fvwm_img]/button/iconify-activeup.png -- Flat) \
+        ActiveDown   (Pixmap $[fvwm_img]/button/iconify-activedown.png -- Flat) \
+        Inactive     (Pixmap $[fvwm_img]/button/inactive.png -- Flat)
++ ButtonStyle 5 \
+        ActiveUp     (Pixmap $[fvwm_img]/button/maximize-activeup.png -- Flat) \
+        ActiveDown   (Pixmap $[fvwm_img]/button/maximize-activedown.png -- Flat) \
+        Inactive     (Pixmap $[fvwm_img]/button/inactive.png -- Flat)
++ ButtonStyle 1 - Clear
++ ButtonStyle 3 - Clear MwmDecorMin
++ ButtonStyle 5 - Clear MwmDecorMax
++ TitleStyle AllActive MultiPixmap \
+        Main AdjustedPixmap $[fvwm_img]/decor/title-main-active.xpm, \
+        LeftEnd AdjustedPixmap $[fvwm_img]/decor/title-leftend-active.xpm, \
+        RightEnd AdjustedPixmap $[fvwm_img]/decor/title-rightend-active.xpm, \
+        UnderText AdjustedPixmap $[fvwm_img]/decor/title-undertext-active.xpm, \
+        LeftOfText AdjustedPixmap $[fvwm_img]/decor/title-leftoftext-active.xpm, \
+        RightOfext AdjustedPixmap $[fvwm_img]/decor/title-rightoftext-active.xpm
++ TitleStyle AllInactive MultiPixmap \
+        Main AdjustedPixmap $[fvwm_img]/decor/title-main-inactive.xpm, \
+        LeftEnd AdjustedPixmap $[fvwm_img]/decor/title-leftend-inactive.xpm, \
+        RightEnd AdjustedPixmap $[fvwm_img]/decor/title-rightend-inactive.xpm, \
+        UnderText AdjustedPixmap $[fvwm_img]/decor/title-undertext-inactive.xpm, \
+        LeftOfText AdjustedPixmap $[fvwm_img]/decor/title-leftoftext-inactive.xpm, \
+        RightOfext AdjustedPixmap $[fvwm_img]/decor/title-rightoftext-inactive.xpm
++ TitleStyle -- Flat
++ BorderStyle Simple -- NoInset Flat
++ ButtonStyle All -- UseTitleStyle
+
+Style "*" UseDecor UkkostaDecor
+Style "*" Font "xft:Sans:Bold:size=8:minspace=False:antialias=True"
+# Style "*" Font "xft:WenQuanYi Zen Hei Mono:size=10"
+Style "*" BorderWidth 1, HandleWidth 1
+Style "*" MWMBorder, FirmBorder
+Style "*" Colorset 4
+Style "*" HilightColorset 3
+Style "*" BorderColorset 5
+Style "*" HilightBorderColorset 4
+
+MenuStyle "*" Font "xft:Sans:Bold:size=8:minspace=False:antialias=True"
 
 DestroyMenu FvwmRootMenu
 AddToMenu FvwmRootMenu ":-)" Title
