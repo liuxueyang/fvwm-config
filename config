@@ -53,7 +53,7 @@ AddToFunc FvwmBrowser
 
 DestroyFunc FvwmEditor
 AddToFunc FvwmEditor
-+ I Exec exec fvwm_editor
++ I Exec exec $[fvwm_editor]
 
 DestroyFunc FvwmSS
 AddToFunc FvwmSS
@@ -61,12 +61,12 @@ AddToFunc FvwmSS
 
 DestroyFunc FvwmMusicPlayer
 AddToFunc FvwmMusicPlayer
-+ I Exec exec fvwm_music_player
++ I Exec exec $[fvwm_music_player]
 + I Exec exec osdlyrics
 
 DestroyFunc FvwmVideoPlayer
 AddToFunc FvwmVideoPlayer
-+ I Exec exec fvwm_video_player
++ I Exec exec $[fvwm_video_player]
 
 DestroyFunc FvwmObs
 AddToFunc FvwmObs
@@ -116,7 +116,7 @@ AddToFunc InitFunction
 + I Exec xscreensaver
 
 DestroyFunc FvwmWindowShade
-AddToFunc FvwmWindowade
+AddToFunc FvwmWindowShade
 + I WindowShade $0
 
 DestroyFunc FvwmMaximize
