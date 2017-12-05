@@ -237,7 +237,13 @@ Style "*" HilightColorset 3
 Style "*" BorderColorset 5
 Style "*" HilightBorderColorset 4
 
-MenuStyle "*" Font "xft:Sans:Bold:size=8:minspace=False:antialias=True"
+MenuStyle "*" Font "xft:Sans:Bold:size=10:minspace=False:antialias=True"
+
+Colorset 7 fg Black, bg #e6e7d7, sh Black, hi #202070
+Colorset 8 fg DarkRed, bg #e6e7d7, sh Black, hi #202070
+
+Colorset 7 RootTransparent, fg Black, bg average, sh Black, \
+  hi #202070, Tint White 60, bgTint White 60
 
 DestroyMenu FvwmRootMenu
 AddToMenu FvwmRootMenu ":-)" Title
