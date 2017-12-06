@@ -140,6 +140,14 @@ AddToFunc InitFunction
 + I FvwmBrowser
 + I Exec exec xscreensaver
 
+DestroyFunc StartFunction
+AddToFunc   StartFunction
++ I Module FvwmTaskBar
+
+DestroyFunc RestartFunction
+AddToFunc   RestartFunction
++ I Module FvwmTaskBar
+
 DestroyFunc FvwmWindowShade
 AddToFunc FvwmWindowShade
 + I WindowShade $0
@@ -282,6 +290,7 @@ DestroyMenu FvwmRootMenu
 AddToMenu FvwmRootMenu ":-)" Title
 + "Run%menu/find.svg%" FvwmLaunch
 + "Applications%menu/applications.svg%" Popup FvwmProgramsMenu
++ "FVWM Console%menu/terminal.png%"  Module FvwmConsole
 + "" Nop
 + "Restart Fvwm%menu/restart.png%" Restart
 + "Quit Fvwm%menu/quit.png%" Quit
@@ -299,6 +308,37 @@ AddToMenu   FvwmProgramsMenu "=w=" Title
 DestroyMenu FvwmOpsMenu
 AddToMenu FvwmOpsMenu "^o^" Title
 + "(Un)Stick%menu/window-stick.xpm%"  Stick
++ "Identify%menu/window-identify.xpm%"  Module FvwmIdent
 + "%menu/window.xpm%Window Screenshot"  Pick (CirculateHit) FvwmWindowScreenshot
 + "%menu/display.xpm%Screenshot" FvwmDesktopScreenshot 5
 + "Shutdown%menu/shutdown.svg%" FvwmShutdown
+
+
+Colorset 9 fg rgb:00/00/00, hi rgb:00/00/00, sh rgb:00/00/00, bg rgb:e9/e9/d9
+Colorset 10 fg rgb:00/00/00, hi rgb:dd/00/00, sh rgb:dd/00/00, bg rgb:fb/fc/ec
+
+DestroyModuleConfig FvwmIdent: *
+*FvwmIdent: Colorset 9
+*FvwmIdent: Font "xft:Sans:Bold:size=12:antialias=True"
+
+Style "FvwmTaskBar" NoTitle, !Handles, !Borders, Sticky, WindowListSkip, \
+  CirculateSkip, StaysOnBottom, FixedPosition, FixedSize, !Iconifiable
+
+DestroyModuleConfig FvwmTaskBar: *
+*FvwmTaskBar: Geometry +0-0
+*FvwmTaskBar: Rows 2
+*FvwmTaskBar: Font "xft:Sans:Bold:pixelsize=12:minispace=True:antialias=True"
+*FvwmTaskBar: SelFont "xft:Sans:Bold:pixelsize=12:minispace=True:antialias=True"
+*FvwmTaskBar: StatusFont "xft:Sans:Bold:pixelsize=12:minispace=True:antialias=True"
+*FvwmTaskBar: Colorset 9
+*FvwmTaskBar: IconColorset 9
+*FvwmTaskBar: FocusColorset 9
+*FvwmTaskBar: TipsColorset 9
+*FvwmTaskBar: UseSkipList
+*FvwmTaskBar: UseIconNames
+*FvwmTaskBar: ShowTips
+*FvwmTaskBar: StartName FVWM
+#*FvwmTaskBar: StartMenu FvwmRootMenu
+#*FvwmTaskBar: Button Title ATerm, Icon mini/xterm.png, Action (Mouse 1) FvwmATerm
+*FvwmTaskBar: Action Click3 Menu FvwmWindowOpsMenu
+#*FvwmTaskBar: StartIcon mini/fvwm.png
