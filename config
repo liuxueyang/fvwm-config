@@ -4,9 +4,10 @@
 # ==================================================
 #           $HOME/.fvwm/config
 
+SetEnv img_home $[HOME]/Pictures
 SetEnv fvwm_home $[HOME]/.fvwm
 SetEnv fvwm_img $[fvwm_home]/images
-SetEnv fvwm_icon $[fvwm_img]/icons
+#SetEnv fvwm_icon $[fvwm_img]/icons
 SetEnv fvwm_wallpaper $[fvwm_img]/wallpaper
 
 SetEnv fvwm_music_player /usr/bin/audacious
@@ -14,7 +15,7 @@ SetEnv fvwm_video_player /usr/bin/vlc
 SetEnv fvwm_editor /usr/bin/emacs
 SetEnv fvwm_ss /usr/bin/ss-qt5
 
-ImagePath $[fvwm_icon]:$[fvwm_icon];.png:$[fvwm_wallpaper]:+
+ImagePath $[fvwm_img]:$[fvwm_img];.png:$[fvwm_wallpaper]:+
 
 DesktopSize 3x3
 DesktopName Main
@@ -80,6 +81,14 @@ DestroyFunc FvwmScreenkey
 AddToFunc FvwmScreenkey
 + I Exec exec screenkey
 
+DestroyFunc FvwmChat
+AddToFunc FvwmChat
++ I Exec exec /usr/bin/riot-desktop
+
+DestroyFunc FvwmGimp
+AddToFunc FvwmGimp
++ I Exec exec /usr/bin/gimp
+
 DestroyFunc FvwmShutdown
 AddToFunc FvwmShutdown
 + I Exec exec /sbin/shutdown -h now
@@ -109,6 +118,17 @@ DestroyFunc FvwmResize
 AddToFunc FvwmResize
 + M Resize
 
+DestroyFunc FvwmWindowScreenshot
+AddToFunc   FvwmWindowScreenshot
++ I ThisWindow (!Shaded !Iconic Iconifiable) \
+  Exec import -window $[w.id] -quality 100 -silent \
+  "$[img_home]/screenshot/screenshot-`date +%F[%R]`.$[w.id].jpg"
+
+DestroyFunc FvwmDesktopScreenshot
+AddToFunc   FvwmDesktopScreenshot
++ I Exec sleep $0; import -window root -quality 100 -silent \
+  "$[img_home]/screenshot/screenshot-`date +%F[%R]`.jpg"
+
 DestroyFunc InitFunction
 AddToFunc InitFunction
 # will cause problems when move windows across pages
@@ -118,7 +138,7 @@ AddToFunc InitFunction
 + I FvwmTerm
 + I FvwmMusicPlayer
 + I FvwmBrowser
-+ I Exec xscreensaver
++ I Exec exec xscreensaver
 
 DestroyFunc FvwmWindowShade
 AddToFunc FvwmWindowShade
@@ -134,8 +154,10 @@ AddToFunc FvwmDeleteOrDestroy
 + D Destroy
 
 # Template
-# Key X Context Modifier Action'
-Key Super_L A A FvwmTerm
+# Key X Context Modifier Action
+# Modifier is any combination of the following:
+# (A)ny, (C)ontrol, (S)hift, (M)eta, (N)othing, or 1-5, representing the X Modifiers mod1-mod5 (man xmodmap).
+Key Super_L A S FvwmTerm
 Key F1 A M Menu FvwmRootMenu
 Key F2 A M FvwmLaunch
 Key F4 A M Close
@@ -228,7 +250,7 @@ AddToDecor   UkkostaDecor
 + ButtonStyle All -- UseTitleStyle
 
 Style "*" UseDecor UkkostaDecor
-Style "*" Font "xft:Sans:Bold:size=8:minspace=False:antialias=True"
+Style "*" Font "xft:Sans:Bold:size=12:minspace=False:antialias=True"
 # Style "*" Font "xft:WenQuanYi Zen Hei Mono:size=10"
 Style "*" BorderWidth 1, HandleWidth 1
 Style "*" MWMBorder, FirmBorder
@@ -237,26 +259,46 @@ Style "*" HilightColorset 3
 Style "*" BorderColorset 5
 Style "*" HilightBorderColorset 4
 
-MenuStyle "*" Font "xft:Sans:Bold:size=10:minspace=False:antialias=True"
-
 Colorset 7 fg Black, bg #e6e7d7, sh Black, hi #202070
 Colorset 8 fg DarkRed, bg #e6e7d7, sh Black, hi #202070
 
-Colorset 7 RootTransparent, fg Black, bg average, sh Black, \
-  hi #202070, Tint White 60, bgTint White 60
+#Colorset 7 RootTransparent, fg Black, bg average, sh Black, \
+#  hi #202070, Tint White 60, bgTint White 60
+
+MenuStyle * PopupDelayed, PopupDelay 300, PopdownImmediately
+MenuStyle * PopupOffset -5 100, TitleWarpOff
+MenuStyle * TitleUnderlines2, SeparatorsLong, TrianglesSolid
+MenuStyle * AnimationOff, AutomaticHotkeysOff
+MenuStyle * BorderWidth 2
+MenuStyle * PopupAsSubmenu, HoldSubmenus, SubmenusRight
+MenuStyle * ItemFormat "%|%5.5i%1.3l%2.3>%|"
+MenuStyle * VerticalItemSpacing 1 1, VerticalTitleSpacing 2 2
+MenuStyle * MenuColorset 7
+MenuStyle * ActiveFore, Hilight3DOff
+MenuStyle * ActiveColorset 8
+MenuStyle * Font "Shadow=2:xft:Sans:Bold:size=13:antialias=True"
 
 DestroyMenu FvwmRootMenu
 AddToMenu FvwmRootMenu ":-)" Title
 + "Run%menu/find.svg%" FvwmLaunch
++ "Applications%menu/applications.svg%" Popup FvwmProgramsMenu
++ "" Nop
++ "Restart Fvwm%menu/restart.png%" Restart
++ "Quit Fvwm%menu/quit.png%" Quit
+
+DestroyMenu FvwmProgramsMenu
+AddToMenu   FvwmProgramsMenu "=w=" Title
 + "File%menu/Thunar.png%" FvwmFileManager
 + "Editor%menu/emacs.png%" FvwmEditor
 + "Browser%menu/firefox.png%" FvwmBrowser
-+ "Music%menu/audacious.png%" FvwmMusicPlayer
++ "Audacious%menu/audacious.png%" FvwmMusicPlayer
 + "Live%menu/obs.png%" FvwmObs
-+ "" Nop
-+ "Restart Fvwm" Restart
-+ "Quit Fvwm" Quit
++ "Gimp%menu/gimp.png%"  FvwmGimp
++ "Riot%menu/riot.png%"  FvwmChat
 
 DestroyMenu FvwmOpsMenu
 AddToMenu FvwmOpsMenu "^o^" Title
-+ "Shutdown" FvwmShutdown
++ "(Un)Stick%menu/window-stick.xpm%"  Stick
++ "%menu/window.xpm%Window Screenshot"  Pick (CirculateHit) FvwmWindowScreenshot
++ "%menu/display.xpm%Screenshot" FvwmDesktopScreenshot 5
++ "Shutdown%menu/shutdown.svg%" FvwmShutdown
