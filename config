@@ -314,7 +314,9 @@ AddToMenu FvwmOpsMenu "^o^" Title
 + "Shutdown%menu/shutdown.svg%" FvwmShutdown
 
 
-Colorset 9 fg rgb:00/00/00, hi rgb:00/00/00, sh rgb:00/00/00, bg rgb:e9/e9/d9
+# Colorset 9 fg rgb:00/00/00, hi rgb:00/00/00, sh rgb:00/00/00, bg rgb:e9/e9/d9
+Colorset 9 RootTransparent, fg Black, bg average, sh Black, \
+ hi #202070, Tint White 10, bgTint White 60
 Colorset 10 fg rgb:00/00/00, hi rgb:dd/00/00, sh rgb:dd/00/00, bg rgb:fb/fc/ec
 
 DestroyModuleConfig FvwmIdent: *
@@ -350,7 +352,7 @@ DestroyModuleConfig MyButtons: *
 *MyButtons: Columns 38
 *MyButtons: Frame 0
 *MyButtons: Font "Shadow=3:xft:Sans:Bold:pixelsize=14:minspace=True:antialias=True"
-*MyButtons: (2x1, Frame 0, Title(Center) ":)")
+*MyButtons: (2x1, Frame 0, Title(Center) "")
 *MyButtons: (5x1, Frame 0, Icon 48x48/terminal.png, \
   Action(Mouse 1) "FvwmTerm", \
   Action(Mouse 3) "FvwmTerm")
