@@ -7,7 +7,7 @@
 SetEnv img_home $[HOME]/Pictures
 SetEnv fvwm_home $[HOME]/.fvwm
 SetEnv fvwm_img $[fvwm_home]/images
-#SetEnv fvwm_icon $[fvwm_img]/icons
+SetEnv fvwm_icon $[fvwm_img]/icons
 SetEnv fvwm_wallpaper $[fvwm_img]/wallpaper
 
 SetEnv fvwm_music_player /usr/bin/audacious
@@ -15,7 +15,7 @@ SetEnv fvwm_video_player /usr/bin/vlc
 SetEnv fvwm_editor /usr/bin/emacs
 SetEnv fvwm_ss /usr/bin/ss-qt5
 
-ImagePath $[fvwm_img]:$[fvwm_img];.png:$[fvwm_wallpaper]:+
+ImagePath $[fvwm_icon]:$[fvwm_icon];.png:$[fvwm_wallpaper]:+
 
 DesktopSize 3x3
 DesktopName 0 Main
@@ -143,6 +143,7 @@ AddToFunc InitFunction
 DestroyFunc StartFunction
 AddToFunc   StartFunction
 + I Module FvwmPager 0 2
++ I Module FvwmButtons MyButtons
 
 # DestroyFunc RestartFunction
 # AddToFunc   RestartFunction
@@ -267,11 +268,10 @@ Style "*" HilightColorset 3
 Style "*" BorderColorset 5
 Style "*" HilightBorderColorset 4
 
-Colorset 7 fg Black, bg #e6e7d7, sh Black, hi #202070
+# Colorset 7 fg Black, bg #e6e7d7, sh Black, hi #202070
+Colorset 7 RootTransparent, fg Black, bg average, sh Black, \
+ hi #202070, Tint White 60, bgTint White 60
 Colorset 8 fg DarkRed, bg #e6e7d7, sh Black, hi #202070
-
-#Colorset 7 RootTransparent, fg Black, bg average, sh Black, \
-#  hi #202070, Tint White 60, bgTint White 60
 
 MenuStyle * PopupDelayed, PopupDelay 300, PopdownImmediately
 MenuStyle * PopupOffset -5 100, TitleWarpOff
@@ -339,3 +339,31 @@ DestroyModuleConfig FvwmPager: *
 *FvwmPager: UseSkipList
 *FvwmPager: Rows 1
 *FvwmPager: Columns 3
+
+Style "MyButtons" NoTitle, !Handles, !Borders, Sticky, WindowListSkip, \
+  CirculateSkip, StaysOnBottom, FixedPosition, FixedSize, !Iconifiable
+
+DestroyModuleConfig MyButtons: *
+*MyButtons: Geometry 420x60+320-0
+*MyButtons: Colorset 9
+*MyButtons: Rows 1
+*MyButtons: Columns 38
+*MyButtons: Frame 0
+*MyButtons: Font "Shadow=3:xft:Sans:Bold:pixelsize=14:minspace=True:antialias=True"
+*MyButtons: (2x1, Frame 0, Title(Center) ":)")
+*MyButtons: (5x1, Frame 0, Icon 48x48/terminal.png, \
+  Action(Mouse 1) "FvwmTerm", \
+  Action(Mouse 3) "FvwmTerm")
+*MyButtons: (5x1, Frame 0, Icon 48x48/xmms.png, \
+  Action(Mouse 1) "FvwmMusicPlayer")
+*MyButtons: (5x1, Frame 0, Icon 48x48/vim.png, \
+  Action(Mouse 1) "FvwmEditor")
+*MyButtons: (5x1, Frame 0, Icon 48x48/gimp.png, \
+  Action(Mouse 1) "FvwmGimp")
+*MyButtons: (5x1, Frame 0, Icon 48x48/firefox.png, \
+  Action(Mosue 1) "FvwmBrowser")
+*MyButtons: (5x1, Frame 0, Icon 48x48/irc.png, \
+  Action(Mouse 1) "FvwmChat")
+*MyButtons: (5x1, Frame 0, Icon 48x48/tux.png, \
+  Action(Mouse 1) "")
+*MyButtons: (1x1, Frame 0)
