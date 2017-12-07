@@ -286,11 +286,16 @@ MenuStyle * ActiveFore, Hilight3DOff
 MenuStyle * ActiveColorset 8
 MenuStyle * Font "Shadow=2:xft:Sans:Bold:size=13:antialias=True"
 
+PipeRead fvwm-menu-xlock
+PipeRead fvwm-menu-desktop --enable-mini-icons --desktop kde
+
 DestroyMenu FvwmRootMenu
 AddToMenu FvwmRootMenu ":-)" Title
 + "Run%menu/find.svg%" FvwmLaunch
 + "Applications%menu/applications.svg%" Popup FvwmProgramsMenu
++ "Lock%menu/lock.png%" Popup XLockMenu
 + "FVWM Console%menu/terminal.png%"  Module FvwmConsole
++ "XDGMenu" Popup XDGMenu
 + "" Nop
 + "Restart Fvwm%menu/restart.png%" Restart
 + "Quit Fvwm%menu/quit.png%" Quit
@@ -312,7 +317,6 @@ AddToMenu FvwmOpsMenu "^o^" Title
 + "%menu/window.xpm%Window Screenshot"  Pick (CirculateHit) FvwmWindowScreenshot
 + "%menu/display.xpm%Screenshot" FvwmDesktopScreenshot 5
 + "Shutdown%menu/shutdown.svg%" FvwmShutdown
-
 
 # Colorset 9 fg rgb:00/00/00, hi rgb:00/00/00, sh rgb:00/00/00, bg rgb:e9/e9/d9
 Colorset 9 RootTransparent, fg Black, bg average, sh Black, \
