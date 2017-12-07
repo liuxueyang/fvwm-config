@@ -316,7 +316,7 @@ AddToMenu FvwmOpsMenu "^o^" Title
 
 # Colorset 9 fg rgb:00/00/00, hi rgb:00/00/00, sh rgb:00/00/00, bg rgb:e9/e9/d9
 Colorset 9 RootTransparent, fg Black, bg average, sh Black, \
- hi #202070, Tint White 10, bgTint White 60
+ hi #202070, Tint White 30, bgTint White 60
 Colorset 10 fg rgb:00/00/00, hi rgb:dd/00/00, sh rgb:dd/00/00, bg rgb:fb/fc/ec
 
 DestroyModuleConfig FvwmIdent: *
@@ -356,16 +356,16 @@ DestroyModuleConfig MyButtons: *
 *MyButtons: (5x1, Frame 0, Icon 48x48/terminal.png, \
   Action(Mouse 1) "FvwmTerm", \
   Action(Mouse 3) "FvwmTerm")
-*MyButtons: (5x1, Frame 0, Icon 48x48/xmms.png, \
+*MyButtons: (5x1, Frame 0, Icon 48x48/audacious.png, \
   Action(Mouse 1) "FvwmMusicPlayer")
-*MyButtons: (5x1, Frame 0, Icon 48x48/vim.png, \
+*MyButtons: (5x1, Frame 0, Icon 48x48/emacs.png, \
   Action(Mouse 1) "FvwmEditor")
 *MyButtons: (5x1, Frame 0, Icon 48x48/gimp.png, \
   Action(Mouse 1) "FvwmGimp")
 *MyButtons: (5x1, Frame 0, Icon 48x48/firefox.png, \
   Action(Mosue 1) "FvwmBrowser")
-*MyButtons: (5x1, Frame 0, Icon 48x48/irc.png, \
+*MyButtons: (5x1, Frame 0, Icon 48x48/riot.png, \
   Action(Mouse 1) "FvwmChat")
 *MyButtons: (5x1, Frame 0, Icon 48x48/tux.png, \
-  Action(Mouse 1) "")
+  Action(Mouse 1) "FvwmLaunch")
 *MyButtons: (1x1, Frame 0)
