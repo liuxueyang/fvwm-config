@@ -18,9 +18,9 @@ SetEnv fvwm_ss /usr/bin/ss-qt5
 ImagePath $[fvwm_img]:$[fvwm_img];.png:$[fvwm_wallpaper]:+
 
 DesktopSize 3x3
-DesktopName Main
-DesktopName Code
-DesktopName Read
+DesktopName 0 Main
+DesktopName 1 Code
+DesktopName 2 Read
 
 EdgeScroll 50 50
 EdgeResistance 10
@@ -142,11 +142,11 @@ AddToFunc InitFunction
 
 DestroyFunc StartFunction
 AddToFunc   StartFunction
-+ I Module FvwmTaskBar
++ I Module FvwmPager 0 2
 
-DestroyFunc RestartFunction
-AddToFunc   RestartFunction
-+ I Module FvwmTaskBar
+# DestroyFunc RestartFunction
+# AddToFunc   RestartFunction
+# + I Module FvwmTaskBar
 
 DestroyFunc FvwmWindowShade
 AddToFunc FvwmWindowShade
@@ -321,24 +321,21 @@ DestroyModuleConfig FvwmIdent: *
 *FvwmIdent: Colorset 9
 *FvwmIdent: Font "xft:Sans:Bold:size=12:antialias=True"
 
-Style "FvwmTaskBar" NoTitle, !Handles, !Borders, Sticky, WindowListSkip, \
-  CirculateSkip, StaysOnBottom, FixedPosition, FixedSize, !Iconifiable
+Style "FvwmPager" NoTitle, !Handles, !Borders, Sticky, WindowListSkip, \
+  CirculateSkip, StaysOnTop, FixedPosition, FixedSize, !Iconifiable
 
-DestroyModuleConfig FvwmTaskBar: *
-*FvwmTaskBar: Geometry +0-0
-*FvwmTaskBar: Rows 2
-*FvwmTaskBar: Font "xft:Sans:Bold:pixelsize=12:minispace=True:antialias=True"
-*FvwmTaskBar: SelFont "xft:Sans:Bold:pixelsize=12:minispace=True:antialias=True"
-*FvwmTaskBar: StatusFont "xft:Sans:Bold:pixelsize=12:minispace=True:antialias=True"
-*FvwmTaskBar: Colorset 9
-*FvwmTaskBar: IconColorset 9
-*FvwmTaskBar: FocusColorset 9
-*FvwmTaskBar: TipsColorset 9
-*FvwmTaskBar: UseSkipList
-*FvwmTaskBar: UseIconNames
-*FvwmTaskBar: ShowTips
-*FvwmTaskBar: StartName FVWM
-#*FvwmTaskBar: StartMenu FvwmRootMenu
-#*FvwmTaskBar: Button Title ATerm, Icon mini/xterm.png, Action (Mouse 1) FvwmATerm
-*FvwmTaskBar: Action Click3 Menu FvwmWindowOpsMenu
-#*FvwmTaskBar: StartIcon mini/fvwm.png
+DestroyModuleConfig FvwmPager: *
+*FvwmPager: Geometry 320x100+0-0
+*FvwmPager: Colorset * 9
+*FvwmPager: HilightColorset * 10
+*FvwmPager: BalloonColorset * 9
+*FvwmPager: WindowColorsets 9 10
+*FvwmPager: Font "xft:Sans:Bold:pixelsize=12:minspace=True:antialias=True"
+*FvwmPager: Balloons All
+*FvwmPager: BalloonFont "xft:Sans:Bold:pixelsize=12:minspace=True:antialias=True"
+*FvwmPager: BallonYOffset +2
+*FvwmPager: Window3dBorders
+*FvwmPager: MiniIcons
+*FvwmPager: UseSkipList
+*FvwmPager: Rows 1
+*FvwmPager: Columns 3
