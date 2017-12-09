@@ -1,6 +1,10 @@
 # Date   : Tue Nov 28 22:23:25 CST 2017
 # Author : abel-abel
 
+# Most of the configuration are copied from；
+# http://zensites.net/fvwm/guide/
+# I only changed/added/remove some configurations.
+
 # ==================================================
 #           $HOME/.fvwm/config
 
@@ -328,8 +332,8 @@ DestroyModuleConfig FvwmIdent: *
 *FvwmIdent: Font "xft:Sans:Bold:size=12:antialias=True"
 
 Style "FvwmPager" NoTitle, !Handles, !Borders, Sticky, WindowListSkip, \
-  CirculateSkip, StaysOnTop, FixedPosition, FixedSize, !Iconifiable
-
+  CirculateSkip, FixedPosition, FixedSize, !Iconifiable
+# StaysOnTop
 DestroyModuleConfig FvwmPager: *
 *FvwmPager: Geometry 320x100+0-0
 *FvwmPager: Colorset * 9
@@ -373,3 +377,5 @@ DestroyModuleConfig MyButtons: *
 *MyButtons: (5x1, Frame 0, Icon 48x48/tux.png, \
   Action(Mouse 1) "FvwmLaunch")
 *MyButtons: (1x1, Frame 0)
+
+Style "xclock" NoTitle, FixedPosition
