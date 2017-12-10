@@ -67,7 +67,6 @@ AddToFunc FvwmSS
 DestroyFunc FvwmMusicPlayer
 AddToFunc FvwmMusicPlayer
 + I Exec exec $[fvwm_music_player]
-+ I Exec exec osdlyrics
 
 DestroyFunc FvwmVideoPlayer
 AddToFunc FvwmVideoPlayer
