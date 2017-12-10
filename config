@@ -29,7 +29,7 @@
 #
 # The following is used in various menus and also sets the terminal
 # that FvwmConsole uses. Change this to your terminal of choice
-InfoStoreAdd terminal xterm
+InfoStoreAdd terminal urxvt
 
 ###########
 # 1: Functions
@@ -157,17 +157,20 @@ AddToFunc   ChangeDesk
 # a grid of Pages. The following sets the name of four Desktops and then
 # divides each Desktop into a 2x2 grid of Pages that are positioned as
 #
-#   +---+---+
-#   |   |   |
-#   +---+---+
-#   |   |   |
-#   +---+---+
-#
+#   +---+---+---+
+#   |   |   |   |
+#   +---+---+---+
+#   |   |   |   |
+#   +---+---+---+
+#   |   |   |   |
+#   +---+---+---+
+
+
 DesktopName 0 Main
-DesktopName 1 Desk1
-DesktopName 2 Desk2
-DesktopName 3 Desk3
-DesktopSize 2x2
+DesktopName 1 Code
+DesktopName 2 Read
+DesktopName 3 Rest
+DesktopSize 3x3
 
 # EdgeScroll will move the view port between the Pages when the mouse
 # moves to the edge of the screen. This set the amount of distance to
@@ -175,10 +178,13 @@ DesktopSize 2x2
 # for how long the mouse as at the edge before it scrolls.
 #
 # Set EdgeScroll 0 0 and/or EdgeResistance -1 to disable.
-EdgeScroll 100 100
-EdgeResistance 450
+# EdgeScroll 100 100
+# EdgeResistance 450
+# Style * EdgeMoveDelay 350, EdgeMoveResistance 350
+EdgeScroll 50 50
+EdgeResistance 50
 EdgeThickness 1
-Style * EdgeMoveDelay 350, EdgeMoveResistance 350
+Style * EdgeMoveDelay 50, EdgeMoveResistance 50
 
 # EwmhBaseStruts [left] [right] [top] [bottom]
 # Reserves space along the edge(s) of the Screen that will not
@@ -195,7 +201,7 @@ MoveThreshold 3
 Style * SloppyFocus, MouseFocusClickRaises
 
 # Default Font
-DefaultFont "xft:Sans:Bold:size=8:antialias=True"
+DefaultFont "xft:Sans:Bold:size=10:antialias=True"
 
 # Window Placement
 Style * TileCascadePlacement, GrabFocusOff, !UsePPosition
@@ -313,7 +319,7 @@ Test (x chromium) + "Chromium" Exec exec chromium
 Test (x firefox) + "Firefox" Exec exec firefox
 Test (x google-chrome) + "Google-Chrome" Exec exec google-chrome
 Test (x gvim) + "gVim" Exec exec gvim
-Test (x xemacs) + "XEmacs" Exec exec xemacs
+Test (x emacs) + "Emacs" Exec exec emacs
 Test (x gimp) + "Gimp" Exec exec gimp
 Test (x vlc) + "VLC" Exec exec vlc
 
