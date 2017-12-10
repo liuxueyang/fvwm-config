@@ -57,8 +57,8 @@ DestroyFunc StartFunction
 AddToFunc   StartFunction
 + I Test (Init, f $[FVWM_USERDIR]/.BGdefault) \
     Exec exec fvwm-root $[FVWM_USERDIR]/.BGdefault
-+ I TestRc (NoMatch) Exec exec fvwm-root \
-    $[FVWM_DATADIR]/default-config/images/background/bg1.png
+#+ I TestRc (NoMatch) Exec exec fvwm-root \
+#    $[FVWM_DATADIR]/default-config/images/background/bg1.png
 + I Test (Init) Module FvwmBanner
 + I Module FvwmButtons RightPanel
 + I Module FvwmEvent EventNewDesk
@@ -284,7 +284,7 @@ MenuStyle * MenuColorset 5, ActiveColorset 6, GreyedColorset 7, TitleColorset 8
 MenuStyle * Hilight3DOff, HilightBack, HilightTitleBack, SeparatorsLong
 MenuStyle * TrianglesSolid, TrianglesUseFore
 MenuStyle * ItemFormat "%|%3.1i%5.3l%5.3>%|"
-MenuStyle * Font "xft:Sans:Bold:size=8:antialias=True"
+MenuStyle * Font "xft:Sans:Bold:size=10:antialias=True"
 
 # Root Menu
 #
@@ -294,12 +294,12 @@ DestroyMenu MenuFvwmRoot
 AddToMenu   MenuFvwmRoot "Fvwm" Title
 + "Programs%icons/programs.png%" Popup MenuPrograms
 + "XDG Menu%icons/apps.png%" Popup XDGMenu
-+ "XTerm%icons/terminal.png%" Exec exec $[infostore.terminal]
++ "URxvt%icons/terminal.png%" Exec exec $[infostore.terminal]
 + "" Nop
 + "FvwmConsole%icons/terminal.png%" Module FvwmConsole -terminal $[infostore.terminal]
 + "Wallpapers%icons/wallpaper.png%" Popup BGMenu
 + "Man Pages%icons/help.png%" Popup MenuFvwmManPages
-+ "Copy Config%icons/conf.png%" FvwmScript FvwmScript-ConfirmCopyConfig
+#+ "Copy Config%icons/conf.png%" FvwmScript FvwmScript-ConfirmCopyConfig
 + "" Nop
 + "Refresh%icons/refresh.png%" Refresh
 + "Restart%icons/restart.png%" Restart
