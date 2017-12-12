@@ -363,6 +363,8 @@ AddToMenu   MenuWindowOpsLong
 + "Raise"		Raise
 + "Lower"		Lower
 + "" Nop
++ "Shutdown"		Exec exec /sbin/shutdown -h now
++ "" Nop
 + "StaysOnTop"          Pick (CirculateHit) Layer 0 6
 + "StaysPut"            Pick (CirculateHit) Layer 0 4
 + "StaysOnBottom"       Pick (CirculateHit) Layer 0 2
