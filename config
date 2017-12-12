@@ -460,7 +460,16 @@ Silent Key F1 A C GotoDesk 0 0
 Silent Key F2 A C GotoDesk 0 1
 Silent Key F3 A C GotoDesk 0 2
 Silent Key F4 A C GotoDesk 0 3
-Silent Key Super_R A A Exec exec $[infostore.terminal]
+
+# keystroke name location /usr/include/X11/keysymdef.h
+# search `key name` in fvwm manpage
+Silent Key Right A C GotoPage +1p 0p
+Silent Key Left A C GotoPage -1p 0p
+Silent Key Up A C GotoPage 0p -1p
+Silent Key Down A C GotoPage 0p +1p
+
+Silent Key Super_L A S Exec exec $[infostore.terminal]
+Silent Key Super_L A C Exec exec xfce4-appfinder
 
 # Window Buttons: [1 3 5 7 9  TTTTT  0 8 6 4 2]
 #   1 - Open the WindowOps menu.
