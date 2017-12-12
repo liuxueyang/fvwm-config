@@ -463,10 +463,10 @@ Silent Key F4 A C GotoDesk 0 3
 
 # keystroke name location /usr/include/X11/keysymdef.h
 # search `key name` in fvwm manpage
-Silent Key Right A C GotoPage wrapx wrapy +1p 0p
-Silent Key Left A C GotoPage wrapx wrapy -1p 0p
-Silent Key Up A C GotoPage wrapx wrapy 0p -1p
-Silent Key Down A C GotoPage wrapx wrapy 0p +1p
+Silent Key Right A CM GotoPage wrapx wrapy +1p 0p
+Silent Key Left A CM GotoPage wrapx wrapy -1p 0p
+Silent Key Up A CM GotoPage wrapx wrapy 0p -1p
+Silent Key Down A CM GotoPage wrapx wrapy 0p +1p
 
 Silent Key Super_L A S Exec exec $[infostore.terminal]
 Silent Key Super_L A C Exec exec xfce4-appfinder
