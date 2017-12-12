@@ -421,7 +421,7 @@ AddToMenu   MenuFvwmManPages "Help" Title
 + "FvwmRearrange"       ViewManPage FvwmRearrange
 + "FvwmScript"          ViewManPage FvwmScript
 + "" Nop
-+ "fvwm-root"	        ViewManPage fvwm-root
++ "fvwm-root"		ViewManPage fvwm-root
 + "fvwm-menu-desktop"   ViewManPage fvwm-menu-desktop
 + "fvwm-menu-directory" ViewManPage fvwm-menu-directory
 + "fvwm-menu-headlines" ViewManPage fvwm-menu-headlines
@@ -463,10 +463,10 @@ Silent Key F4 A C GotoDesk 0 3
 
 # keystroke name location /usr/include/X11/keysymdef.h
 # search `key name` in fvwm manpage
-Silent Key Right A C GotoPage +1p 0p
-Silent Key Left A C GotoPage -1p 0p
-Silent Key Up A C GotoPage 0p -1p
-Silent Key Down A C GotoPage 0p +1p
+Silent Key Right A C GotoPage wrapx wrapy +1p 0p
+Silent Key Left A C GotoPage wrapx wrapy -1p 0p
+Silent Key Up A C GotoPage wrapx wrapy 0p -1p
+Silent Key Down A C GotoPage wrapx wrapy 0p +1p
 
 Silent Key Super_L A S Exec exec $[infostore.terminal]
 Silent Key Super_L A C Exec exec xfce4-appfinder
@@ -523,9 +523,9 @@ AddToDecor   FvwmDecor
 + AddButtonStyle 1 Active Vector 5 45x45@3 55x45@3 55x55@3 45x55@3 45x45@3
 + AddButtonStyle 2 Active Vector 4 35x35@3 65x65@3 65x35@4 35x65@3
 + AddButtonStyle 4 Active Vector 8 30x70@3 30x30@3 70x30@3 70x70@3 30x70@3 \
-        30x50@4 50x50@3 50x70@3
+	30x50@4 50x50@3 50x70@3
 + AddButtonStyle 4 ToggledActiveUp Vector 8 30x70@3 30x30@3 70x30@3 70x70@3 30x70@3 \
-        50x30@4 50x50@3 70x50@3
+	50x30@4 50x50@3 70x50@3
 + AddButtonStyle 6 Active Vector 5 35x60@3 65x60@3 65x50@3 35x50@3 35x60@3
 + ButtonStyle All - Clear
 + ButtonStyle 1 - MwmDecorMenu
