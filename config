@@ -63,6 +63,10 @@ AddToFunc   StartFunction
 + I Module FvwmButtons RightPanel
 + I Module FvwmEvent EventNewDesk
 
+DestroyFunc InitFuncion
+AddToFunc InitFunction
++ I Exec exec fcitx
+
 # Function: MoveClickX $0 $1 $2
 #
 # This function runs variable actions on different events
