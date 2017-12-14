@@ -472,6 +472,11 @@ Silent Key Left A CM GotoPage wrapx wrapy -1p 0p
 Silent Key Up A CM GotoPage wrapx wrapy 0p -1p
 Silent Key Down A CM GotoPage wrapx wrapy 0p +1p
 
+Silent Key Right A CMS MovetoPage wrapx wrapy +1p 0p
+Silent Key Left A CMS MovetoPage wrapx wrapy -1p 0p
+Silent Key Up A CMS MovetoPage wrapx wrapy 0p -1p
+Silent Key Down A CMS MovetoPage wrapx wrapy 0p +1p
+
 Silent Key Super_L A S Exec exec $[infostore.terminal]
 Silent Key Super_L A C Exec exec xfce4-appfinder
 
