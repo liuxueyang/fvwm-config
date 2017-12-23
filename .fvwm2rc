@@ -1,0 +1,395 @@
+#-----------------------------------------------------------------------------#
+#
+# Sample-95: .fvwm2rc example configuration file for a more or less Windows95
+#            look and feel
+#
+# The suggested way to install this configuration file is to (re)move
+# any .fvwm2rc file you have in ~/.fvwm or ~ and run fvwm without any
+# startup file.
+#
+# Then, run the "Setup 95 Script" from the root menu. This creates
+# and installs the following configuration files: .fvwm2rc, bindings,
+# decorations, functions, globalfeel, menus, modules, startup, styles,
+# iconstyles.
+# If perl is not installed on your machine (my god), only one file is
+# installed: .fvwm2rc (and this configuration should work). Some instructions
+# are given below for a first editing of this file. Maybe the first thing
+# to do in this case is to segment this file. For that, you can move the
+# parts of this file between the marks "#SEG foo" and "#SEG xyz" into a
+# file foo and add "Read foo" to this file (until the "#SEG END" mark).
+#
+# You do need the fvwm_icons distribution installed in the fvwm image path.
+# If they are installed in another directory use the ImagePath command
+# below or set this directory via the Setup95 Script.
+#
+# For the sound effects to work you need the fvwm_sounds distribution
+# installed and an .au player. The Setup95 Script allows you to set the
+# installation directory of this distribution as your sound player (if not,
+# manually edit the *FvwmEvent commands). Note that if you use auplay, the
+# rplayd daemon must be run.
+#
+# The Setup95 Script asks you to choose between two looks, one is close
+# to Windows and the other one is close to a "classical" fvwm look.
+# For switching from the windows look to the fvwm one by hand, comment the
+# x lines that follow the #WIN x lines and uncomment the x lines that
+# follow the #FVWM x lines.
+#
+# There is an option for machines with a "low X server (comment #FAST and
+# uncomment #SLOW). You may have to use some intermediate values (Base
+# Configuration can help and if you "rebuild Sample-95" .FvwmBaseConfig
+# may over write the effect of this option). See also the BackingStore and
+# SaveUnder style.
+#
+# I've tried to use very common apps (like Gimp or Netscape) so that this
+# configuration file is as universal as possible. For menus, the Setup 95
+# Script starts with a big menu.  Comment the menu entries that correspond
+# to applications not in your path. Moreover, the Setup95 Script asks you
+# to set your preferred terminal, editor and file manager (#PREF). However,
+# you surely need to edit the menu definitions and the BarButtons
+# configuration to get your preferred applications.
+#
+# I have a laptop so I have added one laptop option. If you answer yes
+# to the Setup95 question: "do you have a laptop?" you will have xapm
+# in your BarButtons. To get it by hand, just uncomment the line that
+# follows #LAPTOP.
+#
+# GNOME and KDE menus: fvwm has a perl script that can build GNOME and
+# KDE menus: fvwm-menu-desktop (man fvwm-menu-desktop for details). If GNOME
+# and/or KDE are installed in your machine, Setup95 will ask you which menus
+# you want to add to your Programs sub menus (G_SM_G/F means FvwmGtk/fvwm
+# gnome system menu, G_SM_G/F means FvwmGtk/fvwm gnome user menu, G_RHM_G/F
+# means gnome redhat menu, G_M_G means that we need to start FvwmGtk, K_SM
+# means kde system menu and K_UM means kde user menu. You may have to edit
+# the line G_*M_* to set your GNOME install directory (Setup95 try to
+# find it)). KDE (mini-)Icon Styles and KDE ImagePath (#K_M) are provided
+# if you select one of the KDE menus. For GNOME, (mini-)Icon Styles are
+# provided if you have the panel installed (#G_ST) and the image path is
+# set if you ask for FvwmGtk menus (#G_M_G).
+#
+# GNOME session: This configuration can be used under gnome-session. In
+# this case almost no modules are started (for a first installation).
+# However, you may use more modules: this depends on your gnome panel
+# configuration. If Setup95 builds a configuration to be used
+# under gnome-session, the lines which follow #G_SESSION will be uncommented.
+# The panel stays put option  (the line which follow #G_PANEL) try to put
+# the panel in the same layers as the other windows.
+# Note that it safe to "Build a config for gnome-session" for using with
+# a normal fvwm session.
+#
+# CDE: There is an elementary support for CDE (lines which follow #CDE).
+#
+# Note: for saving its state (the changes you do via settings-->* up to the
+# first separator) Sample-95 uses some files $FVWM_USERDIR/.start-* (see
+# section 5), $FVWM_USERDIR/.fvwm-layers (see section 6) and the usual fvwm
+# config files: .FvwmAnimate, .FvwmForm, ~/.xinitrc-fvwm, .FvwmBaseConfig
+#
+# There are many comments, but a good reading of the fvwm FAQ, of the man
+# pages of fvwm and its modules is recommended. Also, you can read the
+# sample-95 MINI-FAQ that you can find at the end of this file.
+#
+#
+#-----------------------------------------------------------------------------#
+#
+# Summary:
+#
+# 1.  Module and Image paths. (In this file)
+# 2.  Root cursor, Windows Decoration and Menus Style. (In decorations)
+# 3.  Set up the Major operating modes. (In globalfeel)
+# 4.  Miscellaneous Major operating mode. (In globalfeel)
+# 5.  Stuff to do at start-up and on restart. (In startup)
+# 6.  Set applications dependent styles. (In styles)
+# 7.  Set applications Mini Icons and Icons. (In iconstyles)
+# 8.  Define some complex functions. (In functions)
+# 9.  Mouse, frame buttons and keyboard bindings. (In bindings)
+# 10. Define the menus. (In menus)
+# 11. Definitions used by the modules. (In modules)
+# 12. MINI-FAQ. (In this file)
+#
+#-----------------------------------------------------------------------------#
+
+
+#-----------------------------------------------------------------------------#
+#
+# 1. Module and Image paths
+# These paths are colon-separated lists, just like regular unix PATH
+#
+#-----------------------------------------------------------------------------#
+
+# ModulePath is builtin, you may add some directories here
+#ModulePath $HOME/mymodules:+
+
+# The default image path is:
+#         /usr/include/X11/bitmaps:/usr/include/X11/pixmaps
+# if the fvwm_icons are not installed in one of these directories or if
+# you want to add a personal image path uncomment and edit the next line
+#ImagePath :add_dir_to_fvwm_image_path:+
+
+#K_M 1 for KDE Styles and menus
+#ImagePath +:$KDEDIR/share/icons:$KDEDIR/share/apps/kappfinder/pics/:
+#G_M_G 1 for FvwmGtk menus
+#ImagePath +:No/share/pixmaps:
+# Warning: you may have to replace /usr by gnomeinstallpath in the previous
+# line. gnomeinstallpath may be /usr/local, /opt/gnome, ...
+
+#-----------------------------------------------------------------------------#
+#
+# Start the Show
+#
+#-----------------------------------------------------------------------------#
+
+Read decorations
+
+Read globalfeel
+
+Read startup
+
+Read styles
+
+Read iconstyles
+
+Read functions
+
+Read bindings
+
+Read menus
+
+Read modules
+
+#-----------------------------------------------------------------------------#
+#
+# THAT'S ALL FOLKS!!
+#
+#-----------------------------------------------------------------------------#
+#
+#                         -- Sample-95 MINI-FAQ --
+#
+#
+# * Why doesn't this FAQ contain my question?
+# * What are the default bindings?
+# * Some (mini-)icons are missing in menus and in some buttons!
+# * Does Sample-95 support themes?
+# * Can I use Sample-95 with GNOME?
+# * How can I load saved settings before starting fvwm?
+# * Can I use WindowMaker and AfterStep applets with fvwm?
+# * Who wrote this configuration file?
+#
+# ----------------------------------------------------------------------------
+#
+# * Why doesn't this FAQ contain my question?
+#
+# Maybe because the answer is in the beginning of the configuration file
+# (i.e., this file!), in the fvwm FAQ or in the fvwm man pages.
+#
+#                  ----------------------------------------
+#
+# * What are the default bindings?
+#
+# Mouse bindings:
+# --------------
+#
+# Mouse 1 on the root window:	 main menu
+# Mouse 2 on the root window:	 window operations menu
+# Mouse 3 on the root window:	 Window List of all normal applications
+# Ctrl-Mouse 3 on the root window: Window List of all skipped applications
+#
+# Alt-Mouse x inside a window: as Mouse x on the root window
+# Shift-Alt-Mouse 3 inside a window: Raise or Lower
+
+# If you have built the config for gnome-session:
+# Shift-Mouse x on the root window gives the corresponding "GNOME button"
+
+# Mouse 1 on the title: Raise, Move for a drag, shade for a double click
+# Mouse 1 on the borders: Raise, Resize for a drag, shade for a double click
+# Mouse 1 on an icon: Move, Raise on one click, deiconify for a double
+# Alt-Mouse 1 on an icon; Raise all the icons
+# Ctrl-Mouse 1 on the borders: As mouse 1 on the title
+# Mouse 2 on the title or the borders: window operations menu
+# Mouse 2 on an icon: deiconify
+# Mouse 3 on the title/borders: Raise or Lower
+# Mouse 3 on an icon: The "modules/icons" window operations menu
+#
+# Window Buttons:
+# --------------
+#
+# - Left button:
+# Mouse 1: Window operation menu, double click: close
+# Mouse 2: Group operations menu
+# Mouse 3: Quick Move window menu
+# - Close button (right button)
+# Mouse 1: Close
+# Mouse 2: Close all the windows with the same class
+# Mouse 3: Destroy
+# - Maximize button (2nd right button)
+# Mouse 1: Full Maximize
+# Mouse 2: Maximize Horizontally
+# Mouse 3: Maximize Vertically
+# - Iconify button (3rd right button)
+# Mouse 1: Iconify
+# Mouse 2: Iconify all the windows with the same class
+# Mouse 3: Shade all the windows with the same class
+#
+# Key bindings (anywhere):
+# ------------
+#
+# Shift-Left/Right/Up/Down: scroll Left/Right/Up/Down by 1 page
+# Alt-Left/Right/Up/Down: scroll Left/Right/Up/Down by 1/10 page
+#
+# Shift-Ctrl-Left/Right/Up/Down: move the pointer by 1O% of a page
+# Alt-Ctrl-Left/Right/Up/Down: move the pointer by 1% of a page
+#
+# Alt-Ctrl-PageUp/PageDown: scroll by one desktop page
+#
+# Shift-Alt-F1: Main menu
+# Shift-Alt-F2: Window operations menu
+# Shift-Alt-F3: WindowList
+# Shift-Alt-F4: Close
+# Shift-Alt-F5: RaiseLower
+# Shift-Alt-F6: Raise all Icons
+# Shift-Alt-F7: Move
+# Shift-Alt-F8: Resize
+# Shift-Alt-F9: Iconify
+# Shift-Alt-F10: Maximize
+# Shift-Alt-F11: Identify
+# Shift-Alt-F12: Console
+#
+# Alt-Tab released at once: previous (normal) window
+# Alt-Tab: WindowList of all normal windows and warp to the selected window
+#	   when released
+#
+# Ctrl-Alt-Tab: WindowList of all skipped windows
+#
+# Stroke bindings:
+# ---------------
+#
+# You need to have fvwm compiled with stroke support (these bindings
+# are defined only in this case) and libstroke installed.
+# Mouse button 3 is used (this button must be pressed during the stroke),
+# no modifiers are needed when you start your mouse motion on the root
+# window and you must use the Alt modifier if you start your mouse motion
+# on a window (you cannot start your motion on a window title bar or frame).
+# The mouses motion:
+#
+# A | from the top to the bottom: your preferred terminal
+# A | from the bottom to the top: your prefered editor
+# A / from the bottom to the top: your prefered file manager
+# A C from the top: xcalc
+# A N (from the bottom): netscape
+# A clockwise box from the top left: FvwmForm-QuitVerify
+#
+# Add more yourself!
+#
+#                  ----------------------------------------
+#
+# * Some (mini-)icons are missing in menus and in buttons!
+#
+# If you have no mini(-icons) then either your ImagePath does not contain
+# the directory of the fvwm_icons or you are using a RedHat/Mandrake/... rpm
+# version of fvwm-icons which uses mini- in the place of mini. for
+# mini-icons name. If only some mini(-icons) are missing, then you are using
+# a too old version of fvwm_icons.
+#
+#                  ----------------------------------------
+#
+# * Does Sample-95 support themes?
+#
+# No. But, it is possible to hack the configuration to have an "elementary"
+# themes engine. The basic idea is to use FvwmTheme to propagate the colors
+# and to replace "Read decorations" by "Read theme" in .fvwm2rc where theme
+# is a symbolic link to a theme. A theme will be a file which look like
+# decorations plus the FvwmTheme configuration commands. Other technical
+# functions are needed as a function for switching between themes. This is
+# left to your own pleasure! Doing elaborated fvwm configurations is one of
+# the better games under UNIX.
+#
+# If you want a powerful themes engine do not use Sample-95, it is not the
+# aim of this configuration. There are a powerful themes engine which is
+# under fast development: fvwm-themes (http://fvwm-themes.sourceforge.net/).
+#
+#
+#                  ----------------------------------------
+#
+# * Can I use Sample-95 with GNOME?
+#
+# Yes. You "need" fvwm compiled with GNOME support and it is preferable to
+# run fvwm under gnome-session. Also, do not forget that you have to set
+# FVWM_USERDIR, so start the gnome-session as
+#	env FVWM_USERDIR="your FVWM_USERDIR" gnome-session
+# Of course, it is preferable to set the "build a file for gnome-session"
+# option of the Setup95 script. You may use the option "Try a Stays Put panel"
+# to put the panel in the same layer than the normal windows, but you may
+# have to leave GNOME/fvwm and start again X to avoid problems.
+# Note that under session, Sample-95 does not load your "X settings" by
+# default (GNOME has its own method). Moreover, read the next question for
+# using a different setting when you use GNOME (you may also use the
+# Session(Init/Restart)Function functionality, see the startup file).
+# One thing that you can add to your configuration file is:
+#	GnomeShowDesk x
+# where x is the number of desks you want to see in the GNOME pager at
+# start (if not the GNOME pager is dynamic).
+# Also, for leaving GNOME you must use GNOME or you must "QuitSession" for
+# just exiting or "Exec exec save-session --kill" for saving and exiting.
+#
+#                  ----------------------------------------
+#
+# * How can I load saved settings before starting fvwm?
+#
+# Say, you want to use setting 1 under a normal fvwm session, setting 2
+# under a gnome-session and setting 3 under a normal fvwm session but the
+# shell test FOO is true. Then, your .xinitrc/.xsession file can look
+# as follows (where $1 is the "first" argument given by startx, or by kdm or
+# gdm ...).
+#
+# ...
+# case $1 in
+#   fvwm)
+#	F="your FVWM_USERDIR"
+#	if FOO; Then $X="3"; else $X=1; fi;
+#	for i in $F/.FvwmAnimate $F/.FvwmForm $F/.fvwm-layers \
+#	~/.xinitrc-fvwm $F/.FvwmBaseConfig \ $F/.start-Background \
+#	$F/.start-apps-man $F/.start-FvwmButtons $F/.start-DeskerPanelButtons \
+#	$F/.start-MiniButtons $F/.start-WinMakerAppButtons \
+#	$F/.start-FvwmAnimate $F/.start-FvwmAuto $F/.start-FvwmBanner \
+#	$F/.start-FvwmEvent; \
+#	 	do /bin/cp $i-$X $i;
+#	done;
+#	fvwm
+#   ;;
+#   gnome)
+#	F="your FVWM_USERDIR"
+#	for i in $F/.FvwmAnimate $F/.FvwmForm $F/.fvwm-layers \
+#	~/.xinitrc-fvwm $F/.FvwmBaseConfig \ $F/.start-Background \
+#	$F/.start-apps-man $F/.start-FvwmButtons $F/.start-DeskerPanelButtons \
+#	$F/.start-MiniButtons $F/.start-WinMakerAppButtons \
+#	$F/.start-FvwmAnimate $F/.start-FvwmAuto $F/.start-FvwmBanner \
+#	$F/.start-FvwmEvent; \
+#		do /bin/cp $i-2 $i;
+#	done;
+#	env FVWM_USERDIR="your FVWM_USERDIR" gnome-session
+#    ;;
+#    ... other cases ...
+# esac
+#
+#               ----------------------------------------
+#
+# * Can I use WindowMaker and AfterStep applets with fvwm?
+#
+# Yes most WM and AS applets are fvwm compliant. Moreover, sample-95 provides
+# a FvwmButtons for you called WinMakerAppButtons. Of course, you have to
+# edit the configuration of this buttons to put your preferred applets. Note
+# that you have an applets panel under the 3 first applets. These panels are
+# special: Mouse 1 (on the background of the applet) start the panel (or only
+# map it if it is already started) if it is not out. If the panel is out,
+# Mouse 1 unmaps it (but the panel applets are alive). The special thing is
+# that Mouse 3 *kills* the panel: this can save your cpu.
+#
+#                  ----------------------------------------
+#
+# * Who wrote this configuration file?
+#
+# The starting point is "the" fvwm95 configuration file. Then, Dominik
+# did some work on it and in particular so that it worked fine with
+# fvwm-2.3.x.  Later, olicha spent a lot of time with it, wrote the Setup95
+# Script and rewrote all the "Settings" stuff. Some ideas came from
+# fvwm-themes (thanks to the fvww-themes workers, and in particular migo).
+# Probably, some others fvwm-workers have added improvement but did not take
+# the time to update this answer.

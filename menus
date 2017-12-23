@@ -1,0 +1,1121 @@
+#-----------------------------------------------------------------------------#
+#
+# 10. Now define the menus
+#
+#-----------------------------------------------------------------------------#
+
+#------------------------------------------------------------------------------
+#--------- Taskbar's start menu
+#------------------------------------------------------------------------------
+
+DestroyMenu StartMenu
+AddToMenu   StartMenu@side.fvwm2.xpm@^black^
++ "&Shells%shells.xpm%"		Popup Shells
++ "&Programs%programs.xpm%"	Popup Programs
++ "&Documents%documents.xpm%"	Popup Documents
++ "&Settings%settings.xpm%"	Popup Settings
++ "" Nop
+Test (f /etc/X11/fvwm/DebianMenu) + "&Debian Menu%programs.xpm%" Popup /Debian
++ "&Module%modules.xpm%"		Popup Module-Popup
++ "&Find%find1.xpm%"		FvwmScript FvwmScript-Find
++ "&Help%help.xpm%"		Exec exec  xman
+#PREF 1
++ "&Run...%run.xpm%"		Exec exec  xterm
++ "" Nop
++ "&Screen Saver%screen.xpm%"	Popup Screen
++ "Shut &Down%shutdown.xpm%"	Module FvwmScript FvwmScript-Quit
+
+#------------------------------------------------------------------------------
+# Root Menu: This menu will fire up some very common utilities
+#------------------------------------------------------------------------------
+
+DestroyMenu Utilities
+AddToMenu   Utilities "Root Menu" Title
+#PREF 3
++ "&Terminal%mini.term.xpm%"		Exec exec xterm
++ "&Editor%mini.edit.xpm%"		Exec exec emacs
++ "&File Manager%mini.filemgr.xpm%"	Exec exec xterm -g 80x35 -e mc
++ "&Top%mini.run.xpm%"			Exec exec xterm -geometry 80x40	-T Top -n Top -e top
++ ""					Nop
++ "&Shells%mini.term.xpm%"		Popup Shells
++ "&Programs%mini.start.xpm%"		Popup Programs
++ ""					Nop
++ "Fvwm &Modules%mini.modules.xpm%"	Popup Module-Popup
++ "&Settings%mini.desktop.xpm%"		Popup Settings
++ "&Documents%mini.books.xpm%"		Popup Documents
++ "&Screen Saver%mini.display.xpm%"	Popup Screen
++ ""					Nop
++ "&Restart%mini.turn.xpm%"		Popup Restart
++ "&Quit fvwm%mini.stop.xpm%"		FvwmForm FvwmForm-QuitVerify
+
+DestroyFunc SetDebianMenu
+AddToFunc   SetDebianMenu
++ I Read /etc/X11/fvwm/DebianMenu
++ I DestroyMenu Utilities
++ I AddToMenu   Utilities "Root Menu" Title
+#PREF 3
+#+ I + "&Terminal%mini.term.xpm%"	Exec exec x-terminal-emulator
++ I + "&Editor%mini.edit.xpm"		Exec exec emacs
++ I + "&File Manager%mini.filemgr.xpm%"	Exec exec xterm -g 80x35 -e mc
++ I + "&Top%mini.run.xpm%"		Exec exec xterm -geometry 80x40	-T Top -n Top -e top
++ I + ""				Nop
++ I + "&Shells%mini.term.xpm"		Popup /Debian/XShells
++ I + "&Programs%mini.start.xpm%"	Popup /Debian/Apps
++ I + ""				Nop
++ I + "&Fvwm Modules%mini.modules.xpm%"	Popup Module-Popup
++ I + "&Settings%mini.desktop.xpm%"	Popup Settings
++ I + "&Documents%mini.books.xpm%"	Popup Documents
++ I + "&Help%mini.book1.xpm%"		Popup /Debian/Help
++ I + "&Screen Saver%mini.display.xpm%"	Popup /Debian/Screen
++ I + ""				Nop
++ I + "&Window Managers%mini.x2.xpm%"	Popup /Debian/WindowManagers
++ I + "&Restart%mini.turn.xpm%"		Restart
++ I + "&Quit fvwm%mini.stop.xpm%"	FvwmForm FvwmForm-QuitVerify
+
+Test (f /etc/X11/fvwm/DebianMenu) SetDebianMenu
+
+#------------------------------------------------------------------------------
+#--------- SHELLS
+#------------------------------------------------------------------------------
+DestroyMenu Shells
+AddToMenu   Shells
++ "&Xterm	default%mini.term.xpm%" Exec exec xterm
++ "Xterm/&root	default%mini.term.xpm%" Exec exec xterm -fg violet -bg black -e su -l
+#+ "&NXterm	default%mini.term.xpm%" Exec exec nxterm
++ "&Rxvt	default%mini.term.xpm%" Exec exec rxvt
+#+ "&Eterm	default%mini.term.xpm%" Exec exec Eterm
+#+ "X&iterm	default%mini.term.xpm%" Exec exec xiterm
+#+ "&Aterm	default%mini.term.xpm%" Exec exec aterm
+#+ "&GNOME Term	default%mini.term.xpm%" Exec exec gnome-terminal
++ "&Konsole	default%mini.term.xpm%" Exec exec konsole
+#+ "&Kvt 	default%mini.term.xpm%" Exec exec kvt
+#+ "&Dtterm	default%mini.term.xpm%" Exec exec /usr/bin/dtterm
++ ""                                                Nop
++ "&Xterm	80x40 (7x14 font)%mini.term.xpm%" Exec exec xterm  -n $USER@$HOST -T $USER@$HOST -g 80x40 -sb +sk +si -sl 4096 -j -ls -fn 7x14 -fb 7x14bold
++ "Xterm/r&oot	80x40 (7x14 font)%mini.term.xpm%" Exec exec xterm  -n root@$HOST  -T root@$HOST  -g 80x40 -sb +sk +si -sl 4096 -j -ls -fn 7x14 -fb 7x14bold -fg violet -bg black -e su -l
+#+ "&NXterm	80x40 (7x14 font)%mini.term.xpm%" Exec exec nxterm -n $USER@$HOST -T $USER@$HOST -g 80x40 -sb +sk +si -sl 4096 -j -ls -fn 7x14 -fb 7x14bold
++ "&Rxvt 	80x40 (7x14 font)%mini.term.xpm%" Exec exec rxvt   -n $USER@$HOST -T $USER@$HOST -g 80x40 --loginShell -fn 7x14 -fb 7x14bold
+#+ "&Eterm	80x40 (7x14 font)%mini.term.xpm%" Exec exec Eterm  -n $USER@$HOST -T $USER@$HOST -g 80x40 --login-shell --font 7x14 --bold-font 7x14bold
+#+ "X&iterm 	80x40 (7x14 font)%mini.term.xpm%" Exec exec xiterm -n $USER@$HOST -T $USER@$HOST -g 80x40 -sb +sk +si -sl 4096 -ls -fn 7x14 -fb 7x14bold
+#+ "&Aterm	80x40 (7x14 font)%mini.term.xpm%" Exec exec aterm  -n $USER@$HOST -T $USER@$HOST -g 80x40 -sb +sk +si -sl 4096 -ls -fn 7x14 -fb 7x14bold
+#+ "&GNOME Term	80x40 (7x14 font)%mini.term.xpm%" Exec exec gnome-terminal --title=$USER@$HOST --geometry=80x40 --login --font=7x14
+#+ "&Kvt 	80x40 (7x14 font)%mini.term.xpm%" Exec exec kvt    -n $USER@$HOST -T $USER@$HOST -vt_geometry 80x40 -sl 4096 -ls -vt_font 7x14
++ "&Konsole	80x40%mini.term.xpm%"             Exec exec konsole -nowelcome -sl 4096 -ls -vt_sz 80x40
+#+ "&Dtterm	80x40 (7x14 font)%mini.term.xpm%" Exec exec /usr/dt/bin/dtterm -n $USER@$HOST -T $USER@$HOST -sl 4096 -ls -g 80x40 -fn 7x14 -fb 7x14bold
++ ""						Nop
++ "Remote &login	...%mini.connect.xpm%"		FvwmForm FvwmForm-Rlogin
+
+#------------------------------------------------------------------------------
+#--------- Programs
+#------------------------------------------------------------------------------
+
+DestroyMenu Programs
+AddToMenu   Programs
+#G_SM_G 2
+# AddToMenu Programs "&GNOME Menu%mini.gnome.xpm%"	SendToModule FvwmGtk gnome-sys
+#+ ""	Nop
+#G_SM_F 2
+#AddToMenu Programs  "&GNOME Menu%mini.gnome.xpm%"	Popup gnome-sys
+#+ ""	Nop
+#G_UM_G 2
+#AddToMenu Programs "GNOME &User%mini.gnome.xpm%"	SendToModule FvwmGtk gnome-user
+#+ ""	Nop
+#G_UM_F 2
+#AddToMenu Programs  "GNOME &User%mini.gnome.xpm%"	Popup gnome-user
+#+ ""	Nop
+#G_RHM_G 2
+#AddToMenu Programs "GNOME &RedHat%mini.gnome.xpm%"	SendToModule FvwmGtk gnome-redhat
+#+ ""	Nop
+#G_RHM_F 2
+#AddToMenu Programs  "GNOME &RedHat%mini.gnome.xpm%"	Popup gnome-redhat
+#+ ""	Nop
+#K_SM 2
+#AddToMenu Programs "&KDE Menu%mini.kde.xpm"		Popup kde-sys
+#+ ""	Nop
+#K_UM 2
+#AddToMenu Programs "KDE &User%mini.kde.xpm"		Popup kde-user
+#+ ""	Nop
+#CDE 2
+#AddToMenu Programs "&CDE Menu%mini.folder.xpm"		Popup cde-menu
+#+ "" Nop
+AddToMenu Programs
++ "&Accessories%mini.hammer.xpm%"		Popup Accessories
++ "&Applications%mini.pencil.xpm%"		Popup Applications
++ "&Science%mini.question.xpm%"			Popup Science
++ "&System%mini.filemgr.xpm%"			Popup System
++ "&Editors%mini.edit.xpm%"			Popup Editors
++ "&Network%mini.telnet.xpm%"			Popup Network
++ "&Internet%mini.connect.xpm%"			Popup Internet
++ "&Graphics%mini.paint.xpm%"			Popup Graphics
++ "&Multimedia%mini.cd.xpm%"			Popup Multimedia
++ "&Games%mini.happy.xpm%"			Popup Games
+
+#------------------------------------------------------------------------------
+#--------- KDE, CDE & GNOME "fvwm" menus
+
+# For more informtion man fvwm-menu-desktop
+
+#K_SM 1
+#PipeRead 'fvwm-menu-desktop --desktop kde-sys --enable-mini-icons --enable-style'
+#K_UM 1
+#PipeRead 'fvwm-menu-desktop --desktop kde-user --enable-mini-icons'
+#G_SM_F 1
+#PipeRead 'fvwm-menu-desktop --desktop gnome-sys --type fvwm --install-prefix No --enable-mini-icons --mini-icons-path '' --icon-toptitle :no::: --icon-title :no::: --icon-folder mini.folder.xpm:ow::: --icon-app mini.gnome.xpm:ow:::'
+#G_UM_F 1
+#PipeRead 'fvwm-menu-desktop --desktop gnome-user --type fvwm --enable-mini-icons --mini-icons-path '' --icon-toptitle :no::: --icon-title :no::: --icon-folder mini.folder.xpm:ow::: --icon-app mini.doc.xpm:ow:::'
+#G_RHM_F 1
+#PipeRead 'fvwm-menu-desktop --desktop gnome-redhat --type fvwm --enable-mini-icons --mini-icons-path '' --icon-toptitle :no::: --icon-title :no::: --icon-folder mini.folder.xpm:ow::: --icon-app mini.ball2.xpm:ow:::'
+
+#CDE 17
+#DestroyMenu cde-menu
+#AddToMenu   cde-menu
+#+ "&Applications Manager%mini.programs.xpm%" Exec exec /usr/dt/bin/dtaction Dtappmgr
+#+ "&Terminal%mini.term.xpm%"            Exec exec /usr/dt/bin/dtterm
+#+ "&File Manager%mini.filemgr.xpm%"     Exec exec /usr/dt/bin/dtfile
+#+ "&Trash Can%mini.paper.xpm%" Exec exec /usr/dt/bin/dtaction Dttrash
+#+ "Text &Editor%mini.edit.xpm%"         Exec exec /usr/dt/bin/dtpad
+#+ "Desktop &Help%mini.book1.xpm%"       Exec exec /usr/dt/bin/dthelpview -helpVolume browser
+#+ "Man Pages%mini.book1.xpm%"           Exec exec /usr/dt/bin/dthelpview -man
+#+ "&Mailer%mini.mail.xpm%"              Exec exec /usr/dt/bin/dtmail
+#+ "&Calandar%mini.calandar.xpm%"         Exec exec /usr/dt/bin/dtcm
+#+ "&Calculator%mini.calc.xpm%"          Exec exec /usr/dt/bin/dtcalc
+#+ "&Icon Editor%mini.palette.xpm%"      Exec exec /usr/dt/bin/dticon
+#+ "&Print Manager%mini.fax.xpm%"	Exec exec /usr/dt/bin/dtprintinfo
+#+ "&Styles Manager%mini.hammer.xpm%"    Exec exec /usr/dt/bin/dtstyle
+#+ "" Nop
+#+ "&Exit CDE%mini.stop.xpm%"		Exec exec /usr/dt/bin/dtaction ExitSession
+
+#------------------------------------------------------------------------------
+#--------- Accessories
+
+DestroyMenu Accessories
+AddToMenu   Accessories
++  "&Calculator%mini.calc.xpm%"		Exec exec xcalc
++ "&Magnifying glass%mini.zoom.xpm%" 	Exec exec xmag
++ "&Font viewer%mini.font.xpm%"		Exec exec xfontsel
+#+ "&Xdaliclock%mini.clock.xpm%" 	Exec exec xdaliclock
++ "X&clock%mini.clock.xpm%" 		Exec exec xclock
++ "&Rclock%mini.clock.xpm%" 		Exec exec rclock
+#+ "x&apm%mini.connect.xpm%" 		Exec exec xapm
++ "&View colormap%mini.colors.xpm%"	Exec exec xcolormap
+#+ "&Color viewer%mini.colors.xpm%"	Exec exec xcolorsel
++ "&Capture Form%mini.camera.xpm%"	FvwmForm FvwmForm-Capture
++ "&Screen Dump Script%mini.camera.xpm%" FvwmScript FvwmScript-ScreenDump
+#+ "X&grab%mini.camera.xpm%"		Exec exec xgrab
++ "&Ddd%mini.bug2.xpm%"		        Exec exec ddd
+#+ "Xx&gdb%mini.bug2.xpm%"		Exec exec xxgdb
++ "&Xclipboard%mini.clipboard.xpm%"	Exec exec xclipboard
+
+#------------------------------------------------------------------------------
+#--------- Applications
+
+DestroyMenu Applications
+AddToMenu   Applications
+#+ "&Lyx%mini.edit.xpm%"				Exec exec lyx
+#+ "&Thot%mini.edit.xpm%"			Exec exec thot
+#+ "&Ghostview (Postscript)%mini.gv.xpm%"	Exec exec ghostview
++ "&GV (Postscript)%mini.gv.xpm%"		Exec exec gv
++ "X&dvi%mini.zoom.xpm%"			Exec exec xdvi
+#+ "&Acroread (PDF)%mini.pdf.xpm%"		Exec exec acroread
++ "&Xpdf (PDF)%mini.pdf.xpm%"			Exec exec xpdf
+#+ "&Plan%mini.doc1.xpm%"			Exec exec plan
+
+#------------------------------------------------------------------------------
+#--------- Science
+
+DestroyMenu Science
+AddToMenu   Science
+#+ "Thx-1138%mini.calc.xpm%"	Exec exec thx-1138
++  "GNU &plot%mini.graph.xpm%"	Exec exec xterm -T GNUplot -name GNUplot -e gnuplot
+#+ "&SCILAB%mini.zoom.xpm%"		Exec exec scilab
+#+ "&Maple%mini.graph2.xpm%"		Exec exec xmaple
+#+ "&Mathematica%mini.graph2.xpm%"	Exec exec mathematica
++ "&Xaos%mini.fractal.xpm%"		Exec exec xaos
++ "&Fractint%mini.fractal.xpm%"		Exec exec xterm -font 7x14 -e xfractint
+#+ "X&ephem%mini.exp.xpm%"   		Exec exec xephem
+#+ "X&tide%mini.exp.xpm%" 		Exec exec xtide
+
+#------------------------------------------------------------------------------
+#--------- System
+
+DestroyMenu System
+AddToMenu   System
++ "&Running processes%mini.run.xpm%"    Exec exec xterm -g 80x40 -e top
+#+ "&TK processes%mini.hex.xpm%"		Exec exec tkps
++ "&System load%mini.perf.xpm%"		Exec exec xload
+#+ "&Xosview%mini.run.xpm%"		Exec exec xosview
+#+ "&Memory usage%mini.perf.xpm%"	Exec exec xmem
+#+ "&XSysStats%mini.run.xpm%"		Exec exec XSysStats
++ "&xconsole%mini.term.xpm%"            Exec exec xconsole
++ "Set &Date Script%mini.clock.xpm%"	FvwmScript FvwmScript-Date
++ "" Nop
++ "&Midnight-Commander%mini.filemgr.xpm%" Exec exec xterm -g 80x40 -n Midnight-Commander -T Midnight-Commander -e mc -x
+#+ "X&fm%mini.filemgr.xpm%"		Exec exec xfm
+#+ "File &Runer%mini.filemgr.xpm%"	Exec exec fr
++ "&kfm%mini.filemgr.xpm%"		Exec exec kfmclient openURL $HOME
+#+ "&gmc%mini.filemgr.xpm%"		Exec exec gmc
+
+#------------------------------------------------------------------------------
+#--------- Editors
+
+DestroyMenu Editors
+AddToMenu   Editors
++ "&Emacs%mini.edit.xpm%"		Exec exec emacs
+#+ "&XEmacs%mini.edit.xpm%"		Exec exec xemacs
++ "&Gvim%mini.edit.xpm%"		Exec exec gvim
+#+ "&Nedit%mini.edit.xpm%"		Exec exec nedit
++ "&Xedit%mini.edit.xpm%" 		Exec exec xedit
+
+#------------------------------------------------------------------------------
+#--------- Network
+
+DestroyMenu Network
+AddToMenu   Network
++ "&Rlogin%mini.connect.xpm%"		Module FvwmForm FvwmForm-Rlogin
+#+ "&Vppp%mini.connect.xpm%"		Exec exec vppp
+#+ "&Ezppp%mini.connect.xpm%"		Exec exec ezppp
+#+ "&Hifs%mini.eyes.xpm%"		Exec exec xterm -ls -bg #c0c0c0 -fg black -T Hifs -name Hifs -geometry 26x24 -e hifs
+
+#------------------------------------------------------------------------------
+#--------- Internet
+
+DestroyMenu Internet
+AddToMenu   Internet
++ "&Mozilla%mini.nscape.xpm%"	Exec exec mozilla
+#+ "&Netscape%mini.nscape.xpm%"	Exec exec netscape
+#+ "&Amaya%mini.nscape.xpm%"	Exec exec amaya
++ "&Lynx%mini.cat.xpm%"	 Exec exec xterm -g 80x30 -n lynx -T lynx -e lynx
++ ""	Nop
+#+ "Xfmail%mini.mail.xpm%" Exec exec xfmail
++ "&Xmh%mini.mail.xpm%"  Exec exec xmh
++ "&Mail%mini.mail.xpm%" Exec exec xterm -g 80x30 -n Mail -T Mail -e mail
++ "&Pine%mini.mail.xpm%" Exec exec xterm -g 80x30 -n Pine -T Pine -e pine
++ "&Mutt%mini.mail.xpm%" Exec exec xterm -g 80x30 -n Mutt -T Mutt -e mutt
++ "&Elm%mini.mail.xpm%"	Exec exec xterm -g 80x30 -n Elm -T Elm -e elm
++ ""	Nop
++ "Nc&FTP%mini.ftp.xpm%" Exec exec xterm -g 80x30 -n NcFtp -T FTP -e ncftp
+#+ "&Xftp%mini.ftp.xpm%"		Exec exec xftp
+#+ "X-&Chat%mini.doc1.xpm%"	Exec exec xchat
+#+ "Irc%mini.doc1.xpm%"		Exec exec xterm -g 80x30 -n Irc -T Trc -e irc
+#+ "Tkirc%mini.doc1.xpm%"	Exec exec tkirc
+#+ "Lirc%mini.doc1.xpm%"		Exec exec licq
+#+ "&Zircon%mini.zircon.xpm%"	Exec exec zircon
+#+ "X&Gopher%mini.gopher.xpm%"	Exec exec xgopher
+#+ "Minitel%mini.xterm.xpm%" 	Exec exec xtel -petit
+
+#------------------------------------------------------------------------------
+#--------- Graphics
+
+DestroyMenu Graphics
+AddToMenu   Graphics
++ "The &Gimp%mini.gimp.xpm%"		Exec exec gimp
++ "&XPaint%mini.palette.xpm%"	  	Exec exec xpaint
++ "X&fig%mini.xfig.xpm%"		Exec exec xfig
+#+ "X&Fpovray%mini.ray.xpm%"	  	Exec exec xfpovray
++ "" Nop
++ "&XV%mini.xv.xpm%"		  	Exec exec xv
+#+ "Xbm&Browser%mini.directory.xpm%" 	Exec exec xbmbrowser
+#+ "&EE%mini.palette.xpm%"		Exec exec ee
+
+#------------------------------------------------------------------------------
+#--------- Multimedia
+
+DestroyMenu Multimedia
+AddToMenu   Multimedia
+#+ "&CD player%mini.cdlabel.xpm%"	Exec exec xplaycd
+#+ "X&mixer%mini.audiovol.xpm%"		Exec exec xmixer
+#+ "X&ltwav%mini.sound.xpm%"		Exec exec xltwavplay
+#+ "FreeAmp%mini.sound.xpm%"       	Exec exec freeamp
+#+ "MiXViews%mini.sound.xpm%" 		Exec exec mxv
+
+#------------------------------------------------------------------------------
+#--------- Games and amusements
+
+DestroyMenu Games
+AddToMenu   Games
++ "&Maze%mini.maze.xpm%"		Exec exec maze
++ "&Spider%mini.espada.xpm%"		Exec exec spider
++ "&Chess%mini.slon.xpm%"		Exec exec xboard
+#+ "&XGammon%mini.go.xpm%"		Exec exec xgammon
++ "X&lander%mini.xlander.xpm%"		Exec exec xlander
+#+ "X&mahjongg%mini.xmahjongg.xpm%" 	Exec exec xmahjongg
+#+ "X&Sokoban%mini.go.xpm%"		Exec exec xsokoban
+#+ "X&jewel%mini.xjewel.xpm%"		Exec exec xjewel
+#+ "&Hextris%mini.hextris.xpm%"		Exec exec hextris
+#+ "&Maelstrom%mini.destroy.xpm%"	Exec exec Maelstrom
+#+ "Koules%mini.happy.xpm%" 		Exec exec xkoules
+#+ "Quake%mini.destroy.xpm%" 	Exec cd /usr/local/games/quake/ ; exec ./stquake
+#+ "Quake2%mini.destroy.xpm%" 	Exec cd /usr/local/games/quake2/ ; exec ./quake2 +set vid_ref softx
++ ""                                    Nop
++ "&Amusements%mini.happy.xpm%"		Popup Amusements
+
+DestroyMenu Amusements
+AddToMenu Amusements
++ "&Eyes%mini.eyes.xpm%"		Exec exec xeyes
++ "&X logo%mini.bx2.xpm%"		Exec exec xlogo
++ "X&roach%mini.roach.xpm%"		Exec exec xroach
++ "X&snow%mini.xsnow.xpm%"		Exec exec xsnow
++ "&Stop Xsnow%mini.xsnow.xpm%"		Exec exec killall xsnow
+#+ "&Desktop cat%mini.cat.xpm%"		Exec exec xcat
+
+#------------------------------------------------------------------------------
+#--------- Modules
+#------------------------------------------------------------------------------
+
+
+DestroyMenu Module-Popup
+AddToMenu   Module-Popup
++ "&Autoraise%mini.raise.xpm%"		RestartModule FvwmAuto 500
++ "A&nimate%mini.iconify.xpm%"          RestartModule FvwmAnimate
++ "&Backer%mini.rainbow.xpm%"           RestartModule FvwmBacker
++ "B&anner%mini.ray.xpm%"		RestartModule FvwmBanner
++ "B&uttons Bar%mini.pencil.xpm%"	RestartModuleByAlias FvwmButtons BarButtons BarButtons
++ "&Mini button bar%mini.pencil.xpm%"	RestartModuleByAlias FvwmButtons MiniButtons MiniButtons
++ "&WMaker buttons%mini.pencil.xpm%"	RestartModuleByAlias FvwmButtons WinMakerAppButtons WinMakerApp*
++ "&Console%mini.xterm.xpm%"		Module FvwmConsole -sb
++ "&Debug%mini.bug2.xpm%"		RestartModule FvwmDebug
++ "&IconBox%mini.icons.xpm%"		RestartModule FvwmIconBox
++ "I&conMan%mini.run.xpm%"		RestartModule FvwmIconMan
++ "Identif&y%mini.question.xpm%"	RestartModule FvwmIdent
++ "Desker &Panel%mini.pager.xpm%"	RestartModuleByAlias FvwmButtons DeskerPanelButtons DeskerPanelButtons
++ "Sound &effect%mini.sound.xpm%"	RestartModule FvwmEvent
++ "&Talk to Fvwm%mini.telnet.xpm%"	FvwmForm FvwmForm-Talk
++ "Task&Bar%mini.exp.xpm%"		RestartModule FvwmTaskBar
++ "Window &List%mini.windows.xpm%"	RestartModule FvwmWinList
++ "&Wharf%mini.pencil.xpm%"		RestartModule FvwmWharf
++ "" Nop
++ "&Kill Modules%mini.bomb.xpm%"    Popup Kill-Module-Popup
+
+DestroyMenu Kill-Module-Popup
+AddToMenu   Kill-Module-Popup
++ "&Autoraise%mini.raise.xpm%"		KillModule FvwmAuto
++ "A&nimate%mini.iconify.xpm%"          KillModule FvwmAnimate
++ "&Backer%mini.rainbow.xpm%"           KillModule FvwmBacker
++ "B&anner%mini.ray.xpm%"	        KillModule FvwmBanner
++ "B&utton bar%mini.pencil.xpm%"	All (BarButtons) Close
++ "&Mini button bar%mini.pencil.xpm%"	All (MiniButtons) Close
++ "&WMaker buttons%mini.pencil.xpm%"	All (WinMakerApp*) Close
++ "&Console%mini.xterm.xpm%"		KillModule FvwmConsole
++ "&Debug%mini.bug2.xpm%"	        KillModule FvwmDebug
++ "&IconBox%mini.icons.xpm%"		KillModule FvwmIconBox
++ "I&conMan%mini.run.xpm%"		KillModule FvwmIconMan
++ "Identif&y%mini.question.xpm%"	KillModule FvwmIdent
++ "Desker &Panel%mini.pager.xpm%"	All (DeskerPanelButtons) Close
++ "Sound &effect%mini.sound.xpm%"	KillModule FvwmEvent
++ "&Talk%mini.telnet.xpm%"	        All (FvwmForm-Talk) Close
++ "Task&Bar%mini.exp.xpm%"	        KillModule FvwmTaskBar
++ "Window &List%mini.windows.xpm%"	KillModule FvwmWinList
++ "&Wharf%mini.pencil.xpm%"		KillModule FvwmWharf
+
+#------------------------------------------------------------------------------
+#--------- Settings
+#------------------------------------------------------------------------------
+
+
+DestroyMenu Settings
+AddToMenu   Settings
++ "&Configuration%mini.fvwm.xpm%"		Popup FvwmConfig
++ "&Animation%mini.iconify.xpm%"		Popup Animate-Settings
++ "Applications &Managers%mini.windows.xpm%"	Popup AppsManager
++ "Auto&Raise%mini.raise.xpm%"			Popup AutoRaise-Settings
++ "Back&ground%mini.display.xpm%"		Popup Background-Settings
++ "&Banner%mini.ray.xpm%"			Popup Banner-Settings
++ "B&uttons Bar%mini.pencil.xpm%"		Popup Buttons-Settings
++ "&Mini Buttons%mini.pencil.xpm%"		Popup MiniButtons-Settings
++ "Desker &Panel%mini.pager.xpm%"		Popup DeskerPanel-settings
++ "S&ounds Effect%mini.audiovol.xpm%"		Popup Sound-Settings
++ "&WMaker Applets%mini.pencil.xpm%"		Popup WinMakerApp-Settings
++ "Set &Layers%mini.windows.xpm%"		Popup Layers-Settings
++ "&X Setup Scripts%mini.x.xpm%"		Popup XsetupScripts
++ "&Show/Load/Save Settings%mini.turn.xpm%"	Popup Load-Settings
++ "" Nop
++ "&Edit .fvwm2rc%mini.edit.xpm%"		Popup Edit-Config
++ "Reload .fvwm2rc%mini.turn.xpm%"		Popup Reload-Config
++  "Temporary Change:"			Title
++ "&Focus/Paging%mini.zoom.xpm%"		Popup Focus-Settings
++ "&Mouse Speed%mini.cat.xpm%"			Popup Mouse-Settings
++ "&Keyboard%mini.keyboard.xpm%"		Popup Keyboard-Settings
++ "&Bell%mini.audiovol.xpm%"			Popup Bell-Settings
++ "&Screen%mini.monitor.xpm%"			Popup X-settings
+
+#------------------------------------------------------------------------------
+#--------- Fvwm Config
+
+DestroyMenu FvwmConfig
+AddToMenu   FvwmConfig
++ "&Base Configuration%mini.fvwm.xpm%"		FvwmScript FvwmScript-BaseConfig
++ "&Form Configuration%mini.fvwm.xpm%"		FvwmForm FvwmForm-Form
++ ""		Nop
++ "&Rebuild Sample 95%mini.fvwm.xpm%"		FvwmScript FvwmScript-Setup95
++ "&Load Default Sample%mini.fvwm.xpm%"		FvwmForm FvwmForm-Setup
+
+
+#------------------------------------------------------------------------------
+#--------- Apps Manager
+
+DestroyMenu AppsManager
+AddToMenu   AppsManager
++ "TaskBar &Desk%mini.exp.xpm%"		ChangeAppsMan TaskBarDesk
++ "TaskBar &Global%mini.exp.xpm%"	ChangeAppsMan TaskBarGlobal
++ "TaskBar &Desk (Auto Hide)%mini.exp.xpm%"   ChangeAppsMan TaskBarDeskAutoHide
++ "TaskBar &Global (Auto Hide)%mini.exp.xpm%" ChangeAppsMan TaskBarGlobalAutoHide
++ "" Nop
++ "IconBox &Desk%mini.icons.xpm%"	ChangeAppsMan IconBoxDesk
++ "IconBox &Global%mini.icons.xpm%"	ChangeAppsMan IconBoxGlobal
++ "" Nop
++ "IconMan &Page%mini.run.xpm%"		ChangeAppsMan IconManPage
++ "IconMan &Desk%mini.run.xpm%"		ChangeAppsMan IconManDesk
++ "IconMan &Global%mini.run.xpm%"	ChangeAppsMan IconManGlobal
++ "" Nop
++ "WinList &Desk%mini.windows.xpm%"	ChangeAppsMan WinListDesk
++ "WinList &Global%mini.windows.xpm%"	ChangeAppsMan WinListGlobal
++ "" Nop
++ "Use &Icons%mini.icons.xpm%"		UseIcons
++ "" Nop
++ "&None%mini.windows.xpm%"	AppsManNone
+
+#------------------------------------------------------------------------------
+#--------- Animate  settings
+
+DestroyMenu Animate-Settings
+AddToMenu   Animate-settings
++ "&Animation on%mini.iconify.xpm%"	ModuleOn FvwmAnimate
++ "Animation &off%mini.cross.xpm%"	ModuleOff FvwmAnimate
++ "Animate &Menu%mini.iconify.xpm%"	Popup MenuFvwmAnimate
+
+#------------------------------------------------------------------------------
+#--------- AutoRaise settings
+
+DestroyMenu AutoRaise-Settings
+AddToMenu   AutoRaise-Settings
++ "Raise &Slow%mini.raise.xpm%"		ModuleOn 'FvwmAuto' '1000'
++ "Raise &Default%mini.raise.xpm%"	ModuleOn 'FvwmAuto' '500'
++ "Raise &Fast%mini.raise.xpm%"		ModuleOn 'FvwmAuto' '250'
++ "Speedy &Gonzales%mini.raise.xpm%"	ModuleOn 'FvwmAuto' '50'
++ "Raise &Modules Only%mini.modules.xpm%" StartModulesAutoRaise
++ "AutoRaise &off%mini.cross.xpm%"	ModuleOff FvwmAuto
+
+#------------------------------------------------------------------------------
+#--------- Background  settings
+
+DestroyMenu Background-Settings
+AddToMenu   Background-Settings
++ "&FvwmBacker%mini.rainbow.xpm%"		SetBackground FvwmBacker
++ "&Disable Background%mini.cross.xpm%"		SetBackgroundOff
++ "Some &Solid Colors%mini.colors.xpm%"		Popup Back-Solid
++ "Some &Gradientd%mini.colors.xpm%"		Popup Back-Gradient
++ "&Personal%mini.colors.xpm%"			Popup Back-Personal
+PipeRead '[ ! -d /usr/share/pixmaps/backgrounds ] || echo + \\"\\&Site Background%mini.colors.xpm%\\" Popup Back-Site'
+PipeRead '[ ! -n "$KDEDIR" ] || echo + \\"\\&KDE Background%mini.colors.xpm%\\" Popup Back-KDE'
+PipeRead '[ ! -d /usr/local/share/WindowMaker/Backgrounds ] || echo + \\"\\&WM Background%mini.colors.xpm%\\" Popup Back-Local-WM'
+PipeRead '[ ! -d /usr/share/WindowMaker/Backgrounds ] || echo + \\"\\&WM Background%mini.colors.xpm%\\" Popup Back-WM'
+PipeRead '[ ! -d /usr/share/afterstep/backgrounds ] || echo + \\"\\&AS Background%mini.colors.xpm%\\" Popup Back-AS'
+PipeRead '[ ! -d /usr/local/share/afterstep/backgrounds ] || echo + \\"\\&AS Background%mini.colors.xpm%\\" Popup Back-Local-AS'
+
+DestroyFunc SetBackFromDirectory
+AddToFunc SetBackFromDirectory
++ I DestroyMenu recreate $0
++ I PipeRead 'for i in `/bin/ls $1`; \
+      do echo AddToMenu $0 "`basename $i`" SetBackground \\"$2 $i\\"; done'
+
+DestroyFunc SetBackFromDirectories
+AddToFunc SetBackFromDirectories
++ I DestroyMenu recreate $0
++ I PipeRead 'for j in `/bin/ls -d $1`; do echo AddToMenu $0 "`basename $j`:" Title; for i in `/bin/ls $j/*`; do echo AddToMenu $0 "`basename $i`" SetBackground \\"$2 $i\\"; done; done'
+
+
+# Replace $FVWM_USERDIR/images/backgrounds/ by your backgrounds directory
+# and uncomment the next line
+AddToMenu Back-Personal DynamicPopupAction SetBackFromDirectory 'Back-Personal' '$FVWM_USERDIR/images/backgrounds/*' 'Exec exec xv -root -quit'
+
+AddToMenu Back-Site DynamicPopupAction SetBackFromDirectories 'Back-Site' '/usr/share/pixmaps/backgrounds/*' 'Exec exec xv -root -quit'
+
+AddToMenu Back-KDE DynamicPopupAction SetBackFromDirectory 'Back-KDE' '$KDEDIR/share/wallpapers/*' 'Exec exec xv -root -quit'
+
+AddToMenu Back-WM DynamicPopupAction SetBackFromDirectory 'Back-WM' '/usr/share/WindowMaker/Backgrounds/*' 'Exec exec xv -root -quit'
+
+AddToMenu Back-Local-WM DynamicPopupAction SetBackFromDirectory 'Back-Local-WM' '/usr/local/share/WindowMaker/Backgrounds/*' 'Exec exec xv -root -quit'
+
+AddToMenu Back-AS DynamicPopupAction SetBackFromDirectory 'Back-AS' '/usr/share/afterstep/backgrounds/*' 'Exec exec xv -root -quit'
+
+AddToMenu Back-Local-AS DynamicPopupAction SetBackFromDirectory 'Back-Local-AS' '/usr/local/share/afterstep/backgrounds/*' 'Exec exec xv -root -quit'
+
+DestroyMenu Back-Solid
+AddToMenu   Back-Solid
++ "&Red 1%mini.rball.xpm%"     SetBackground 'Exec exec xsetroot -solid Red1'
++ "Red &2%mini.rball.xpm%"     SetBackground 'Exec exec xsetroot -solid Red2'
++ "Red &3%mini.rball.xpm%"     SetBackground 'Exec exec xsetroot -solid Red3'
++ "Red &4%mini.rball.xpm%"     SetBackground 'Exec exec xsetroot -solid Red4'
++ "&Yellow 1%mini.rball.xpm%"  SetBackground 'Exec exec xsetroot -solid Yellow1'
++ "Yellow &2%mini.rball.xpm%"  SetBackground 'Exec exec xsetroot -solid Yellow2'
++ "Yellow &3%mini.rball.xpm%"  SetBackground 'Exec exec xsetroot -solid Yellow3'
++ "Yellow &4%mini.rball.xpm%"  SetBackground 'Exec exec xsetroot -solid Yellow4'
++ "&Orange 1%mini.rball.xpm%"  SetBackground 'Exec exec xsetroot -solid Orange1'
++ "Orange &2%mini.rball.xpm%"  SetBackground 'Exec exec xsetroot -solid Orange2'
++ "Orange &3%mini.rball.xpm%"  SetBackground 'Exec exec xsetroot -solid Orange3'
++ "Orange &4%mini.rball.xpm%"  SetBackground 'Exec exec xsetroot -solid Orange4'
++ "&Green 1%mini.rball.xpm%"   SetBackground 'Exec exec xsetroot -solid Green1'
++ "Green &2%mini.rball.xpm%"   SetBackground 'Exec exec xsetroot -solid Green2'
++ "Green &3%mini.rball.xpm%"   SetBackground 'Exec exec xsetroot -solid Green3'
++ "Green &4%mini.rball.xpm%"   SetBackground 'Exec exec xsetroot -solid Green4'
++ "&Cyan 1%mini.rball.xpm%"    SetBackground 'Exec exec xsetroot -solid Cyan1'
++ "Cyan &2%mini.rball.xpm%"    SetBackground 'Exec exec xsetroot -solid Cyan2'
++ "Cyan &3%mini.rball.xpm%"    SetBackground 'Exec exec xsetroot -solid Cyan3'
++ "Cyan &4%mini.rball.xpm%"    SetBackground 'Exec exec xsetroot -solid Cyan4'
++ "&Blue 1%mini.rball.xpm%"    SetBackground 'Exec exec xsetroot -solid Blue1'
++ "Blue &2%mini.rball.xpm%"    SetBackground 'Exec exec xsetroot -solid Blue2'
++ "Blue &3%mini.rball.xpm%"    SetBackground 'Exec exec xsetroot -solid Blue3'
++ "Blue &4%mini.rball.xpm%"    SetBackground 'Exec exec xsetroot -solid Blue4'
++ "&Magenta 1%mini.rball.xpm%" SetBackground 'Exec exec xsetroot -solid Magenta1'
++ "Magenta &2%mini.rball.xpm%" SetBackground 'Exec exec xsetroot -solid Magenta2'
++ "Magenta &3%mini.rball.xpm%" SetBackground 'Exec exec xsetroot -solid Magenta3'
++ "Magenta &4%mini.rball.xpm%" SetBackground 'Exec exec xsetroot -solid Magenta4'
++ "&Snow1%mini.rball.xpm%"    SetBackground 'Exec exec xsetroot -solid snow1'
++ "Snow &2%mini.rball.xpm%"    SetBackground 'Exec exec xsetroot -solid snow2'
++ "Snow &3%mini.rball.xpm%"    SetBackground 'Exec exec xsetroot -solid snow3'
++ "Snow &4%mini.rball.xpm%"    SetBackground 'Exec exec xsetroot -solid snow4'
++ "&Black%mini.rball.xpm%"    SetBackground 'Exec exec xsetroot -solid Black'
+
+DestroyMenu Back-Gradient
+AddToMenu   Back-Gradient
++ "&Red decay%mini.bball.xpm%" SetBackground 'Exec exec bggen red1 red4  | xv -root -quit  -'
++ "&Yellow Orange decay%mini.bball.xpm%" SetBackground 'Exec exec bggen Yellow1 Orange4  | xv -root -quit  -'
++ "&Green decay%mini.bball.xpm%" SetBackground 'Exec exec bggen green1 DarkGreen  | xv -root -quit  -'
++ "&Blue decay%mini.bball.xpm%" SetBackground 'Exec exec bggen 100 100 255  0 0 100  | xv -root -quit  -'
++ "&Magenta decayy%mini.bball.xpm%" SetBackground 'Exec exec bggen blue magenta | xv -root -quit -'
++ "&Blue to Red%mini.bball.xpm%" SetBackground 'Exec exec bggen blue red | xv -root -quit -'
++ "Blue to &Cyan%mini.bball.xpm%" SetBackground 'Exec exec bggen blue4 Cyan1 | xv -root -quit -'
++ "&Cyan to Blue%mini.bball.xpm%" SetBackground 'Exec exec bggen Cyan Blue4 | xv -root -quit -'
++ "&Black/pink/black%mini.bball.xpm%" SetBackground 'Exec exec bggen black pink black | xv -root -quit -'
++ "Black/&red/black%mini.bball.xpm%" SetBackground 'Exec exec bggen black red black | xv -root -quit -'
++ "&Sun Raise 1%mini.bball.xpm%" SetBackground 'Exec exec bggen black orange black pink| xv -root -quit -'
++ "Sun Raise &2%mini.bball.xpm%" SetBackground 'Exec exec bggen black orange black Blue4| xv -root -quit -'
++ "Sun Raise &3%mini.bball.xpm%" SetBackground 'Exec exec bggen black red black grey60| xv -root -quit -'
++ "&Rainbowy%mini.bball.xpm%" SetBackground 'Exec exec bggen red green blue | xv -root -quit -'
++ "&Full Rainbowy%mini.bball.xpm%" SetBackground 'Exec exec bggen black red yellow green blue purple black | xv -root -quit -'
++ "&White to Black%mini.bball.xpm%" SetBackground 'Exec exec bggen white black | xv -root -quit -'
++ "&Black to White%mini.bball.xpm%" SetBackground 'Exec exec bggen white black | xv -root -quit -'
+
+#------------------------------------------------------------------------------
+#--------- Banner  settings
+
+DestroyMenu Banner-Settings
+AddToMenu   Banner-Settings
++ "&Banner on%mini.ray.xpm%"	ModuleOn FvwmBanner
++ "Banner &off%mini.cross.xpm%"	ModuleOff FvwmBanner
+
+#------------------------------------------------------------------------------
+#--------- Buttons  settings
+
+DestroyMenu Buttons-Settings
+AddToMenu   Buttons-Settings
++ "&Buttons Bar%mini.pencil.xpm%" ChangeButtonsOn 'FvwmButtons BarButtons'
++ "&Wharf%mini.pencil.xpm%"	 ChangeButtonsOn  FvwmWharf
++ "&None%mini.cross.xpm%"	 ChangeButtonsOff
+
+
+#------------------------------------------------------------------------------
+#--------- MiniButtons  settings
+
+DestroyMenu MiniButtons-Settings
+AddToMenu   MiniButtons-Settings
++ "&Mini Buttons on%mini.pencil.xpm%"	ButtonsOn FvwmButtons MiniButtons MiniButtons
++ "Mini Buttons &off%mini.cross.xpm%"	ButtonsOff MiniButtons MiniButtons
+
+#------------------------------------------------------------------------------
+#---------   DeskerPanel settings
+
+DestroyMenu DeskerPanel-Settings
+AddToMenu   DeskerPanel-Settings
++ "&Desker Panel on%mini.pencil.xpm%"	ButtonsOn FvwmButtons DeskerPanelButtons DeskerPanelButtons
++ "Desker Panel &off%mini.cross.xpm%"	ButtonsOff DeskerPanelButtons DeskerPanelButtons
+
+#------------------------------------------------------------------------------
+#---------   WMaker Applets settings
+
+DestroyMenu WinMakerApp-Settings
+AddToMenu   WinMakerApp-Settings
++ "&WMaker Applets on%mini.pencil.xpm%"	ButtonsOn FvwmButtons WinMakerAppButtons WinMakerApp*
++ "WMaker Applets &off%mini.cross.xpm%"	ButtonsOff WinMakerAppButtons WinMakerApp*
+
+
+#------------------------------------------------------------------------------
+#--------- Sound  settings
+
+DestroyMenu Sound-Settings
+AddToMenu   Sound-Settings
++ "&Sound Effect on%mini.audiovol.xpm%"	ModuleOn FvwmEvent
++ "Sound Effect &off%mini.cross.xpm%"	ModuleOff FvwmEvent
+#+ "Sound &card%mini.sound.xpm%"		Exec exec xmixer
+
+#------------------------------------------------------------------------------
+#--------- Layers Settings
+
+DestroyMenu Layers-Settings
+AddToMenu   Layers-Settings
++ "%mini.raise2.xpm%StaysOn&Top"    Pick (CirculateHit) SetLayers StaysOnTop
++ "%mini.window.xpm%Stays&Put"      Pick (CirculateHit) DestroyLayers
++ "%mini.lower2.xpm%StaysOn&Bottom" Pick (CirculateHit) SetLayers StaysOnBottom
+
+#------------------------------------------------------------------------------
+#--------- X setup Script
+
+DestroyMenu XsetupScripts
+AddToMenu   XsetupScripts
++ "&Bell%mini.audiovol.xpm%"		FvwmScript FvwmScript-BellSetup
++ "&KeyBoard%mini.keyboard.xpm%"	FvwmScript FvwmScript-KeyboardSetup
++ "&Screen%mini.monitor.xpm%"		FvwmScript FvwmScript-ScreenSetup
++ "&Mouse%mini.mouse.xpm%"		FvwmScript FvwmScript-PointerSetup
+
+#------------------------------------------------------------------------------
+#--------- Edit config
+
+#PREF 12
+DestroyMenu Edit-Config
+AddToMenu   Edit-Config
++ "Edit .fvwm2rc%mini.edit.xpm%" Exec exec emacs $FVWM_USERDIR/.fvwm2rc
++ "Edit decorations%mini.edit.xpm%" Exec exec emacs $FVWM_USERDIR/decorations
++ "Edit globalfeel%mini.edit.xpm%" Exec exec emacs $FVWM_USERDIR/globalfeel
++ "Edit startup%mini.edit.xpm%" Exec exec emacs $FVWM_USERDIR/startup
++ "Edit styles%mini.edit.xpm%" Exec exec emacs $FVWM_USERDIR/styles
++ "Edit iconstyles%mini.edit.xpm%" Exec exec emacs $FVWM_USERDIR/iconstyles
++ "Edit functions%mini.edit.xpm%" Exec exec emacs $FVWM_USERDIR/functions
++ "Edit bindings%mini.edit.xpm%" Exec exec emacs $FVWM_USERDIR/bindings
++ "Edit menus%mini.edit.xpm%" Exec exec emacs $FVWM_USERDIR/menus
++ "Edit modules%mini.edit.xpm%"	Exec exec emacs $FVWM_USERDIR/modules
+
+#------------------------------------------------------------------------------
+#--------- Reload config
+
+DestroyMenu Reload-Config
+AddToMenu   Reload-Config
++ "Reload decorations%mini.turn.xpm%"	Read decorations
++ "Reload globalfeel%mini.turn.xpm%"	Read globalfeel
++ "Reload styles%mini.turn.xpm%"	Read styles
++ "Reload iconstyles && menus%mini.turn.xpm%"	ReloadIconStylesAndMenus
++ "Reload functions%mini.turn.xpm%"	Read functions
++ "Reload bindings%mini.turn.xpm%"	Read bindings
++ "Reload modules%mini.turn.xpm%"	Read modules
+
+#------------------------------------------------------------------------------
+#--------- Load / Save As settings
+
+DestroyMenu Load-Settings
+AddToMenu   Load-Settings
++ "Show &Fvwm Settings%mini.fvwm.xpm%"		ShowFvwmSettings
++ "Show Layers Settings%mini.window.xpm%"	ShowLayers
++ "Show &X Settings%mini.x2.xpm%"		ShowXSettings
++ "" Nop
++ "&Load Setting 1%mini.turn.xpm%"	LoadSettings 1
++ "Load Setting &2%mini.turn.xpm%"	LoadSettings 2
++ "Load Setting &3%mini.turn.xpm%"	LoadSettings 3
++ "Load Setting &4%mini.turn.xpm%"	LoadSettings 4
++ "Save Current As:" Title
++ "&Setting 1%mini.diskette.xpm%"	SaveAsSettings 1
++ "Setting &2%mini.diskette.xpm%"	SaveAsSettings 2
++ "Setting &3%mini.diskette.xpm%"	SaveAsSettings 3
++ "Setting &4%mini.diskette.xpm%"	SaveAsSettings 4
+
+#------------------------------------------------------------------------------
+#--------- Focus/Paging  settings
+
+DestroyMenu Focus-Settings
+AddToMenu   Focus-Settings
++ "&Sloppy Focus%mini.mouse.xpm%"		Style * SloppyFocus
++ "&Click To Focus%mini.mouse.xpm%"		Style * ClickToFocus
++ "&Focus Follows Mouse%mini.mouse.xpm%"	Style * FocusFollowsMouse
++ "" Nop
++ "&Colormap Follows Mouse%mini.colors.xpm%" ColormapFocus FollowsMouse
++ "&Colormap Follows Focus%mini.colors.xpm%" ColormapFocus FollowsFocus
++ "" Nop
++ "&Full Paging ON%mini.maximize2.xpm%"		EdgeScroll 100 100
++ "&All Paging OFF%mini.cross.xpm%"		EdgeScroll 0 0
++ "&Horizontal Paging Only%mini.maximize-horiz.xpm%"	EdgeScroll 100 0
++ "&Vertical Paging Only%mini.maximize-vert.xpm%"	EdgeScroll 0 100
++ "&Partial Paging%mini.maximize2.xpm%"			EdgeScroll 50 50
++ "&Full Paging && Edge Wrap%mini.maximize2.xpm%" EdgeScroll 100000 100000
+
+
+#------------------------------------------------------------------------------
+#--------- Mouse settings
+
+DestroyMenu Mouse-Settings
+AddToMenu   Mouse-Settings
++ "Mouse &Slow%mini.mouse.xpm%"			Exec	xset m 1 1
++ "Mouse &Default%mini.mouse.xpm%"		Exec	xset m default
++ "Mouse &Fast%mini.cat.xpm%"			Exec	xset m 4 2
++ "Speedy &Gonzales%mini.cat.xpm%"		Exec	xset m 10 2
+
+#------------------------------------------------------------------------------
+#--------- Keyboard settings
+
+DestroyMenu Keyboard-Settings
+AddToMenu   Keyboard-Settings
++ "&Auto-repeat on%mini.keyboard.xpm%"	Exec	xset r on
++ "Auto-repeat &off%mini.keyboard.xpm%"	Exec	xset r off
+
+#------------------------------------------------------------------------------
+#--------- Sound  settings
+
+DestroyMenu Bell-Settings
+AddToMenu   Bell-Settings
++ "&Bell on%mini.sound.xpm%"		Exec xset b on
++ "Bell &off%mini.cross.xpm%"		Exec xset b off
+#+ "Sound &card%mini.sound.xpm%"	Exec exec xmixer
+
+#------------------------------------------------------------------------------
+#--------- X & screen settings
+
+DestroyMenu X-Settings
+AddToMenu   X-Settings
++ "Back &Color%mini.colors.xpm%"         Popup Backcolor
++ "Back &Animation%mini.fractal.xpm%"   Popup Background-Animation
++ "&Root Cursor Form%mini.xarchie.xpm%"	FvwmForm FvwmForm-RootCursor
++ "&Video tuning%mini.monitor.xpm%"	Exec exec xterm -T Xvidtune -e xvidtune
+#+ "&X configuration%mini.display.xpm%"	Exec exec xterm -T Xconfig -e Xconfigurator
+
+#--------- Background color
+
+DestroyMenu Backcolor
+AddToMenu   Backcolor
++ "&Black%mini.bball.xpm%"		Exec exec xsetroot -solid Black
++ "&Red%mini.bball.xpm%"		Exec exec xsetroot -solid Red
++ "&Yellow%mini.bball.xpm%"		Exec exec xsetroot -solid Yellow
++ "&Green%mini.bball.xpm%"		Exec exec xsetroot -solid Green
++ "&Cyan%mini.bball.xpm%"		Exec exec xsetroot -solid Cyan4
++ "&Blue%mini.bball.xpm%"		Exec exec xsetroot -solid Blue
++ "&Magenta%mini.bball.xpm%"		Exec exec xsetroot -solid Magenta
++ "&White%mini.bball.xpm%"		Exec exec xsetroot -solid White
++ "&Blue decay%mini.bball.xpm%"		Exec exec bggen 100 100 255  0 0 100  | xv -root -quit  -
++ "&Rainbow%mini.bball.xpm%" Exec exec bggen red green blue | xv -root -quit -
++ "&Full Rainbow%mini.bball.xpm%" Exec exec bggen black red yellow green blue purple black | xv -root -quit -
++ "&Magenta decay%mini.bball.xpm%" Exec exec bggen blue magenta | xv -root -quit -
+
+#--------- Background animation
+
+DestroyMenu "Background-Animation"
+AddToMenu "Background-Animation"
++ "&Braid%mini.rball.xpm%"	Exec exec xlock -nice 10 -inroot -mode braid
++ "&Flame%mini.rball.xpm%"	Exec exec xlock -nice 10 -inroot -mode flame
++ "&Grav%mini.rball.xpm%"	Exec exec xlock -nice 10 -inroot -mode grav
++ "&Pyro%mini.rball.xpm%"	Exec exec xlock -nice 10 -inroot -mode pyro
++ "&Qix%mini.rball.xpm%"	Exec exec xlock -nice 10 -inroot -mode qix
++ "&Rock%mini.rball.xpm%"	Exec exec xlock -nice 10 -inroot -mode rock
++ "&Slip%mini.rball.xpm%"	Exec exec xlock -nice 10 -inroot -mode spiral
++ "&Spline%mini.rball.xpm%"	Exec exec xlock -nice 10 -inroot -mode spline
++ "&Swarm%mini.rball.xpm%"	Exec exec xlock -nice 10 -inroot -mode swarm
++ "&Worm%mini.rball.xpm%"	Exec exec xlock -nice 10 -inroot -mode worm
++ "&Random%mini.rball.xpm%"	Exec exec xlock -nice 10 -inroot -mode random
+  # Stop the animation in the background
++ "&Stop It%mini.cross.xpm%"	\
+	Exec kill -9 $(ps aux | grep xlock | grep -v grep | awk '{print $2}')
+
+#------------------------------------------------------------------------------
+#--------- Documents
+#------------------------------------------------------------------------------
+
+DestroyMenu Documents
+AddToMenu   Documents
++ "&Xman%mini.book1.xpm%"	   Exec exec xman
++ "&Fvwm Home Page%mini.fvwm.xpm%" Exec exec mozilla http://www.fvwm.org/
++ "&Fvwm Themes Home Page%mini.icons.xpm%" Exec exec mozilla http://fvwm-themes.sourceforge.net/
++ "&Sample 95 MINI-FAQ%mini.book1.xpm%"	Exec exec xterm -bg white -fg black -g 80x35 -n "Sample-95 MINI-FAQ" -T "Sample-95 MINI-FAQ" -e less +?"-- Sample-95 MINI-FAQ --" $FVWM_USERDIR/.fvwm2rc
++ "Fvwm &Man Pages%mini.book1.xpm%"	Popup FvwmManPage
++ ""  Nop
++ "&Browser%mini.folder.xpm%"		Menu MenuBrowser
++ "Browser (&cached)%mini.folder.xpm%"	Menu MenuBrowserCached
+AddToMenu Documents MissingSubmenuFunction FuncFvwmMenuDirectory
++ "&Root dir%mini.folder.xpm%" Popup /
++ "&Home dir%mini.folder.xpm%" Popup ~
+
+DestroyMenu MenuBrowser
+#PREF 1
+AddToMenu   MenuBrowser DynamicPopupAction Piperead 'fvwm-menu-directory --reuse --name MenuBrowser --dir $HOME --special-dirs --exec-file ^"emacs" --xterm=" xterm -e" --icon-dir=mini.folder.xpm --icon-title=mini.term.xpm --icon-file=mini.file.xpm --icon-app=mini.hex.xpm --check-subdir'
+
+DestroyMenu MenuBrowserCached
+#PREF 1
+AddToMenu   MenuBrowserCached DynamicPopupAction Piperead 'fvwm-menu-directory --all --reuse --name MenuBrowserCached --dir $HOME --special-dirs --exec-file ^"emacs" --xterm=" xterm -e" --icon-dir=mini.folder.xpm --icon-title=mini.term.xpm --icon-file=mini.file.xpm --icon-app=mini.hex.xpm --check-subdir'
+
+DestroyFunc FuncFvwmMenuDirectory
+#PREF 1
+AddToFunc FuncFvwmMenuDirectory I PipeRead 'fvwm-menu-directory --dir "$0" --exec-file ^"emacs" --xterm=" xterm -e" --icon-dir=mini.folder.xpm --icon-title=mini.term.xpm --icon-file=mini.file.xpm --icon-app=mini.hex.xpm --check-subdir'
+
+#------------- FvwmManPage
+
+DestroyFunc ViewManPage
+AddToFunc   ViewManPage
++ I Exec exec xterm -g 80x40 -e man $0
+
+DestroyMenu FvwmManPage
+AddToMenu   FvwmManPage "Fvwm Man Pages" Title
++ "%mini.book1.xpm%fvwm"                ViewManPage fvwm
++ "%mini.book1.xpm%FvwmAnimate"         ViewManPage FvwmAnimate
++ "%mini.book1.xpm%FvwmAuto"            ViewManPage FvwmAuto
++ "%mini.book1.xpm%FvwmBacker"          ViewManPage FvwmBacker
++ "%mini.book1.xpm%FvwmBanner"          ViewManPage FvwmBanner
++ "%mini.book1.xpm%FvwmButtons"         ViewManPage FvwmButtons
++ "%mini.book1.xpm%FvwmCommand"         ViewManPage FvwmCommand
++ "%mini.book1.xpm%FvwmConsole"         ViewManPage FvwmConsole
++ "%mini.book1.xpm%FvwmConsoleC.pl"     ViewManPage FvwmConsoleC.pl
++ "%mini.book1.xpm%FvwmCpp"             ViewManPage FvwmCpp
++ "%mini.book1.xpm%FvwmDebug"           ViewManPage FvwmDebug
++ "%mini.book1.xpm%FvwmDragWell"        ViewManPage FvwmDragWell
++ "%mini.book1.xpm%FvwmEvent"           ViewManPage FvwmEvent
++ "%mini.book1.xpm%FvwmForm"            ViewManPage FvwmForm
++ "%mini.book1.xpm%FvwmGtk"             ViewManPage FvwmGtk
++ "%mini.book1.xpm%FvwmGtkDebug"        ViewManPage FvwmGtkDebug
++ "%mini.book1.xpm%FvwmIconBox"         ViewManPage FvwmIconBox
++ "%mini.book1.xpm%FvwmIconMan"         ViewManPage FvwmIconMan
++ "%mini.book1.xpm%FvwmIdent"           ViewManPage FvwmIdent
++ "%mini.book1.xpm%FvwmM4"              ViewManPage FvwmM4
++ "%mini.book1.xpm%FvwmPager"           ViewManPage FvwmPager
++ "%mini.book1.xpm%FvwmPerl"            ViewManPage FvwmPerl
++ "%mini.book1.xpm%FvwmProxy"           ViewManPage FvwmProxy
++ "%mini.book1.xpm%FvwmRearrange"       ViewManPage FvwmRearrange
++ "%mini.book1.xpm%FvwmSave"            ViewManPage FvwmSave
++ "%mini.book1.xpm%FvwmSaveDesk"        ViewManPage FvwmSaveDesk
++ "%mini.book1.xpm%FvwmScript"          ViewManPage FvwmScript
++ "%mini.book1.xpm%FvwmScroll"          ViewManPage FvwmScroll
++ "%mini.book1.xpm%FvwmTaskBar"         ViewManPage FvwmTaskBar
++ "%mini.book1.xpm%FvwmTheme"           ViewManPage FvwmTheme
++ "%mini.book1.xpm%FvwmWharf"           ViewManPage FvwmWharf
++ "%mini.book1.xpm%FvwmWinList"         ViewManPage FvwmWinList
++ "%mini.book1.xpm%FvwmWindowMenu"      ViewManPage FvwmWindowMenu
++ "" Nop
++ "%mini.book1.xpm%fvwm-config"         ViewManPage fvwm-config
++ "%mini.book1.xpm%fvwm-perllib"        ViewManPage fvwm-perllib
++ "%mini.book1.xpm%fvwm-root"           ViewManPage fvwm-root
++ "%mini.book1.xpm%fvwm-bug"            ViewManPage fvwm-bug
++ "%mini.book1.xpm%fvwm-convert-2.2"    ViewManPage fvwm-convert-2.2
++ "%mini.book1.xpm%fvwm-convert-2.4"    ViewManPage fvwm-convert-2.4
++ "%mini.book1.xpm%fvwm-convert-2.6"    ViewManPage fvwm-convert-2.6
++ "" Nop
++ "%mini.book1.xpm%fvwm-menu-desktop"   ViewManPage fvwm-menu-desktop
++ "%mini.book1.xpm%fvwm-menu-directory" ViewManPage fvwm-menu-directory
++ "%mini.book1.xpm%fvwm-menu-headlines" ViewManPage fvwm-menu-headlines
++ "%mini.book1.xpm%fvwm-menu-xlock"     ViewManPage fvwm-menu-xlock
+
+#------------------------------------------------------------------------------
+#--------- ScreenSaver
+#------------------------------------------------------------------------------
+
+DestroyMenu Screen
+AddToMenu   Screen
++ "&Screensaver%mini.display.xpm%" Exec exec xlock -nolock -nice 19 -mode random
++ "Screen&lock%mini.lock.xpm%"	Exec exec xlock -nice 19 -mode random
++ "" Nop
++ "&Screensaver%mini.display.xpm%"  Popup MenuSSaver
++ "Sc&reen&lock%mini.lock.xpm%"     Popup MenuSLock
++ "" Nop
++ "(Re)start &XscreenSaver%mini.display.xpm%" Exec xscreensaver-command -exit ; exec xscreensaver -no-splash
++ "&Stop XscreenSaver%mini.cross.xpm%" Exec exec xscreensaver-command -exit
++ "XscreenSaver &Demo%mini.display.xpm%" Exec xscreensaver-command -exit ; exec xscreensaver; exec xscreensaver-command -demo
++ "" Nop
++ "&Locked XscreenSaver%mini.lock.xpm%" Exec exec xscreensaver-command -lock
++ "&Activate XscreenSaver%mini.display.xpm%" Exec exec xscreensaver-command -activate
+
+
+PipeRead 'fvwm-menu-xlock -n MenuSSaver -t "Screensaver" -icon-item mini.bball.xpm -- -nice 19 -nolock'
+PipeRead 'fvwm-menu-xlock -n MenuSLock  -t "Lock Screen" -icon-item mini.rball.xpm -- -nice 19'
+
+#------------------------------------------------------------------------------
+#--------- Restart
+#------------------------------------------------------------------------------
+
+DestroyMenu Restart
+AddToMenu   Restart "Restart Window Manager" Title
++ "&Restart Self%mini.turn.xpm%"	Restart
++ "" Nop
+#+ "&fvwm-themes-start%mini.fvwm.xpm%"	Restart fvwm-themes-start
++ "&fvwm%mini.fvwm.xpm%"		Restart fvwm -s
++ "&fvwm2%mini.fvwm.xpm%"		Restart fvwm2 -s
+#+ "&fvwm95%mini.fvwm.xpm%"		Restart fvwm95 -s
+#+ "&AnotherLevel%mini.fvwm.xpm%"	Restart AnotherLevel
+#+ "&AnotherLevelUp%mini.fvwm.xpm%"	Restart AnotherLevelUp
++ "" Nop
+#+ "&afterstep%mini.windows.xpm%"	Restart afterstep
++ "&blackbox%mini.windows.xpm%" 	Restart blackbox
+#+ "&enlightenment%mini.windows.xpm%"	Restart enlightenment
+#+ "&flwm%mini.windows.xpm%"		Restart flwm
+#+ "&icewm%mini.windows.xpm%"		Restart icewm
+#+ "&kwm%mini.windows.xpm%"		Restart kwm
++ "&mwm%mini.mwm.xpm%"			Restart mwm
+#+ "&olvwm%mini.olwm.xpm%"		Restart olvwm
+#+ "&sawfish%mini.windows.xpm%"		Restart sawfish
+#+ "&sawmill%mini.windows.xpm%"		Restart sawmill
+#+ "&scwm%mini.windows.xpm%"		Restart scwm
++ "&twm%mini.twm.xpm%"			Restart twm
+#+ "&uwm%mini.windows.xpm%"		Restart uwm
+#+ "&wm2%mini.windows.xpm%"		Restart wm2
++ "&wmaker%mini.windows.xpm%"		Restart wmaker
+#+ "&wmx%mini.windows.xpm%"		Restart wmx
+#+ "&xfwm%mini.windows.xpm%"		Restart xfwm
++ "" Nop
++ "Just &xterm%mini.term.xpm%"		Restart xterm
+# A bit dangerous in a menu
+#+ ""					Nop
+#+ "Halt%mini.stop.xpm%"	  	Exec exec shutdown -h now
+#+ "Reboot%mini.lightbolt-full.xpm%" 	Exec exec shutdown -r now
+
+
+#------------------------------------------------------------------------------
+#------------- Windows Operations
+#------------------------------------------------------------------------------
+
+#-----------------------------------------------------------------------------
+# The "root" windows ops menu (Mouse 2)
+
+DestroyMenu "Window"
+AddToMenu "Window" "Window Operations" Title
++ "&Move%mini.move1.xpm%"               Move
++ "&Resize%mini.resize3.xpm%"           Resize
++ "(De)&Iconify%mini.iconify1.xpm%"     Iconify
++ "(Un)M&aximize%mini.maximize1.xpm%"   Maximize 100 100
++ "(Un)Max&wide%mini.maximize-horiz1.xpm%"	Maximize 100 0
++ "(Un)Max&tall%mini.maximize-vert1.xpm%"	Maximize   0 100
++ "(Un)&Shade%mini.shade1.xpm%"         WindowShade
++ "(Un)S&tick%mini.stick1.xpm%"         Stick
++ "R&aise%mini.raise2.xpm%"             Raise
++ "&Lower%mini.lower2.xpm%"             Lower
++ ""				Nop
++ "&Delete%mini.cross.xpm%"		Delete
++ "&Close%mini.delete.xpm%"		Close
++ "&Destroy%mini.bomb.xpm%"		Destroy
++ ""				Nop
++ "Move to &Page%mini.move1.xpm%"	Popup Move-window
++ "&Group Ops%mini.windows.xpm%"	Popup WindowGroupOps
++ "&Window Style%mini.window.xpm%"	Popup WindowStyle
++ "&Rearrange/Scroll%mini.windows.xpm%"	Popup WinRearrange
++ ""				Nop
++ "&Identify%mini.question.xpm%"	Module FvwmIdent
++ "Switch &to...%mini.windows.xpm%"	WindowList
+
+#------------------------------------------------------------------------------
+# A trimmed down version of "Window Ops", good for binding to decorations
+
+DestroyMenu "Window-Ops2"
+AddToMenu "Window-Ops2"
++ "&Move%mini.move1.xpm%"			Move
++ "&Resize%mini.resize3.xpm%"			Resize
++ "(De)&Iconify%mini.iconify1.xpm%"		Iconify
++ "(Un)M&aximize%mini.maximize1.xpm%"		Maximize 100 100
++ "(Un)Max&wide%mini.maximize-horiz1.xpm%"	Maximize 100 0
++ "(Un)Max&tall%mini.maximize-vert1.xpm%"	Maximize   0 100
++ "(Un)&Shade%mini.shade1.xpm%"			WindowShade
++ "(Un)S&tick%mini.stick1.xpm%"			Stick
+#+ "R&aiseLower%mini.raise2.xpm%"		RaiseLower
++ ""			Nop
++ "&Close%mini.delete.xpm%"			Close
++ ""			Nop
++ "&Identify%mini.question.xpm%"		Module FvwmIdent
++ "More&...%mini.window.xpm%"			Menu Window This 0 0
+
+#------------------------------------------------------------------------------
+# A trimmed down version of "Window Ops", good for binding to TaskBar,
+# WinList ... buttons
+
+DestroyMenu "Window-Ops3"
+AddToMenu "Window-Ops3"
++ "Move to &Page%mini.move1.xpm%"		Popup Move-window
++ "&Group Ops%mini.windows.xpm%"		Popup WindowGroupOps
++ ""			Nop
++ "(De)&Iconify%mini.iconify1.xpm%"		Iconify
++ "(Un)&Shade%mini.shade1.xpm%"			WindowShade
++ "(Un)S&tick%mini.stick1.xpm%"			Stick
++ "(Un)M&aximize%mini.maximize1.xpm%"		Maximize 95 95
++ "%mini.window.xpm%Scroll&Bar (75%% scr)"	Module FvwmScroll 75p 75p
++ ""			Nop
++ "&Close%mini.delete.xpm%"			Close
++ ""			Nop
++ "&Identify%mini.question.xpm%"		Module FvwmIdent
++ "More&...%mini.window.xpm%"			Menu Window This 0 0
+
+
+#------------------------------------------------------------------------------
+# A "Move Window" menu
+
+DestroyMenu "Move-Window"
+AddToMenu   "Move-Window" "Move to ..." Title
++ 'Page &1%mini.move1.xpm%'	MoveToPage 0 0
++ 'Page &2%mini.move1.xpm%'	MoveToPage 1 0
++ 'Page &3%mini.move1.xpm%'	MoveToPage 0 1
++ 'Page &4%mini.move1.xpm%'	MoveToPage 1 1
++ '' Nop
++ '&Fvwm%mini.move1.xpm%'	MoveToDesk 0 0
++ '&Devel%mini.move1.xpm%'	MoveToDesk 0 1
++ '&Internet%mini.move1.xpm%'	MoveToDesk 0 2
++ '&Misc%mini.move1.xpm%'	MoveToDesk 0 3
+
+#------------------------------------------------------------------------------
+# A group version of WindowOps
+
+DestroyMenu WindowGroupOps
+AddToMenu   WindowGroupOps "Group Ops" Title
++ "&Iconify%mini.iconify1.xpm%"   Pick All ($c) Iconify on
++ "&DeIconify%mini.iconify1.xpm%" Pick All ($c) Iconify off
++ "&Shade%mini.shade1.xpm%"       Pick All ($c) WindowShade on
++ "&UnShade%mini.shade1.xpm%"     Pick All ($c) WindowShade off
++ "R&aise%mini.raise2.xpm%"       Pick All ($c) Raise
++ "&Lower%mini.lower2.xpm%"       Pick All ($c) Lower
++ "" Nop
++ "&Delete%mini.cross.xpm%"	Pick Delete
++ "&Close%mini.delete.xpm%"	Pick Close
++ "&Destroy%mini.bomb.xpm%"	Pick Destroy
++ "&Quick move to ..." Title
++ 'Page &1%mini.move1.xpm%'	Pick All ($c) MoveToPage 0 0
++ 'Page &2%mini.move1.xpm%'	Pick All ($c) MoveToPage 1 0
++ 'Page &3%mini.move1.xpm%'	Pick All ($c) MoveToPage 0 1
++ 'Page &4%mini.move1.xpm%'	Pick All ($c) MoveToPage 1 1
++ '' Nop
++ '&Fvwm%mini.move1.xpm%'	Pick All ($c) MoveToDesk 0 0
++ '&Devel%mini.move1.xpm%'	Pick All ($c) MoveToDesk 0 1
++ '&Internet%mini.move1.xpm%'	Pick All ($c) MoveToDesk 0 2
++ '&Misc%mini.move1.xpm%'	Pick All ($c) MoveToDesk 0 3
+
+DestroyMenu WindowStyle
+AddToMenu   WindowStyle
++ "%mini.window.xpm%Title&AtTop" Pick (CirculateHit) Style $n TitleAtTop
++ "%mini.window.xpm%&NoTitle"	 Pick (CirculateHit) Style $n !Title
++ "%mini.window.xpm%&Title"	 Pick (CirculateHit) Style $n !Title
++ "%mini.window.xpm%TitleAt&Bottom" Pick (CirculateHit) Style $n TitleAtBottom
++ "" Nop
++ "%mini.raise2.xpm%StaysOn&Top" Pick (CirculateHit) StyleAndRecapture $n StaysOnTop
++ "%mini.window.xpm%Stays&Put"   Pick (CirculateHit) StyleAndRecapture $n StaysPut
++ "%mini.lower2.xpm%StaysOn&Bottom"  Pick (CirculateHit) StyleAndRecapture $n StaysOnBottom
++ "" Nop
++ "%mini.window.xpm%&FvwmBorder"	Pick (CirculateHit) Style $n FvwmBorder
++ "%mini.window.xpm%&MWMBorder"		Pick (CirculateHit) Style $n MWMBorder
++ "%mini.window.xpm%&DepressableBorder"	Pick (CirculateHit) Style $n DepressableBorder
++ "%mini.window.xpm%&FirmBorder"	Pick (CirculateHit) Style $n FirmBorder
++ "%mini.window.xpm%&Handles"		Pick (CirculateHit) Style $n Handles
++ "%mini.window.xpm%&NoHandles"		Pick (CirculateHit) Style $n !Handles
++ "%mini.window.xpm%BorderWidth &0" Pick (CirculateHit) Style $n BorderWidth 0
++ "%mini.window.xpm%BorderWidth &5" Pick (CirculateHit) Style $n BorderWidth 5
++ "%mini.window.xpm%HandleWidth &0" Pick (CirculateHit) Style $n HandleWidth 0
++ "%mini.window.xpm%HandleWidth &7" Pick (CirculateHit) Style $n HandleWidth 7
++ "" Nop
++ "%mini.resize3.xpm%&ResizeOpaque"  Pick (CirculateHit) Style $n ResizeOpaque
++ "%mini.resize3.xpm%Resize&Outline" Pick (CirculateHit) Style $n ResizeOutline
++ "%mini.mouse.xpm%Sloppy&Focus"    Pick (CirculateHit) Style $n SloppyFocus
++ "%mini.mouse.xpm%&ClickToFocus"   Pick (CirculateHit) Style $n ClickToFocus
++ "%mini.mouse.xpm%&MouseFocus"     Pick (CirculateHit) Style $n MouseFocus
++ "%mini.mouse.xpm%&NeverFocus"     Pick (CirculateHit) Style $n NeverFocus
+
+DestroyMenu WinRearrange
+AddToMenu   WinRearrange
++ "&Cascade%mini.windows.xpm%" FvwmRearrange -cascade -m 3 3 -incx 2
++ "Tile &horizontally%mini.windows.xpm%" FvwmRearrange -tile -h -m 2 2 98 98
++ "Tile &vertically%mini.windows.xpm%" FvwmRearrange -tile -m 2 2 98 98
++ "" Nop
++ "&ScrollBar (1/2 app)%mini.window.xpm%"  Module FvwmScroll 2 2
++ "%mini.window.xpm%&Scroll&Bar (75%% scr)" Module FvwmScroll 75p 75p
++ "" Nop
++ "&Arrange Icons%mini.icons.xpm%" All (CurrentDesk Iconic) RecaptureWindow
++ "&Refresh Screen%mini.ray.xpm%" Refresh
+
+#----------------------------------------------------------------------------
+# Use the winops menus styles for the "Windows Operations Menus"
+# Use it also for big menu
+
+ChangeMenuStyle winops Window Window-Ops2 Window-Ops3 Move-Window WindowGroupOps WindowStyle WinRearrange Back-Solid Back-Gradient FvwmManPage MenuSSaver MenuSLock
+

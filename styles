@@ -1,0 +1,47 @@
+#-----------------------------------------------------------------------------#
+#
+# 6. Set application dependent styles
+#
+# Order is important!
+# If compatible styles are set for a single window in multiple Style
+# commands, then the styles are ORed together. If conflicting styles
+# are set, the last one specified is used.
+#
+#-----------------------------------------------------------------------------#
+
+Style *lock        !Title, !Handles, Sticky, WindowListSkip
+Style xeyes        !Title, Sticky
+Style *biff*       !Title,            Sticky, WindowListSkip
+Style xsysinfo     !Title,            Sticky, WindowListSkip
+Style xload        !Title,            Sticky, WindowListSkip
+Style xconsole                         Sticky, StartIconic
+Style xpostit                                  WindowListSkip
+Style PostitNote                               WindowListSkip
+Style Postit       !Handles,                  WindowListSkip
+# gnome panel & icons
+Style panel        Sticky, !Title, WindowListSkip, CirculateSkip
+Style desktop_icon CirculateSkip, WindowListSkip,  !Title
+# Animation is broken in gnome panel 1.4 with GNOMEUseHints.
+# GNOMEIgnoreHints also disables panel moving itself from layer to layer.
+Style panel        GNOMEIgnoreHints
+# xsm panel
+Style xsm          Sticky, !Title, WindowListSkip, CirculateSkip
+
+Style FvwmForm-QuitVerify !Button 1, !Button 2, !Button 4, !Button 6, \
+				StaysOnTop, NoHandles, WindowListSkip
+
+# Some version of Netscape need the following if you want that the
+# page source (and others horrible banner) to be decorated (but you may
+# lost some MWM decor hints)
+#Style Netscape NoDecorHint
+
+# I do not like that the "find in page" of netscape cannot be lowered.
+# Uncomment the next line if your are agree.
+#Style Netscape DontRaiseTransient
+
+#DT 1 for the CDE "desk icon"
+#Style popup_* CirculateSkip, WindowListSkip
+
+# Read the layers settings (stays OnTop, Put or OnBottom)
+Read .fvwm-layers
+

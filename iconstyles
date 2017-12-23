@@ -1,0 +1,252 @@
+#-----------------------------------------------------------------------------#
+#
+# 7. Set applications Mini Icons and Icons
+#
+#-----------------------------------------------------------------------------#
+
+# Note: Most applications provide an icon.
+
+Style *		IconBox 10 -80 -0 -0, IconGrid 64 64, IconFill left bottom, \
+		IconBox 10 +300 -150 -80, IconGrid 64 64, IconFill bottom left
+Style *		SlipperyIcon, IconTitle
+
+
+# default
+Style *         	MiniIcon mini.doc.xpm, Icon page.xpm
+
+# Terminals
+Style *term*		MiniIcon mini.term.xpm, Icon rterm2.xpm
+Style rxvt      	MiniIcon mini.term.xpm, Icon rterm2.xpm
+
+# Accessories
+Style xcalc     	MiniIcon mini.calc.xpm, Icon rcalc2.xpm
+Style xconsole  	MiniIcon mini.term.xpm, Icon rtrem2.xpm
+Style xmag      	MiniIcon mini.zoom.xpm, Icon mag_glass.xpm
+Style xfontsel		MiniIcon mini.font.xpm, Icon toolbox.xpm
+Style xgrab		MiniIcon mini.camera.xpm
+Style *clock*		MiniIcon mini.clock.xpm
+Style ddd		MiniIcon mini.bug2.xpm
+#Style xgdb		MiniIcon mini.bug2.xpm
+Style XClipboard   	MiniIcon mini.clipboard.xpm, Icon toolbox.xpm
+Style *color*		MiniIcon mini.colors.xpm, Icon resize
+
+# Applications
+#Style lyx		MiniIcon mini.edit.xpm
+#Style thot		MiniIcon mini.edit.xpm
+#Style ghostview 	MiniIcon mini.gv.xpm
+Style gv	 	MiniIcon mini.gv.xpm
+Style xdvi		MiniIcon mini.zoom.xpm
+#Style acroread	 	MiniIcon mini.pdf.xpm
+Style xpdf		MiniIcon mini.pdf.xpm
+#Style plan		MiniIcon mini.calandar.xpm
+
+# Sciences
+Style GNUplot		MiniIcon mini.graph.xpm, Icon graphs.xpm
+#Style *maple		MiniIcon mini.zoom.xpm
+#Style Scilab    	MiniIcon mini.graph2.xpm
+Style Xaos		MiniIcon mini.fractal.xpm
+Style fractint		MiniIcon mini.fractal.xpm
+#Style xephem		MiniIcon mini.exp.xpm
+#Style XTide		MiniIcon mini.exp.xpm
+#Style THX-1138		MiniIcon mini.calc.xpm
+
+# System
+Style Top		MiniIcon mini.run.xpm, Icon toolbox.xpm
+#Style tkps		MiniIcon mini.hex.xpm, Icon toolbox.xpm
+#Style xosview		MiniIcon mini.run.xpm, Icon toolbox.xpm
+Style xload		MiniIcon mini.perf.xpm, Icon toolbox.xpm
+#Style xmem		MiniIcon mini.perf.xpm, Icon toolbox.xpm
+#Style XSysStats         MiniIcon mini.run.xpm
+# File Mgr
+#Style xfm		MiniIcon mini.filemgr.xpm, Icon Xfm.xpm
+#Style fr		MiniIcon mini.filemgr.xpm, Icon Xfm.xpm
+Style Midnight-Commander MiniIcon mini.filemgr.xpm, Icon Xfm.xpm
+
+# Editors
+Style emacs		MiniIcon mini.edit.xpm, Icon lemacs.xpm
+Style VIM		MiniIcon mini.edit.xpm, Icon lemacs.xpm
+Style *edit		MiniIcon mini.edit.xpm, Icon lemacs.xpm
+#Style dtpad		MiniIcon mini.edit.xpm, Icon lemacs.xpm
+
+# Network
+Style *ppp*		MiniIcon mini.connect.xpm, Icon Mosaic.xpm
+#Style Hifs		MiniIcon mini.connect.xpm, Icon Mosaic.xpm
+
+# Internet
+# Netscape resource
+Style Netscape  	MiniIcon mini.nscape.xpm
+Style Navigator 	MiniIcon mini.nscape.xpm
+Style MailFolder 	MiniIcon mini.dirlink.xpm
+Style MailThread 	MiniIcon mini.mail.xpm
+Style Composition	MiniIcon mini.letter.xpm
+Style Composer		MiniIcon mini.editor.xpm
+Style *Download*	MiniIcon mini.ftp.xpm
+#
+#Style amaya		MiniIcon mini.nscape.xpm
+Style Mozilla		MiniIcon mini.nscape.xpm
+Style lynx		MiniIcon mini.cat.xpm,  Icon Mosaic.xpm
+Style xmh		MiniIcon mini.mail.xpm, Icon Mail2.xpm
+Style Mail         	MiniIcon mini.mail.xpm, Icon Mail2.xpm
+Style *mail*         	MiniIcon mini.mail.xpm, Icon Mail2.xpm
+Style Pine		MiniIcon mini.mail.xpm, Icon Mail2.xpm
+Style Mutt		MiniIcon mini.mail.xpm, Icon Mail2.xpm
+Style NcFtp        	MiniIcon mini.ftp.xpm,  Icon Mosaic.xpm
+Style *ftp*        	MiniIcon mini.ftp.xpm,  Icon Mosaic.xpm
+#Style "X-Chat*"		MiniIcon mini.doc1.xpm, Icon page.xpm
+#Style Irc		MiniIcon mini.doc1.xpm
+#Style tkirc		MiniIcon mini.doc1.xpm
+#Style Licq		MiniIcon mini.doc1.xpm
+Style
+Style zircon        	MiniIcon mini.zircon.xpm #! zircon
+#Style xgopher		MiniIcon mini.gopher.xpm
+
+# Graphics
+Style xv        	MiniIcon mini.xv.xpm
+Style "The GIMP"  	MiniIcon mini.gimp.xpm, Icon gimp.xpm
+Style "Gimp"		MiniIcon mini.gimp.xpm, Icon gimp.xpm
+Style xfig		MiniIcon mini.xfig.xpm
+#Style xfpovary		MiniIcon mini.ray.xpm
+# xpaint resource names
+Style xpaint    	MiniIcon mini.palette.xpm
+Style Canvas    	MiniIcon mini.palette.xpm
+Style fatbits 	        MiniIcon mini.palette.xpm
+Style filebrowser	MiniIcon mini.ofolder.xpm
+#
+#Style XbmBrowser   	MiniIcon mini.directory.xpm
+#Style ee		MiniIcon mini.palette.xpm
+
+# Multimedia
+Style *mixer		MiniIcon mini.audiovol.xpm
+Style *playcd*      	MiniIcon mini.cdlabel.xpm
+Style *cdplay*      	MiniIcon mini.cdlabel.xpm
+#Style xltwavplay        MiniIcon mini.sound.xpm
+#Style MiXViews		MiniIcon mini.audiovol.xpm
+#Style freeamp		MiniIcon mini.audiovol.xpm
+#Style XAnim             MiniIcon mini.display.xpm
+# Games and amusement
+Style *maze		MiniIcon mini.maze.xpm
+Style xboard		MiniIcon mini.slon.xpm
+#Style XGammon		MiniIcon mini.go.xpm
+#Style xsokoban		MiniIcon mini.go.xpm
+Style xlander		MiniIcon mini.xlander.xpm
+#Style xmahjongg		MiniIcon mini.xmahjongg.xpm
+#Style xjewel		MiniIcon mini.xjewel.xpm
+#Style hextris		MiniIcon mini.hextris.xpm
+Style *tetris*		MiniIcon mini.tetris.xpm
+#Style kpat2		MiniIcon mini.heart.xpm
+Style xeyes     	MiniIcon mini.eyes.xpm
+#Style xcat		MiniIcon mini.cat.xpm
+Style Quake*		MiniIcon mini.destroy.xpm, Icon doomface.xpm
+Style Koules		MiniIcon mini.happy.xpm
+Style xroach		MiniIcon mini.roach.xpm
+Style xlogo		MiniIcon mini.x2.xpm
+
+# Modules, Form and script
+Style Fvwm*			MiniIcon -
+Style FvwmScript*		MiniIcon mini.fvwm.xpm
+Style FvwmForm*			MiniIcon mini.fvwm.xpm
+Style FvwmIdent			MiniIcon mini.question.xpm, Icon question.xpm
+Style FvwmConsole		MiniIcon mini.xterm.xpm, Icon wterm.xpm
+Style FvwmScript-BellSetup	MiniIcon mini.audiovol.xpm, Icon bell.xpm
+Style FvwmScript-KeyboardSetup	MiniIcon mini.keyboard.xpm,Icon keyboard.xpm
+Style FvwmScript-ScreenSetup	MiniIcon mini.monitor.xpm, Icon screen.xpm
+Style FvwmScript-PointerSetup	MiniIcon mini.mouse.xpm, Icon pointer.xpm
+Style FvwmScript-BaseConfig	MiniIcon mini.fvwm.xpm, Icon settings.xpm
+Style FvwmScript-Find		MiniIcon mini.zoom.xpm, Icon find1.xpm
+Style FvwmScript-Quit		MiniIcon mini.question.xpm
+Style FvwmScript-Colorset	MiniIcon mini.colors.xpm, Icon settings.xpm
+Style FvwmScript-ScreenDump	MiniIcon mini.camera.xpm, Icon resize.xpm
+Style FvwmScript-Setup95	MiniIcon mini.fvwm.xpm, Icon settings.xpm
+Style FvwmScript-Date		MiniIcon mini.clock.xpm, Icon date.xpm
+Style FvwmForm-QuitVerify	MiniIcon mini.question.xpm
+Style FvwmForm-Rlogin		MiniIcon mini.connect.xpm, Icon Mosaic.xpm
+Style FvwmForm-Capture		MiniIcon mini.camera.xpm, Icon resize.xpm
+Style FvwmForm-Talk		MiniIcon mini.telnet.xpm, Icon rterm.xpm
+Style FvwmForm-RootCursor	MiniIcon mini.xarchie.xpm, Icon settings.xpm
+Style FvwmForm-Form		MiniIcon mini.fvwm.xpm, Icon settings.xpm
+Style FvwmForm-Setup		MiniIcon mini.fvwm.xpm, Icon settings.xpm
+Style FormFvwmAnimate		MiniIcon mini.iconify.xpm, Icon settings.xpm
+Style xmessage			MiniIcon mini.question.xpm, Icon settings.xpm
+Style WinMakerAppButtons*	!Icon
+
+# Help
+Style man	  	MiniIcon mini.book1.xpm, Icon help.xpm
+# xman resource names
+Style topBox    	MiniIcon mini.book1.xpm, Icon help.xpm
+Style help      	MiniIcon mini.book2.xpm, Icon help.xpm
+Style manualBrowser 	MiniIcon mini.book2.xpm, Icon help.xpm
+Style *FAQ*		MiniIcon mini.question.xpm, Icon help.xpm
+# others...
+Style IDL*      	MiniIcon mini.zoom.xpm
+Style XDbx         	MiniIcon mini.bug2.xpm
+#Style control-panel  	MiniIcon mini.eye.xpm
+Style xvidtune		MiniIcon mini.x2.xpm
+
+# To get the kde mini-icon styles build the system menu (i.e., uncomment
+# the lines that follow K_SM)
+
+#G_ST 51 some icons, an alternative is to use fvwm2gnome and fvwm-menu-desktop
+#Style "gcolorsel"  MiniIcon mini.colors.xpm,	Icon resize.xpm
+#Style "gcalc"	    MiniIcon mini.calc.xpm,     Icon rcalc2.xpm
+#Style "gdiskfree"  MiniIcon mini.fdisk.xpm
+#Style "gEdit"      MiniIcon mini.edit.xpm,	Icon lemacs.xpm
+#Style "gedit"      MiniIcon mini.edit.xpm,	Icon lemacs.xpm
+#Style "gfontsel"   MiniIcon mini.font.xpm
+#Style "ghex"       MiniIcon mini.hex.xpm,	Icon page.xpm
+#Style "gless"      MiniIcon mini.file.xpm	Icon page.xpm
+#Style "gmix"       MiniIcon mini.sound.xpm
+#Style "gmailman"   MiniIcon mini.mail.xpm,	Icon mail2.xpm
+#Style "gmc"        MiniIcon mini.filemgr.xpm,	Icon Xfm.xpm
+#Style "gmenu"      MiniIcon mini.doc1.xpm,	Icon dialog_box.xpm
+#Style "gnome-help-browser"	MiniIcon mini.book3.xpm,    Icon help.xpm
+#Style "GnomeHelpBrowser"	MiniIcon mini.book3.xpm,    Icon help.xpm
+#Style "gnome-ppp"	MiniIcon mini.connect.xpm,	Icon Mosaic.xpm
+#Style "gnome-run"	MiniIcon mini.hammer.xpm,	Icon run.xpm
+#Style "gnome-sync"     MiniIcon mini.folder.xpm,	Icon folder.xpm
+#Style "gnomecal"       MiniIcon norm.calendar.xpm,	Icon mini/clock.xpm
+#Style "gnomecard"	MiniIcon mini.doc1.xpm,		Icon page2.xpm
+#Style "gnomecc"        MiniIcon mini.hammer.xpm,	Icon mini/home.xpm
+#Style "GnomeTerminal"  MiniIcon mini.term.xpm,		Icon rterm2.xpm
+#Style "gnp"		MiniIcon mini.doc1.xpm,         Icon page2.xpm
+#Style "gnp+"		MiniIcon mini.doc1.xpm,         Icon page2.xpm
+#Style "gnumeric"	MiniIcon mini.calc2.xpm		Icon rcalc2.xpm
+#Style "GQview"		MiniIcon mini.palette.xpm       Icon xpaint.xpm
+#Style "gsearchtool"	MiniIcon mini.zoom.xpm,		Icon find1.xpm
+#Style "gstripchart"    MiniIcon mini.graph2.xpm
+#Style "gtalk"          MiniIcon mini.zircon.xpm
+#Style "gtcd"           MiniIcon mini.cdlabel.xpm
+#Style "gtk-shell"	MiniIcon mini.doc1.xpm,         Icon page.xpm
+#Style "gtop"           MiniIcon mini.run.xpm,		Icon toolbox.xpm
+#Style "gtt"            MiniIcon mini.clock.xpm,	Icon toolbox.xpm
+#Style "guname"		MiniIcon mini.question.xpm      Icon page2.xpm
+#Style "gw"		MiniIcon mini.run.xpm,         Icon page2.xpm
+#Style "gxedit"		MiniIcon mini.edit.xpm,		Icon lemacs.xpm
+#Style "vumeter"        MiniIcon mini.sound.xpm
+#Style "freecell"	MiniIcon mini.heart.xpm
+#Style "gnibbles"	MiniIcon mini.happy.xpm
+#Style "gnobots"	MiniIcon mini.happy.xpm
+#Style "gnobots2"	MiniIcon mini.happy.xpm
+#Style "gnome-stones"	MiniIcon mini.happy.xpm
+#Style "gnomine"	MiniIcon mini.happy.xpm
+#Style "gtali"		MiniIcon mini.happy.xpm
+#Style "gturing"	MiniIcon mini.happy.xpm
+#Style "iagno"		MiniIcon mini.happy.xpm
+#Style "mahjongg"	MiniIcon mini.happy.xpm
+#Style "same-gnome"	MiniIcon mini.happy.xpm
+#Style "sol"		MiniIcon mini.heart.xpm
+#Style "gtkballs"	MiniIcon mini.happy.xpm
+#Style "gfpoken"	MiniIcon mini.happy.xpm
+#Style "Imlib*"		MiniIcon mini.hammer.xpm
+
+#CDE 10
+#Style Dtfile            MiniIcon mini.filemgr.xpm
+#Style Dtpad             MiniIcon mini.edit.xpm
+#Style Dthelp*           MiniIcon mini.book1.xpm
+#Style Dtcm*             MiniIcon mini.calendar.xpm
+#Style Dtcalc            MiniIcon mini.calc.xpm
+#Style Dticon*           MiniIcon mini.palette.xpm
+#Style Dtprint*          MiniIcon mini.fax.xpm
+#Style Dtstyle*          MiniIcon mini.desktop.xpm
+#Style "Applications Manager" MiniIcon mini.programs.xpm
+#Style "Trash Can"      MiniIcon mini.paper.xpm
+

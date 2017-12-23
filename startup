@@ -1,0 +1,63 @@
+#-----------------------------------------------------------------------------#
+#
+# 5. Stuff to do at start-up and on restart
+#
+#-----------------------------------------------------------------------------#
+
+# Defines the background
+Read .start-Background
+# This file defines which applications manager we start: TaskBarGlobal,
+# TaskBarDesk, IconBoxGlobal, IconBoxDesk, ...etc.
+Read .start-apps-man
+# This one decides which big buttons we start BarButtons, Wharf or None
+Read .start-FvwmButtons
+# This one decides if we start the DeskerPanel
+Read .start-DeskerPanelButtons
+# This one decides if we start MiniButtons
+Read .start-MiniButtons
+# This one decides if we start WinMakerAppButtons
+Read .start-WinMakerAppButtons
+# This file decides if we start FvwmAnimate or not
+Read .start-FvwmAnimate
+# This one decides if we start FvwmAuto
+Read .start-FvwmAuto
+# This one decides if we start FvwmBanner
+Read .start-FvwmBanner
+# Sounds effect (FvwmEvent)
+Read .start-FvwmEvent
+
+# The StartFunction is used at start and restart with or without a Session
+# Manager. The above file .start-* defines this function. If
+# we want Gtk menus and dialog (defined in the modules section) we start
+# FvwmGtk.
+
+AddToFunc StartFunction
+#G_M_G 1
+#+ I Module FvwmGtk
+
+# The InitFunction is used at fvwm start
+
+AddToFunc InitFunction
+# Load the X Setup Scripts setting if we use it
++ I Exec [ -f $HOME/.xinitrc-fvwm ] && sh $HOME/.xinitrc-fvwm
+#+ I Exec exec xsetroot -solid \#7F4B7F
+
+# The restart function:
+
+AddToFunc RestartFunction
+#+ I Module FvwmButtons MyButtons
+
+#
+# When used with a session manager fvwm uses SessionInitFunction and
+# SessionRestartFunction in the place of  InitFunction and RestartFunction
+#
+
+AddToFunc SessionInitFunction
+# Do not Load the X Setup Scripts setting, some Session Managers have its own
+# method (e.g., GNOME)
+#+ I Exec [ -f $HOME/.xinitrc-fvwm ] && sh $HOME/.xinitrc-fvwm
+#+ I Module FvwmButtons MyButtons
+
+AddToFunc SessionRestartFunction
+#+ I Module FvwmButtons MyButtons
+

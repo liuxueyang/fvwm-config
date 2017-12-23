@@ -1,0 +1,123 @@
+#-----------------------------------------------------------------------------#
+#
+# 3. Set up the major operating modes
+#
+#-----------------------------------------------------------------------------#
+
+# WARNING!
+#
+# If you use (or ever used) Settings-->Configuration-->Base Config
+# to configure your major operating modes then all commands in this
+# section 3 are overridden by the last line of this section (PipeRead).
+# So, you can comment the last line of this section.
+# Or, instead, you can remove all the lines of this section but the last one.
+#
+# If you use Base Config and this section has some application dependent
+# styles, a suggested solution is to move them to the styles file.
+# This way Base Config does not destroy your application specific
+# styles when you use it.
+
+#WIN 1  To have more WIN-like behavior
+Emulate win
+#FVWM 1
+#Emulate fvwm
+
+HideGeometryWindow Never
+
+#WIN 1
+SnapAttraction 10 SameType Screen
+#FVWM 1
+#SnapAttraction 0 SameType Screen
+
+#FAST 3
+OpaqueMoveSize 100
+Style * ResizeOpaque
+Style * WindowShadeSteps 20
+#SLOW 3
+#OpaqueMoveSize 0
+#Style * ResizeOutline
+#Style * WindowShadeSteps 0
+
+
+EdgeScroll 0 0
+EdgeResistance 500 0
+EdgeThickness 1
+
+#
+# The focus policy. Once you are used to clicking *inside* windows to
+# raise them you will not want to lose this feature.
+#
+Style * SloppyFocus
+Style * MouseFocusClickRaises
+
+#
+# MinOverlapPlacement places window automatically in a way that attempts to be
+# place windows 'intelligent'.
+#
+Style * MinOverlapPlacement
+
+#
+# !UsePPosition instructs fvwm to ignore the PPosition field in window
+# geometry hints. Emacs annoyingly sets PPosition to (0,0)!
+#
+
+Style * !UsePPosition
+
+Style * GrabFocusOff
+
+# If you ever used Base Config, then the next line overrides this section
+# with the settings you defined! In this case you may replace the whole
+# section 3 by one command "Read .FvwmBaseConfig".
+PipeRead '[ ! -f $FVWM_USERDIR/.FvwmBaseConfig ] || echo Read .FvwmBaseConfig'
+
+#----------------------------------------------------------------------------#
+#
+# 4. Miscellaneous Major operating mode
+#
+#----------------------------------------------------------------------------#
+
+#------------------------------------------------------------------------------
+# Set the desk top size in units of physical screen size
+#------------------------------------------------------------------------------
+
+DeskTopSize 2x2
+
+#------------------------------------------------------------------------------
+# Some good things (in general)
+#------------------------------------------------------------------------------
+Style * MWMFunctions
+Style * MWMDecor
+Style * HintOverride
+Style * OLDecor
+
+BusyCursor DynamicMenu True, Read True
+
+#------------------------------------------------------------------------------
+# transient windows
+#------------------------------------------------------------------------------
+
+# You can do a lot of things with transient windows. However, you may
+# want to set transient style by application (in styles).
+# Heres one example:
+#
+# If you want to decorate transient windows:
+#Style * DecorateTransient
+# In *general* it is not a good idea to be able to lower transient window
+# under its main window, but why not...
+#Style * DontRaiseTransient
+# In my HO the defaults (which are "Motif" compliant) are good.
+
+#------------------------------------------------------------------------------
+# bogus hack
+#------------------------------------------------------------------------------
+
+#
+# fvwm has a command for bogus applications. Here an example with KFM
+#
+
+#KFM_ICONS 1 uncomment the next line if you use the KFM "icons"
+#BugOpts RaiseOverUnmanaged on
+
+#PANEL_PUT 1 you may try this for a "stays put" gnome panel
+#DefaultLayers 6 8 10
+

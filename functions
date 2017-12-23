@@ -1,0 +1,413 @@
+#----------------------------------------------------------------------------#
+#
+# 8. Now define some handy complex functions
+#
+#----------------------------------------------------------------------------#
+
+#------------------------------------------------------------------------------
+# This one moves and then raises the window if you drag the mouse,
+# only raises the window if you click, or does a vertical maximize if
+# you double click (full screen maximize would be 'Maximize 100 100')
+#------------------------------------------------------------------------------
+
+DestroyFunc Move-or-Raise
+AddToFunc Move-or-Raise M Move
++                       M Raise
++                       C Raise
++                       D Maximize 0 100
+
+
+#------------------------------------------------------------------------------
+# As above but double click shade
+#------------------------------------------------------------------------------
+
+DestroyFunc Move-or-Raise-or-Shade
+AddToFunc Move-or-Raise-or-Shade M Move
++                       M Raise
++                       C Raise
++                       D WindowShade
+
+#------------------------------------------------------------------------------
+# This one moves and then lowers the window if you drag the mouse,
+# only lowers the window if you click, or does a RaiseLower if you double
+# click
+#------------------------------------------------------------------------------
+
+DestroyFunc Move-or-Lower
+AddToFunc Move-or-Lower M Move
++                       M Lower
++                       C Lower
++                       D RaiseLower
+
+
+#------------------------------------------------------------------------------
+# This one moves or (de)iconifies:
+#------------------------------------------------------------------------------
+
+DestroyFunc Move-or-Iconify-or-Raise
+AddToFunc Move-or-Iconify-or-Raise M Move
++			  C Raise
++                         D Iconify
+
+#------------------------------------------------------------------------------
+# This one maximizes vertically if you click (leaving room for the taskbar
+# at the bottom, or does a full maximization if you double click, or a
+# true full vertical maximization if you just hold the mouse button down.
+#------------------------------------------------------------------------------
+
+DestroyFunc Maximize-Func
+AddToFunc Maximize-Func M	Maximize 0 98
++ 			C	Maximize 0 100
++ 			D	Maximize 100 98
+
+#------------------------------------------------------------------------------
+# This one resizes and then raises the window if you drag the mouse,
+# only raises the window if you click,  or does shade if you double
+# click
+#------------------------------------------------------------------------------
+
+DestroyFunc Resize-or-Raise-or-Shade
+AddToFunc Resize-or-Raise-or-Shade M Resize
++                         M Raise
++                         C Raise
++                         D WindowShade
+
+
+#------------------------------------------------------------------------------
+# This one focuses and then 'warps' to the window.
+#------------------------------------------------------------------------------
+
+
+DestroyFunc FocusAndWarp
+AddToFunc FocusAndWarp I Focus
++                      I WarpToWindow 1 1
+
+
+#------------------------------------------------------------------------------
+# Like the previous one, but de-iconifies first.
+#------------------------------------------------------------------------------
+
+DestroyFunc DeiconifyFocusAndWarp
+AddToFunc DeiconifyFocusAndWarp I Iconify off
++                               I FocusAndWarp
+
+#------------------------------------------------------------------------------
+# Like the previous one, but only Raise.
+#------------------------------------------------------------------------------
+
+DestroyFunc DeiconifyFocusAndRaise
+AddToFunc DeiconifyFocusAndRaise I Iconify off
++                               I Focus
++				I Raise
+
+#------------------------------------------------------------------------------
+# This one is used to modify some style for a window (almost obsolet)
+#------------------------------------------------------------------------------
+
+DestroyFunc StyleAndRecapture
+AddToFunc StyleAndRecapture I Style "$0" $1
++ I All ("$0") RecaptureWindow
+
+
+#------------------------------------------------------------------------------
+# A really useful one: de-iconifies, warps to the window
+# or creates it if it doen't exist (often used with mailtools)
+#------------------------------------------------------------------------------
+
+DestroyFunc WarpOrExec
+AddToFunc WarpOrExec	   I Next (AcceptsFocus $0) Iconify -1
++		           I Next (AcceptsFocus $0) FocusAndWarp
++			   I None (AcceptsFocus $0) Exec $0 $1
+
+#------------------------------------------------------------------------------
+# For the left button
+#------------------------------------------------------------------------------
+
+DestroyMenu "window_ops_func"
+AddToFunc "window_ops_func" "C" PopUp Window-Ops2
++              "M" PopUp Window-Ops2
++              "D" Delete
+
+#------------------------------------------------------------------------------
+# Functions to restart Modules and Restart/Kill FvwmButtons by aliases
+#------------------------------------------------------------------------------
+
+DestroyFunc RestartModule
+AddToFunc RestartModule
++ I KillModule $0
++ I Module $0
+
+DestroyFunc RestartModuleByAlias
+AddToFunc RestartModuleByAlias
++ I All ($2) Close
++ I Module $0 $1
+
+
+# This function is for WMakerFvwmButtons (start or iconify id started)
+DestroyFunc MyPanelButtons
+AddToFunc  MyPanelButtons
++ I All ($0) Iconify
++ I None (CirculateHit $0) FvwmButtons -g +$1+$2 $0
+
+#------------------------------------------------------------------------------
+# Functions for FvwmScript-BaseConfig
+#------------------------------------------------------------------------------
+
+DestroyFunc BaseConfigOkFunc
+AddToFunc BaseConfigOkFunc I Read styles
+
+DestroyFunc BaseConfigApplyFunc
+AddToFunc BaseConfigApplyFunc I Read styles
+
+
+#------------------------------------------------------------------------------
+# Functions which start and save state for FvwmAnimate, FvwmEvent, etc ...
+# $1 $2 is used only by FvwmAuto
+#------------------------------------------------------------------------------
+
+DestroyFunc ModuleOn
+AddToFunc   ModuleOn
++ I KillModule $0
++ I Module $0 $1 $2
++ I Exec echo "AddToFunc StartFunction I $0 $1 $2" > $FVWM_USERDIR/.start-$0
+
+DestroyFunc ModuleOff
+AddToFunc   ModuleOff
++ I KillModule $0
++ I Exec echo "# Do not start $0" > $FVWM_USERDIR/.start-$0
+
+#------------------------------------------------------------------------------
+# Functions which start and save state for MiniButtons and WinMakerAppButtons
+#------------------------------------------------------------------------------
+
+DestroyFunc ButtonsOn
+AddToFunc   ButtonsOn
++ I All ($2) Close
++ I Module $0 $1
++ I Exec echo "AddToFunc StartFunction I $0 $1" > $FVWM_USERDIR/.start-$1
+
+DestroyFunc ButtonsOff
+AddToFunc   ButtonsOff
++ I All ($1) Close
++ I Exec echo "# Do not start $0" > $FVWM_USERDIR/.start-$0
+
+#------------------------------------------------------------------------------
+# Functions for choosing the "Big" buttons Wharf or BarButtons
+#------------------------------------------------------------------------------
+
+DestroyFunc ChangeButtonsOn
+AddToFunc  ChangeButtonsOn
++ I All (BarButtons) Close
++ I KillModule FvwmWharf
++ I Exec echo "AddToFunc StartFunction I $0" > $FVWM_USERDIR/.start-FvwmButtons
++ I $0
+
+DestroyFunc ChangeButtonsOff
+AddToFunc  ChangeButtonsOff
++ I All (BarButtons) Close
++ I KillModule FvwmWharf
++ I Exec echo "# No Buttons Bar" > $FVWM_USERDIR/.start-FvwmButtons
++ I $0
+
+#------------------------------------------------------------------------------
+# Functions for Raising modules only
+#------------------------------------------------------------------------------
+
+DestroyFunc StartModulesAutoRaise
+AddToFunc StartModulesAutoRaise
++ I Style FvwmDesker Lenience
++ I FvwmAuto 400 Silent ModulesAutoRaise
++ I Exec echo "AddToFunc StartFunction I StartModulesAutoRaise" > $FVWM_USERDIR/.start-FvwmAuto
+
+DestroyFunc ModulesAutoRaise
+AddToFunc ModulesAutoRaise
++ I Current (FvwmButtons) Raise
++ I Current (FvwmTaskBar) Raise
++ I Current (FvwmIconBox) Raise
++ I Current (FvwmDesker)  Raise
++ I Current (FvwmIconMan) Raise
++ I Current (FvwmWinList) Raise
++ I Current (FvwmWharf)   Raise
++ I Current (panel)	  Raise
+
+#------------------------------------------------------------------------------
+# Functions which start and save a background
+#------------------------------------------------------------------------------
+
+DestroyFunc SetBackground
+AddToFunc   SetBackground
++ I KillModule FvwmBacker
++ I $0
++ I Exec echo "AddToFunc StartFunction I $0" > $FVWM_USERDIR/.start-Background
+
+DestroyFunc SetBackgroundOff
+AddToFunc   SetBackgroundOff
++ I KillModule FvwmBacker
++ I Exec echo "# Background disabled" > $FVWM_USERDIR/.start-Background
+
+#------------------------------------------------------------------------------
+# Functions which start and defines which applications manager we use
+#------------------------------------------------------------------------------
+
+DestroyFunc ChangeAppsMan
+AddToFunc  ChangeAppsMan
++ I KillModule FvwmTaskBar
++ I KillModule FvwmWinList
++ I KillModule FvwmIconMan
++ I KillModule FvwmIconBox
++ I Exec echo "AddToFunc StartFunction I $0" > $FVWM_USERDIR/.start-apps-man
++ I $0
+
+DestroyFunc AppsManNone
+AddToFunc  AppsManNone
++  I  Style * !Icon
++ I KillModule FvwmTaskBar
++ I KillModule FvwmWinList
++ I KillModule FvwmIconMan
++ I KillModule FvwmIconBox
++ I Exec echo "AddToFunc StartFunction I Style * !Icon # No applications Manager" > $FVWM_USERDIR/.start-apps-man
+
+DestroyFunc UseIcons
+AddToFunc  UseIcons
++ I Style * Icon
++ I Read iconstyles
+# Need to reaload menus for KDE mini-icons styles
++ I Read menus
++ I KillModule FvwmTaskBar
++ I KillModule FvwmWinList
++ I KillModule FvwmIconMan
++ I KillModule FvwmIconBox
++ I Exec echo "# Use Icons" > $FVWM_USERDIR/.start-apps-man
+
+DestroyFunc WinListDesk
+AddToFunc WinListDesk
++ I Style * !Icon
++ I *FvwmWinList: ShowCurrentDesk
++ I Module FvwmWinList
+
+DestroyFunc WinListGlobal
+AddToFunc WinListGlobal
++ I Style * !Icon
++ I DestroyModuleConfig FvwmWinList: ShowCurrent*
++ I Module FvwmWinList
+
+DestroyFunc TaskBarDesk
+AddToFunc TaskBarDesk
++ I Style * !Icon
++ I DestroyModuleConfig FvwmTaskBar: AutoHid*
++ I *FvwmTaskBar: DeskOnly
++ I Module FvwmTaskBar
+
+DestroyFunc TaskBarGlobal
+AddToFunc TaskBarGlobal
++ I Style * !Icon
++ I DestroyModuleConfig FvwmTaskBar: AutoHid*
++ I DestroyModuleConfig FvwmTaskBar: Desk*
++ I Module FvwmTaskBar
+
+DestroyFunc TaskBarDeskAutoHide
+AddToFunc TaskBarDeskAutoHide
++ I Style * !Icon
++ I *FvwmTaskBar: DeskOnly
++ I *FvwmTaskBar: AutoHide
++ I Module FvwmTaskBar
+
+DestroyFunc TaskBarGlobalAutoHide
+AddToFunc TaskBarGlobalAutoHide
++ I Style * !Icon
++ I DestroyModuleConfig FvwmTaskBar: Desk*
++ I *FvwmTaskBar: AutoHide
++ I Module FvwmTaskBar
+
+DestroyFunc IconManGlobal
+AddToFunc IconManGlobal
++ I Style * !Icon
++ I *FvwmIconMan: Resolution global
++ I Module FvwmIconMan
+
+DestroyFunc IconManDesk
+AddToFunc IconManDesk
++ I Style * !Icon
++ I *FvwmIconMan: Resolution desk
++ I Module FvwmIconMan
+
+DestroyFunc IconManPage
+AddToFunc IconManPage
++ I Style * !Icon
++ I *FvwmIconMan: Resolution page
++ I Module FvwmIconMan
+
+DestroyFunc IconBoxDesk
+AddToFunc IconBoxDesk
++ I Style * !Icon
++ I *FvwmIconBox: ResolutionDesk
++ I Module FvwmIconBox
+
+DestroyFunc IconBoxGlobal
+AddToFunc IconBoxGlobal
++ I Style * !Icon
++ I DestroyModuleConfig FvwmIconBox: Reso*
++ I Module FvwmIconBox
+
+#------------------------------------------------------------------------------
+# Functions for Layers
+#------------------------------------------------------------------------------
+
+DestroyFunc SetLayers
+AddToFunc SetLayers
++ I StyleAndRecapture $n $0
++ I Exec F=$FVWM_USERDIR; Z=$F/.fvwm-layers; T=$F/.tmp-layers; if grep -qe "$n" $Z; then sed -e "s/\ $n\ .*/\ $n\ $0/" $Z>$T; cat $T>$Z; else echo "Style $n $0" >>$Z; fi
+
+DestroyFunc DestroyLayers
+AddToFunc DestroyLayers
++ I StyleAndRecapture $n StaysPut
++ I Exec F=$FVWM_USERDIR; Z=$F/.fvwm-layers; T=$F/.tmp-layers; sed -e "/^Style\ $n\ .*/d" $Z>$T; cat $T>$Z
+
+#------------------------------------------------------------------------------
+# Function for reloading the icons styles
+#------------------------------------------------------------------------------
+
+DestroyFunc ReloadIconStylesAndMenus
+AddToFunc ReloadIconStylesAndMenus
++ I Read iconstyles
++ I Read menus
+# Need to reload the NoIcon style
++ I PipeRead 'if grep -qe AddToFunc $FVWM_USERDIR/.start-apps-man; then echo "Style * !Icon"; fi'
+
+#------------------------------------------------------------------------------
+# Functions for Loading/Saving/Showing Settings
+#------------------------------------------------------------------------------
+
+DestroyFunc SaveAsSettings
+AddToFunc SaveAsSettings
++ I Exec F=$FVWM_USERDIR;for i in ~/.xinitrc-fvwm $F/.FvwmBaseConfig $F/.FvwmAnimate $F/.FvwmForm $F/.start-Background $F/.start-apps-man $F/.start-FvwmButtons $F/.start-DeskerPanelButtons $F/.start-MiniButtons $F/.start-WinMakerAppButtons $F/.start-FvwmAnimate $F/.start-FvwmAuto $F/.start-FvwmBanner $F/.start-FvwmEvent $F/.fvwm-layers; do [ ! -f "$i" ] || /bin/cp $i $i-$0; done;
+
+DestroyFunc LoadSettings
+AddToFunc LoadSettings
++ I Exec F=$FVWM_USERDIR; for i in ~/.xinitrc-fvwm $F/.FvwmBaseConfig $F/.FvwmAnimate $F/.FvwmForm $F/.start-Background $F/.start-apps-man $F/.start-FvwmButtons $F/.start-DeskerPanelButtons $F/.start-MiniButtons $F/.start-WinMakerAppButtons $F/.start-FvwmAnimate $F/.start-FvwmAuto $F/.start-FvwmBanner $F/.start-FvwmEvent $F/.fvwm-layers; do [ ! -f "$i-$0" ] || /bin/cp $i-$0 $i; done;
++ I Exec [ ! -f ~/.xinitrc-fvwm-$0 ] || (xscreensaver-command -exit; ~/.xinitrc-fvwm-$0)
++ I PipeRead '[ ! -f $FVWM_USERDIR/.FvwmBaseConfig ] || (echo Read .FvwmBaseConfig; echo BaseConfigOkFunc)'
++ I Style * StaysPut
++ I Read .fvwm-layers-$0
++ I KillModule FvwmAnimate
++ I KillModule FvwmAuto
++ I KillModule FvwmEvent
++ I KillModule FvwmButtons
++ I KillModule FvwmWharf
++ I KillModule FvwmTaskBar
++ I KillModule FvwmWinList
++ I KillModule FvwmIconMan
++ I KillModule FvwmIconBox
++ I PipeRead 'F=$FVWM_USERDIR; F=$FVWM_USERDIR; for i in $F/.start-Background $F/.start-apps-man $F/.start-FvwmButtons $F/.start-DeskerPanelButtons $F/.start-MiniButtons $F/.start-WinMakerAppButtons $F/.start-FvwmAnimate $F/.start-FvwmAuto $F/.start-FvwmBanner $F/.start-FvwmEvent; do [ ! -f "$i-$0" ] || sed -e s/AddToFunc\\.StartFunction\\.I\\.// $i-$0; done; if [ -f "$F/.start-apps-man-$0" ]; then if grep -qe Icons $F/.start-apps-man-$0; then echo "Style * Icon"; echo "Read iconstyles"; echo "Read menus"; fi; fi'
+
+DestroyFunc ShowFvwmSettings
+AddToFunc ShowFvwmSettings I Exec F=$FVWM_USERDIR;f=$F/.tmp-modules-setting; echo "" > $f; for j in 0 1 2 3 4; do if [ "$j" -eq "0" ]; then j=""; t="Current Setting:"; l="--------------"; else j="-$j"; t="Setting$j:"; l="---------"; fi; echo $t >> $f; echo $l >> $f; for i in $F/.start-Background $F/.start-apps-man $F/.start-FvwmButtons $F/.start-DeskerPanelButtons $F/.start-MiniButtons $F/.start-WinMakerAppButtons $F/.start-FvwmAnimate $F/.start-FvwmAuto $FVWM_USERDIR/.start-FvwmBanner $F/.start-FvwmEvent; do z="$i$j"; [ ! -f "$z" ] || sed -e s/^\\#\.// -e s/\.*exec/Background:/ -e s/AddToFunc\.StartFunction\.I/Start/ -e s/FvwmEvent/Sounds\ Effect/ $z >> $f; done; echo -n "Base Config: ">>$f; if [ -f $F/.FvwmBaseConfig$j ]; then echo "Used">>$f; else echo "Not Used">>$f; fi; echo "">>$f;done; xmessage -file $f
+
+DestroyFunc ShowXSettings
+AddToFunc ShowXSettings \
+I Exec T=$FVWM_USERDIR/.tmp-x-set;u=~/.xinitrc-fvwm;echo "">$T;for j in 0 1 2 3 4;do if [ "$j" -eq "0" ];then z=$u;t="Current Setting:";else z="$u-$j";t="Setting-$j:";fi;echo $t >>$T;if grep -qe Bell $z;then grep -e "xset b" $z|sed -e s/xset\.b/Bell:/>>$T;fi;if grep -qe Screen $z;then echo -n "Background: ">>$T;if grep -qe \#xsetroot $z;then echo "disabled">>$T;elif grep -qe fvwm-root $z;then grep -e fvwm-root $z|sed -e s/xpmroot\.//>>$T;else grep -e xsetroot $z|sed -e s/xsetroot\.//>>$T;fi;grep -e "xset s" $z|sed -e s/xset\.s/xsaver:/>>$T;echo -n "DPMS: ">>$T;grep -e xset\.*dpms $z|sed -e s/xset\.-dpms/Off/ -e s/xset\.dpms/On/>>$T;echo -n "xscreensaver: ">>$T;if grep -qe \#xscreen $z;then echo "Off">>$T;else echo "On">>$T;fi;fi;if grep -qe Keyboard $z;then echo -n "Keyboard: ">>$T;grep -e "xset r" $z|sed -e s/xset\.r/auto\ repeat/ -e s/c/Vol/>>$T;fi;if grep -qe Pointer $z;then echo -n "Mouse: ">>$T;grep -e "xset m" $z|sed -e s/xset\.m//>>$T;fi;echo "">>$T;done;xmessage -file $T
+
+
+DestroyFunc ShowLayers
+AddToFunc ShowLayers I Exec F=$FVWM_USERDIR; T=$F/.tmp-layers; echo -e "A StaysOnTop window is a window which is above \nthe normal (i.e., StaysPut) windows, a StaysOnBottom\nwindow is below the normal windows. Here the list\nof StaysOnTop and StaysOnBottom windows:\n"> $T; u=$F/.fvwm-layers; for j in 0 1 2 3 4; do if [ "$j" -eq "0" ];then z=$u; t="Current Setting:"; l="---------------"; else z="$u-$j"; t="Setting-$j:"; l="----------"; fi; echo $t >>$T; echo $l >>$T; [ ! -f $z ] || cat $z>>$T; echo "" >> $T; done; xmessage -file $T
+

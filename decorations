@@ -1,0 +1,117 @@
+#-----------------------------------------------------------------------------#
+#
+# 2. Root cursor, Windows Decoration and Menu Styles:
+#   Default fonts, colors, Border, Title, Button Styles, Menu Styles
+#   window button bindings.
+#   (this section may be the theme part of the config, but you need to use
+#    FvwmTheme to define and propagate the colors)
+#-----------------------------------------------------------------------------#
+
+#------------------------------------------------------------------------------
+# Set the root cursor
+#------------------------------------------------------------------------------
+
+CursorStyle ROOT         left_ptr
+CursorStyle TITLE        left_ptr
+CursorStyle DEFAULT      left_ptr
+CursorStyle SYS          left_ptr
+CursorStyle MENU         left_ptr
+
+#------------------------------------------------------------------------------
+# Fonts - one for window titles, another for icons, and another for the menus
+#------------------------------------------------------------------------------
+
+#WIN 1
+Style * Font "xft:sans-serif:Medium;-*-times-medium-r-*-*-16-*-*-*-*-*-*-*"
+#FVWM 1
+#Style * Font "xft:sans-serif:Medium;-*-times-bold-r-*-*-14-*-*-*-*-*-*-*"
+
+Style * IconFont \
+  "xft:monospace:pixelsize=12:Medium;-*-fixed-medium-r-*-*-12-*-*-*-*-*-*-*"
+
+#------------------------------------------------------------------------------
+# Set the default window colors.
+#------------------------------------------------------------------------------
+
+# Text and background color for the title bar (overridden in the WIN case),
+# and the border of the inactive window (also used by icon title,
+# and "hilight" and "shadow" colors).
+#WIN 1
+Style * ForeColor #c3c3c3, BackColor #c3c3c3
+#FVWM 1
+#Style * ForeColor #c3c3c3, BackColor grey51
+
+# Text and background color for the title bar (overriden in the WIN case),
+# and the border of the active (selected) window (also used by icon title,
+# and "hilight" and "shadow" colors).
+#WIN 1
+Style * HilightFore white, HilightBack #c3c3c3
+#FVWM 1
+#Style * HilightFore white, HilightBack SlateBlue
+
+#------------------------------------------------------------------------------
+# Border, Title and Button Styles
+#------------------------------------------------------------------------------
+Style * BorderWidth 5, HandleWidth 5
+
+#WIN 13
+Style	"*"	FvwmBorder  # MWMBorder
+Style	"*"	FvwmButtons
+BorderStyle	Inactive -- HiddenHandles NoInset
+BorderStyle	Active -- HiddenHandles NoInset
+TitleStyle	ActiveUp (solid Blue4 -- Flat)
+TitleStyle	ActiveDown (solid Blue4 -- Flat)
+TitleStyle	Inactive (solid grey51 -- Flat)
+TitleStyle	LeftJustified
+ButtonStyle	1	MiniIcon (-- flat)
+ButtonStyle	all	-- UseTitleStyle Flat
+AddButtonStyle	2	Pixmap mini.winXX-close.xpm -- left
+AddButtonStyle	4	Pixmap mini.winXX-maximize.xpm -- left
+AddButtonStyle	6	Pixmap mini.winXX-minimize.xpm -- right
+
+#FVWM 11
+#Style	"*"	MWMBorder  # FVWMBorder
+#Style	"*"	MWMButtons
+#TitleStyle	Centered
+#ButtonStyle	all	-- UseTitleStyle
+#ButtonStyle 2 17 20x20@1 30x20@1 50x40@1 70x20@1 80x20@1 80x30@0 60x50@0 80x70@1 80x80@0 70x80@0 50x60@0 30x80@0 20x80@0 20x70@0 40x50@1 20x30@0 20x20@1
+#ButtonStyle 4 4 50x25@1 75x75@0 25x75@0 50x25@1
+#ButtonStyle 6 4 50x65@1 35x35@1 65x35@1 50x65@0
+#ButtonStyle 1 - Clear MWMDecorMenu
+#ButtonStyle 2 - Clear
+#ButtonStyle 4 - Clear MWMDecorMax
+#ButtonStyle 6 - Clear MWMDecorShade
+
+#------------------------------------------------------------------------------
+# The MenuStyle command allows almost full control over menu look and feel.
+# We use the preconfigured 'Win' or 'Fvwm' default. This resets most other
+# options and must be set first. We also define a menu called winops for
+# the windows operations menus and very long one. The menus which use this
+# style are (and must) be defined in the end of the menus.
+#------------------------------------------------------------------------------
+
+#WIN 4
+MenuStyle * win
+MenuStyle * font "xft:sans-serif:Medium;-*-times-medium-r-*-*-16-*-*-*-*-*-*-*"
+MenuStyle * Foreground black, Background grey80
+MenuStyle * ActiveFore white, HilightBack Blue4
+#FVWM 5
+#MenuStyle * fvwm
+#MenuStyle * font "xft:sans-serif:Medium;-*-times-bold-r-*-*-14-*-*-*-*-*-*-*"
+#MenuStyle * Foreground black, Background grey80
+#MenuStyle * ActiveFore black, HilightBack grey85
+#MenuStyle * Hilight3DThick
+
+MenuStyle * Greyed grey60  # default is invisible on backgroud grey80
+MenuStyle * VerticalItemSpacing 2 4, VerticalTitleSpacing 2 4
+
+CopyMenuStyle * winops
+
+#WIN 1
+MenuStyle winops font "xft:sans-serif:Medium;-*-times-medium-r-*-*-14-*-*-*-*-*-*-*"
+#FVWM 2
+#MenuStyle winops font "xft:sans-serif:Medium;-*-times-bold-r-*-*-12-*-*-*-*-*-*-*"
+#MenuStyle winops TitleWarpOff
+
+MenuStyle winops VerticalItemSpacing 1 2, VerticalTitleSpacing 1 2
+
