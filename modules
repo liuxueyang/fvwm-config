@@ -185,7 +185,7 @@ DestroyModuleConfig WinMakerAppButtons: *
 DestroyModuleConfig FvwmEvent: *
 
 # replace rplay by a sound player that can play .au sound file
-*FvwmEvent: Cmd "Exec exec auplay "
+*FvwmEvent: Cmd "Exec exec rplay "
 
 *FvwmEvent: StartDelay 3
 *FvwmEvent: Delay 1

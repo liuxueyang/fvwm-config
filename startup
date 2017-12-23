@@ -40,6 +40,7 @@ AddToFunc StartFunction
 AddToFunc InitFunction
 # Load the X Setup Scripts setting if we use it
 + I Exec [ -f $HOME/.xinitrc-fvwm ] && sh $HOME/.xinitrc-fvwm
++ I Exec exec fcitx
 #+ I Exec exec xsetroot -solid \#7F4B7F
 
 # The restart function:
