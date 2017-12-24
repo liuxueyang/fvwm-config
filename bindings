@@ -137,10 +137,10 @@ Key Down	A	SM	CursorMove +0   +10
 # in root context, just pressing page up/down is OK
 #------------------------------------------------------------------------------
 
-Key Next	A       CM      Desk  -1 0 0 3
-Key Next	R       M       Desk  -1 0 0 3
-Key Prior	A       CM      Desk  +1 0 0 3
-Key Prior	R       M       Desk  +1 0 0 3
+Key Prior	A       CM      Desk  -1 0 0 3
+Key Prior	R       M       Desk  -1 0 0 3
+Key Next	A       CM      Desk  +1 0 0 3
+Key Next	R       M       Desk  +1 0 0 3
 
 #------------------------------------------------------------------------------
 # Alt-Shift-Fx window operations
