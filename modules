@@ -42,20 +42,21 @@ DestroyModuleConfig BarButtons: *
 *BarButtons: (2x1, Title "xapm", Swallow(Kill) "xapm" "Exec exec xapm -geometry -1500-1500 -p")
 # Define the buttons to use.....
 #PREF 3
-*BarButtons: (1x2, Title FileMgr, Icon Xfm.xpm, Action 'Exec exec xterm -g 80x35 -e mc')
-*BarButtons: (1x2, Title terminal, Icon rterm2.xpm, Action 'Exec exec xterm')
-*BarButtons: (1x2, Title editor, Icon lemacs.xpm, Action 'Exec exec emacs')
-*BarButtons: (1x2, Title xv,   Icon xv.xpm, Action 'Exec exec xv', \
+# *BarButtons: (1x2, Title FileMgr, Icon Thunar.png, Action 'Exec exec xterm -g 80x35 -e mc')
+*BarButtons: (1x2, Title FileMgr, Icon Thunar.png, Action 'Exec exec thunar')
+*BarButtons: (1x2, Title Terminal, Icon terminator.png, Action 'Exec exec urxvt')
+*BarButtons: (1x2, Title Editor, Icon emacs.png, Action 'Exec exec emacs')
+*BarButtons: (1x2, Title Gwenview,   Icon gwenview.png, Action 'Exec exec gwenview', \
     Action(Mouse 2) 'Exec exec ee', \
-    Action(Mouse 3) 'Exec exec gqview')
-*BarButtons: (1x2, Title Gimp,    Icon gimp.xpm,   Action 'Exec exec gimp', \
+    Action(Mouse 3) 'Exec exec xv')
+*BarButtons: (1x2, Title Gimp,    Icon gimp.png,   Action 'Exec exec gimp', \
     Action(Mouse 2) 'Exec exec xpaint', \
     Action(Mouse 3) 'Exec exec kiconedit')
-*BarButtons: (1x2, Title gview,   Icon  gv.xpm, Action 'Exec exec ghostview', \
-    Action(Mouse 2) 'Exec exec xdvi', \
+*BarButtons: (1x2, Title Okular,   Icon  okular.png, Action 'Exec exec okular', \
+    Action(Mouse 2) 'Exec exec ghostview', \
     Action(Mouse 3) 'Exec exec xpdf')
-*BarButtons: (1x2, Title www, Icon nscape.xpm, Action 'Exec exec netscape', \
-    Action(Mouse 2) 'Exec exec vppp', \
+*BarButtons: (1x2, Title Browser, Icon chromium.png, Action 'Exec exec netscape', \
+    Action(Mouse 2) 'Exec exec chromium', \
     Action(Mouse 3) 'Exec exec xterm -geometry 80x30 -e mutt')
 *BarButtons: (1x2, Padding 0 0, Container(Padding 0 0, Frame 2, Columns 3))
 *BarButtons: (Icon mini.move1.xpm, Action Move)
