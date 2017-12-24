@@ -353,7 +353,7 @@ DestroyModuleConfig FvwmPagerPager: *
 #FVWM 1
 #*FvwmPagerPager: WindowColors white grey51 white SlateBlue
 *FvwmPagerPager: Label 0 Fvwm
-*FvwmPagerPager: Label 1 Development
+*FvwmPagerPager: Label 1 Develop
 *FvwmPagerPager: Label 2 Internet
 *FvwmPagerPager: Label 3 Misc
 *FvwmPagerPager: SmallFont "xft:sans-serif:Medium:pixelsize=8;-*-fixed-medium-r-*-*-8-*-*-*-*-*-*-*"
@@ -379,7 +379,7 @@ DestroyModuleConfig FvwmDesker: *
 *FvwmDesker: WindowColors white grey51 white Blue4
 #FVWM 1
 *FvwmDesker: Label 0 Fvwm
-*FvwmDesker: Label 1 Development
+*FvwmDesker: Label 1 Develop
 *FvwmDesker: Label 2 Internet
 *FvwmDesker: Label 3 Misc
 *FvwmDesker: SmallFont "xft:sans-serif:Medium:pixelsize=8;-*-fixed-medium-r-*-*-8-*-*-*-*-*-*-*"
