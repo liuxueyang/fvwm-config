@@ -339,11 +339,12 @@ Test (x vlc) + "VLC" Exec exec vlc
 #
 # Backgrounds are located in ~/.fvwm/images/background/
 # Menu icons are located in ~/.fvwm/images/bgicons/
+# TODO: Path`~/.fvwm/images/bgicons/` does not work. T_T
 DestroyMenu BGMenu
 AddToMenu   BGMenu "Wallpapers" Title
-+ "Sunset%icons/sunset.png%" SetBG akio_bako_anime_sunset_girl_clouds_103086_1440x900.png
-+ "Sky%bgicons/sky.png%" SetBG hanyijie_sky_scenery_ship_anime_art_104162_1440x900.png
-+ "Drawing%bgicons/drawing.png%" SetBG drawing.png
++ "Sunset%bgicons/bg1.png%" SetBG bg1.png
++ "Sky%bgicons/bg2.png%" SetBG bg2.png
++ "Drawing%bgicons/bg3.png%" SetBG bg3.png
 # + "Floral%bgicons/bg1.png%" SetBG bg1.png
 
 # Window Operations Menus
