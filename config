@@ -31,6 +31,14 @@
 # that FvwmConsole uses. Change this to your terminal of choice
 InfoStoreAdd terminal urxvt
 
+SetEnv img_home $[HOME]/Pictures
+SetEnv fvwm_home $[HOME]/.fvwm
+SetEnv fvwm_img $[fvwm_home]/images
+SetEnv fvwm_icon $[fvwm_img]/icons
+SetEnv fvwm_wallpaper $[fvwm_img]/wallpaper
+
+ImagePath $[fvwm_icon]:$[fvwm_icon];.png:$[fvwm_wallpaper]:+
+
 ###########
 # 1: Functions
 #
@@ -182,10 +190,10 @@ DesktopSize 3x3
 # for how long the mouse as at the edge before it scrolls.
 #
 # Set EdgeScroll 0 0 and/or EdgeResistance -1 to disable.
-EdgeScroll 100 100
+# EdgeScroll 100 100
 EdgeResistance 450
 Style * EdgeMoveDelay 350, EdgeMoveResistance 350
-# EdgeScroll 50 50
+EdgeScroll 50 50
 # EdgeResistance 50
 # EdgeThickness 1
 # Style * EdgeMoveDelay 50, EdgeMoveResistance 50
@@ -333,9 +341,10 @@ Test (x vlc) + "VLC" Exec exec vlc
 # Menu icons are located in ~/.fvwm/images/bgicons/
 DestroyMenu BGMenu
 AddToMenu   BGMenu "Wallpapers" Title
-+ "Floral%bgicons/bg1.png%" SetBG bg1.png
-+ "Circles%bgicons/bg2.png%" SetBG bg2.png
-+ "Space%bgicons/bg3.png%" SetBG bg3.png
++ "Sunset%icons/sunset.png%" SetBG akio_bako_anime_sunset_girl_clouds_103086_1440x900.png
++ "Sky%bgicons/sky.png%" SetBG hanyijie_sky_scenery_ship_anime_art_104162_1440x900.png
++ "Drawing%bgicons/drawing.png%" SetBG drawing.png
+# + "Floral%bgicons/bg1.png%" SetBG bg1.png
 
 # Window Operations Menus
 DestroyMenu MenuWindowOps
