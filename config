@@ -175,6 +175,12 @@ Key F2 A M FvwmLaunch
 Key F4 A M Close
 Key F11 A C FvwmMaximize 100 100
 
+# 按键定义参见 /usr/include/X11/keysymdef.h
+Key Down A MC GotoPage +0p +1p  # 向下移动
+Key Up A MC GotoPage +0p -1p    # 向上移动
+Key Right A MC GotoPage +1p +0p # 向右移动
+Key Left A MC GotoPage -1p +0p  # 向左移动
+
 # Mouse
 # 1 —— 左键
 # 2 —— 
@@ -202,6 +208,13 @@ Mouse 3 5 A FvwmMaximize 100 0
 Mouse 1 3 A FvwmIconifyOrShade
 
 Mouse 1 1 A FvwmDeleteOrDestroy
+
+# 弃用、使用键盘控制
+# Mouse 5 A CM Scroll 0 100
+# Mouse 4 A CM Scroll 100 0
+
+# 产生拖动视角的效果
+Mouse 1 A CM Scroll reverse
 
 # Colorset 6 fg #343434, bg #ebebeb	# title
 # Colorset 3 fg #400c04, bg #d16952	# red
